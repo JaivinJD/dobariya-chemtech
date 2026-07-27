@@ -1,0 +1,65 @@
+/* ============================================================
+   DESIGN TOKENS — the single source of truth for the whole site.
+   Change a value here, and every component updates automatically.
+   ============================================================ */
+:root {
+  /* ---- Brand (used sparingly: buttons, headings, accents) ---- */
+  --color-brand:      #1F9E92;   /* placeholder teal from the Chemtech logo */
+  --color-brand-dark: #0F6E56;   /* darker shade for hover / emphasis */
+  --color-accent:     #E8873A;   /* warm accent, used rarely */
+
+  /* ---- Neutrals (what the site mostly wears) ---- */
+  --color-ink:        #14201F;   /* primary text */
+  --color-muted:      #5F6E70;   /* secondary text */
+  --color-surface:    #FFFFFF;   /* page background */
+  --color-surface-2:  #F4F7F6;   /* alternate section background */
+  --color-border:     #E4E9E9;   /* hairlines, dividers */
+
+  /* ---- Typography ---- */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;  /* headings */
+  --font-body:    'Inter', system-ui, sans-serif;          /* body text */
+
+  /* ---- Spacing scale (consistent rhythm everywhere) ---- */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+
+  /* ---- Misc ---- */
+  --radius: 8px;
+  --container: 1140px;   /* max content width */
+}
+
+/* ============================================================
+   RESET — flatten the browser's inconsistent defaults.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+/* ============================================================
+   BASE ELEMENT STYLES
+   ============================================================ */
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+a   { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* A reusable centered wrapper we'll use on every section */
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-sm);
+}
