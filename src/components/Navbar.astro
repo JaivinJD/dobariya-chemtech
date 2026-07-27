@@ -1,0 +1,79 @@
+---
+// The nav links live as DATA, not repeated markup.
+// Add/remove/reorder a link by editing this one array.
+const links = [
+  { label: 'Home',     href: '/' },
+  { label: 'About',    href: '/about' },
+  { label: 'Products', href: '/products' },
+  { label: 'Quality',  href: '/quality' },
+  { label: 'Contact',  href: '/contact' },
+];
+---
+
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a href="/" class="navbar__brand">
+      <span class="name">DOBARIYA</span>
+      <span class="sub">CHEMICALS</span>
+    </a>
+
+    <nav class="navbar__links">
+      {links.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+      <a href="/contact" class="navbar__cta">Request a quote</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;   /* stays pinned as you scroll */
+    top: 0;
+    z-index: 50;
+  }
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .navbar__brand { display: flex; flex-direction: column; line-height: 1.05; }
+  .navbar__brand .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    color: var(--color-ink);
+  }
+  .navbar__brand .sub {
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    color: var(--color-muted);
+    font-weight: 500;
+  }
+  .navbar__links { display: flex; align-items: center; gap: 1.6rem; }
+  .navbar__links a {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    transition: color 0.15s ease;
+  }
+  .navbar__links a:hover { color: var(--color-ink); }
+  .navbar__cta {
+    background: var(--color-brand);
+    color: #fff;
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  .navbar__cta:hover { background: var(--color-brand-dark); }
+
+  /* Mobile: hide the text links for now — we build a proper
+     hamburger menu in the next step, since it needs a little JS. */
+  @media (max-width: 760px) {
+    .navbar__links a:not(.navbar__cta) { display: none; }
+  }
+</style>
