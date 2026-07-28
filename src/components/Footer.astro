@@ -1,0 +1,116 @@
+---
+// All editable footer content lives here as data — never hardcoded below.
+const company = {
+  name: 'Dobariya Chemtech Pvt. Ltd.',
+  tagline: 'Manufacturer of bromine derivatives.',
+  email: 'info@dobariyachemtech.com',   // TODO: confirm primary email with Shrut
+  phone: '+91 9316137418',             
+};
+
+const offices = [
+  {
+    label: 'Corporate Office',
+    lines: ['522–523, Shilp Epitome', 'Rajpath Club Road, Bodakdev', 'Ahmedabad – 380054, Gujarat'],
+  },
+  {
+    label: 'Manufacturing Unit',
+    lines: ['Plot No. 9, Apex Industrial Park', 'Kadi–Chhatral Highway, Kadi', 'Ahmedabad – 382715, Gujarat'],
+  },
+];
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Products', href: '/products' },
+  { label: 'Quality', href: '/quality' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const year = new Date().getFullYear();   // auto-updates every year
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+
+    <div class="footer__brand">
+      <span class="footer__name">DOBARIYA <em>CHEMICALS</em></span>
+      <p class="footer__tagline">{company.tagline}</p>
+      <p class="footer__contact">
+        <a href={`mailto:${company.email}`}>{company.email}</a><br />
+        <a href={`tel:${company.phone.replace(/\s/g, '')}`}>{company.phone}</a>
+      </p>
+    </div>
+
+    {offices.map((office) => (
+      <div class="footer__office">
+        <h4>{office.label}</h4>
+        {office.lines.map((line) => <p>{line}</p>)}
+      </div>
+    ))}
+
+    <nav class="footer__nav">
+      <h4>Explore</h4>
+      {navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+  </div>
+
+  <div class="footer__bar">
+    <div class="container">
+      <p>© {year} {company.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-ink);
+    color: #b9c4c4;
+    margin-top: var(--space-xl);
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
+    gap: var(--space-md);
+    padding-block: var(--space-lg);
+  }
+  .footer__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    color: #fff;
+  }
+  .footer__name em { font-style: normal; color: var(--color-brand); }
+  .footer__tagline { margin-top: var(--space-xs); font-size: 0.9rem; }
+  .footer__contact { margin-top: var(--space-sm); font-size: 0.9rem; line-height: 1.9; }
+  .footer__contact a:hover { color: #fff; }
+
+  .footer h4 {
+    color: #fff;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+  .footer__office p { font-size: 0.9rem; line-height: 1.7; }
+
+  .footer__nav { display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer__nav a { font-size: 0.9rem; }
+  .footer__nav a:hover { color: #fff; }
+
+  .footer__bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-block: var(--space-sm);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 900px) {
+    .footer__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .footer__grid { grid-template-columns: 1fr; }
+  }
+</style>

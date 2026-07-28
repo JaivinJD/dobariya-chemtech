@@ -3,17 +3,17 @@
    Change a value here, and every component updates automatically.
    ============================================================ */
 :root {
-  /* ---- Brand (used sparingly: buttons, headings, accents) ---- */
-  --color-brand:      #1F9E92;   /* placeholder teal from the Chemtech logo */
-  --color-brand-dark: #0F6E56;   /* darker shade for hover / emphasis */
-  --color-accent:     #E8873A;   /* warm accent, used rarely */
+  /* ---- Brand (used sparingly: primary actions, key accents) ---- */
+  --color-brand:      #F26522;   /* orange — CTAs and highlights ONLY */
+  --color-brand-dark: #C74E13;   /* darker orange for hover */
+  --color-accent:     #1F9E92;   /* logo teal, kept as a rare secondary accent */
 
-  /* ---- Neutrals (what the site mostly wears) ---- */
-  --color-ink:        #14201F;   /* primary text */
-  --color-muted:      #5F6E70;   /* secondary text */
-  --color-surface:    #FFFFFF;   /* page background */
-  --color-surface-2:  #F4F7F6;   /* alternate section background */
-  --color-border:     #E4E9E9;   /* hairlines, dividers */
+  /* ---- Neutrals (graphite structure, the site's real backbone) ---- */
+  --color-ink:        #23282D;   /* graphite: text + dark surfaces */
+  --color-muted:      #5E6A70;
+  --color-surface:    #FFFFFF;
+  --color-surface-2:  #F3F5F6;   /* light concrete */
+  --color-border:     #E3E7E9;
 
   /* ---- Typography ---- */
   --font-display: 'Space Grotesk', system-ui, sans-serif;  /* headings */

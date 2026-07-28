@@ -23,6 +23,9 @@ const links = [
       ))}
       <a href="/contact" class="navbar__cta">Request a quote</a>
     </nav>
+    <button class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -40,6 +43,7 @@ const links = [
     justify-content: space-between;
     height: 68px;
   }
+
   .navbar__brand { display: flex; flex-direction: column; line-height: 1.05; }
   .navbar__brand .name {
     font-family: var(--font-display);
@@ -56,24 +60,75 @@ const links = [
   }
   .navbar__links { display: flex; align-items: center; gap: 1.6rem; }
   .navbar__links a {
-    font-size: 0.95rem;
-    color: var(--color-muted);
+    font-size: 1rem;              /* was 0.95rem — slightly larger */
+    color: var(--color-muted);      /* was --color-muted — darker, easier to read */
+    font-weight: 500;
     transition: color 0.15s ease;
   }
   .navbar__links a:hover { color: var(--color-ink); }
+  
   .navbar__cta {
     background: var(--color-brand);
-    color: #fff;
+    color: var(--color-ink);      /* graphite text on orange — strong, confident */
     padding: 0.6rem 1.1rem;
     border-radius: var(--radius);
-    font-weight: 500;
+    font-weight: 600;             /* was 500 — a touch bolder */
     font-size: 0.9rem;
   }
-  .navbar__cta:hover { background: var(--color-brand-dark); }
+  .navbar__cta:hover {
+    background: var(--color-brand-dark);
+    color: #fff;                  /* on the darker orange, white wins */
+  }
 
-  /* Mobile: hide the text links for now — we build a proper
-     hamburger menu in the next step, since it needs a little JS. */
+  /* The hamburger is hidden on desktop */
+  .navbar__toggle { display: none; }
+
   @media (max-width: 760px) {
-    .navbar__links a:not(.navbar__cta) { display: none; }
+    /* Show the hamburger, stack its three lines */
+    .navbar__toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .navbar__toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--color-ink);
+    }
+
+    /* Hide the links by default on mobile... */
+    .navbar__links {
+      display: none;
+      position: absolute;
+      top: 68px;              /* height of the navbar */
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-sm);
+    }
+    /* ...until JS adds .is-open */
+    .navbar__links.is-open { display: flex; }
+
+    .navbar__links a { padding: 0.75rem 0; width: 100%; }
   }
 </style>
+
+<script>
+  const toggle = document.querySelector('.navbar__toggle');
+  const links  = document.querySelector('.navbar__links');
+
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+</script>
