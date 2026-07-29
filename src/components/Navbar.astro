@@ -61,23 +61,23 @@ const links = [
   .navbar__links { display: flex; align-items: center; gap: 1.6rem; }
   .navbar__links a {
     font-size: 1rem;              /* was 0.95rem — slightly larger */
-    color: var(--color-muted);      /* was --color-muted — darker, easier to read */
+    color: var(--color-ink);      /* was --color-muted — darker, easier to read */
     font-weight: 500;
     transition: color 0.15s ease;
   }
-  .navbar__links a:hover { color: var(--color-ink); }
+  .navbar__links a:hover { color: var(--color-brand); }
   
-  .navbar__cta {
+  .navbar__links a.navbar__cta {
     background: var(--color-brand);
-    color: var(--color-ink);      /* graphite text on orange — strong, confident */
+    color: var(--color-ink);
     padding: 0.6rem 1.1rem;
     border-radius: var(--radius);
-    font-weight: 600;             /* was 500 — a touch bolder */
+    font-weight: 600;
     font-size: 0.9rem;
   }
-  .navbar__cta:hover {
+  .navbar__links a.navbar__cta:hover {
     background: var(--color-brand-dark);
-    color: #fff;                  /* on the darker orange, white wins */
+    color: #F3F5F6;
   }
 
   /* The hamburger is hidden on desktop */
