@@ -1,0 +1,93 @@
+---
+// Each feature = icon + title + text, all as data.
+// The icon is an inline SVG string we render with set:html (see note below).
+const features = [
+  {
+    title: 'High Purity',
+    text: 'Tightly controlled processes deliver consistently high-purity bromine derivatives.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z"/></svg>`,
+  },
+  {
+    title: 'Consistent Quality',
+    text: 'Every batch meets the same specification, lot after lot.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>`,
+  },
+  {
+    title: 'Competitive Pricing',
+    text: 'Direct manufacturing keeps our pricing sharp and transparent.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7l9 9-7 7-9-9V4z"/><circle cx="8" cy="8" r="1.3"/></svg>`,
+  },
+  {
+    title: 'Timely Delivery',
+    text: 'Reliable lead times and dependable dispatch from our Kadi facility.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`,
+  },
+  {
+    title: 'Export Quality',
+    text: 'Export-grade standards and documentation for international buyers.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>`,
+  },
+  {
+    title: 'Reliable Support',
+    text: 'Responsive technical and commercial support before and after the sale.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 8.5-4-1-7-4-7-8.5V6l7-3z"/></svg>`,
+  },
+];
+---
+
+<section class="why">
+  <div class="container">
+    <div class="why__head">
+      <span class="why__eyebrow">Why choose us</span>
+      <h2 class="why__title">Built for buyers who need reliability</h2>
+    </div>
+
+    <div class="why__grid">
+      {features.map((f) => (
+        <article class="feature">
+          <span class="feature__icon" set:html={f.icon}></span>
+          <h3 class="feature__title">{f.title}</h3>
+          <p class="feature__text">{f.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why { background: var(--color-surface); padding-block: var(--space-xl); }
+  .why__head { max-width: 640px; margin-bottom: var(--space-lg); }
+  .why__eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-brand); font-weight: 600;
+  }
+  .why__title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--color-ink); margin-top: 0.5rem; line-height: 1.1;
+  }
+  .why__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .feature {
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .feature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    border-color: transparent;
+  }
+  .feature__icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border-radius: 10px;
+    background: rgba(242, 101, 34, 0.1);   /* faint orange tint */
+    color: var(--color-brand);
+    margin-bottom: var(--space-sm);
+  }
+  .feature__icon svg { width: 24px; height: 24px; }
+  .feature__title { font-size: 1.1rem; color: var(--color-ink); margin-bottom: 0.4rem; }
+  .feature__text { font-size: 0.95rem; color: var(--color-muted); line-height: 1.6; }
+
+  @media (max-width: 860px) { .why__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .why__grid { grid-template-columns: 1fr; } }
+</style>

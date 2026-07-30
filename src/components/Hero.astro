@@ -86,11 +86,9 @@ const stats = [
     border-radius: var(--radius);
     font-weight: 600;
     font-size: 0.95rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
+                background 0.15s ease, color 0.15s ease;
   }
-  .btn--primary { background: var(--color-brand); color: var(--color-ink); }
-  .btn--primary:hover { background: var(--color-brand-dark); color: #fff; }
-  .btn--ghost { border: 1px solid var(--color-border); color: var(--color-ink); }
-  .btn--ghost:hover { border-color: var(--color-ink); }
 
   .hero__media {
     aspect-ratio: 4 / 3;

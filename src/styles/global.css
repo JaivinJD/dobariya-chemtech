@@ -38,6 +38,29 @@
 * { margin: 0; }
 
 /* ============================================================
+   BUTTONS — shared across the whole site.
+   Use: <a class="btn btn--primary"> or <a class="btn btn--ghost">
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn--primary { background: var(--color-brand); color: var(--color-ink); }
+.btn--primary:hover {
+  color: #fff;
+  transform: translateY(-2px);                    /* lifts up */
+  box-shadow: 0 8px 20px rgba(9, 3, 0, 0.45);  /* orange glow beneath */
+}
+.btn--ghost { border: 1px solid var(--color-border); color: var(--color-ink); }
+.btn--ghost:hover { border-color: var(--color-ink); }
+
+/* ============================================================
    BASE ELEMENT STYLES
    ============================================================ */
 body {

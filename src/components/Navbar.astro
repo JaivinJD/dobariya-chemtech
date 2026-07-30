@@ -21,7 +21,7 @@ const links = [
       {links.map((link) => (
         <a href={link.href}>{link.label}</a>
       ))}
-      <a href="/contact" class="navbar__cta">Request a quote</a>
+      <a href="/contact" class="navbar__cta btn btn--primary">Request a quote</a>
     </nav>
     <button class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -76,7 +76,6 @@ const links = [
     font-size: 0.9rem;
   }
   .navbar__links a.navbar__cta:hover {
-    background: var(--color-brand-dark);
     color: #F3F5F6;
   }
 
