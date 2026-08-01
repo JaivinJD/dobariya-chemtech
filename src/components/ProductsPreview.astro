@@ -1,0 +1,124 @@
+---
+// The three real categories from Shrut's brochure, as data.
+// counts add up to 44. Blurbs are placeholders — confirm with him later.
+const categories = [
+  {
+    slug: 'alkyl-solvents',
+    name: 'Alkyl Bromides',
+    sub: 'in solvents',
+    count: 21,
+    blurb: 'Bromoalkanes supplied in solvent form for synthesis and industrial processes.',
+    samples: ['1-Bromobutane', '1-Bromooctane', '1-Bromodecane'],
+  },
+  {
+    slug: 'alkyl-solid',
+    name: 'Alkyl Bromides',
+    sub: 'solid / other forms',
+    count: 7,
+    blurb: 'Inorganic and solid-form bromides, including acids and anhydrous salts.',
+    samples: ['Sodium Bromide', 'Zinc Bromide', 'HBr 48%'],
+  },
+  {
+    slug: 'other',
+    name: 'Other Bromides',
+    sub: 'specialty range',
+    count: 16,
+    blurb: 'A broad range of n-, iso- and specialty alkyl bromides for diverse applications.',
+    samples: ['n-Butyl Bromide', 'Allyl Bromide', 'n-Cetyl Bromide'],
+  },
+];
+---
+
+<section class="products">
+  <div class="container">
+    <div class="products__head">
+      <div>
+        <span class="products__eyebrow">Our products</span>
+        <h2 class="products__title">44 bromine derivatives, three categories</h2>
+      </div>
+      <a href="/products" class="btn btn--ghost">View all products →</a>
+    </div>
+
+    <div class="products__grid">
+      {categories.map((cat) => (
+        <article class="cat">
+          <span class="cat__count">{cat.count} products</span>
+          <h3 class="cat__name">{cat.name}</h3>
+          <span class="cat__sub">{cat.sub}</span>
+          <p class="cat__blurb">{cat.blurb}</p>
+          <div class="cat__samples">
+            {cat.samples.map((s) => <span class="chip">{s}</span>)}
+          </div>
+          <a href="/products" class="cat__link">View category →</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .products { background: var(--color-surface-2); padding-block: var(--space-xl); }
+
+  .products__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+  }
+  .products__eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-brand); font-weight: 600;
+  }
+  .products__title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--color-ink); margin-top: 0.5rem; line-height: 1.1;
+  }
+
+  .products__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+
+  .cat {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: var(--space-md);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .cat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
+    border-color: var(--color-brand);
+  }
+  .cat__count {
+    align-self: flex-start;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--color-brand);
+    background: rgba(242, 101, 34, 0.1);
+    padding: 0.25rem 0.6rem; border-radius: 20px;
+    margin-bottom: var(--space-sm);
+  }
+  .cat__name { font-size: 1.35rem; color: var(--color-ink); line-height: 1.1; }
+  .cat__sub { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.15rem; }
+  .cat__blurb { font-size: 0.92rem; color: var(--color-muted); line-height: 1.6; margin-top: var(--space-sm); }
+
+  .cat__samples { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-sm); }
+  .chip {
+    font-size: 0.72rem; color: var(--color-ink);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    padding: 0.25rem 0.55rem; border-radius: 6px;
+  }
+
+  .cat__link {
+    margin-top: auto;                 /* pushes link to the bottom, so cards align */
+    padding-top: var(--space-md);
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--color-brand);
+  }
+  .cat__link:hover { color: var(--color-brand-dark); }
+
+  @media (max-width: 860px) { .products__grid { grid-template-columns: 1fr; } }
+</style>
