@@ -7,6 +7,7 @@
   --color-brand:      #F26522;   /* orange — CTAs and highlights ONLY */
   --color-brand-dark: #C74E13;   /* darker orange for hover */
   --color-accent:     #1F9E92;   /* logo teal, kept as a rare secondary accent */
+  --color-brand-tint: color-mix(in srgb, var(--color-brand) 10%, transparent);  /* faint orange glow */
 
   /* ---- Neutrals (graphite structure, the site's real backbone) ---- */
   --color-ink:        #23282D;   /* graphite: text + dark surfaces */

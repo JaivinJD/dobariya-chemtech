@@ -1,0 +1,242 @@
+[
+  {
+    "id": "1-bromomethane",
+    "name": "1-bromomethane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "n-propyl-bromide",
+    "name": "n-propyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C3H7Br"
+  },
+  {
+    "id": "ethyl-bromide",
+    "name": "Ethyl Bromide",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "2-bromopropane",
+    "name": "2-bromopropane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromobutane",
+    "name": "1-bromobutane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "2-bromobutane",
+    "name": "2-bromobutane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromo-2-methylpropane",
+    "name": "1-bromo-2-methylpropane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "2-bromo-2-methylpropane",
+    "name": "2-bromo-2-methylpropane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromopentane",
+    "name": "1-bromopentane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "2-bromopentane",
+    "name": "2-bromopentane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromohexane",
+    "name": "1-bromohexane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromoheptane",
+    "name": "1-bromoheptane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromooctane",
+    "name": "1-bromooctane",
+    "category": "alkyl-solvents",
+    "featured": true
+  },
+  {
+    "id": "1-bromo-2-ethylhexane",
+    "name": "1-bromo-2-ethylhexane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromo-6-methylheptane",
+    "name": "1-bromo-6-methylheptane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromodecane",
+    "name": "1-bromodecane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromododecane",
+    "name": "1-bromododecane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "7-bromomethylpentadecane",
+    "name": "7-bromomethylpentadecane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromotetradecane",
+    "name": "1-bromotetradecane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromohexadecane",
+    "name": "1-bromohexadecane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "1-bromooctadecane",
+    "name": "1-bromooctadecane",
+    "category": "alkyl-solvents"
+  },
+  {
+    "id": "sodium-bromide-anhydrous",
+    "name": "Sodium Bromide / Anhydrous",
+    "category": "alkyl-solid",
+    "formula": "NaBr",
+    "grade": "Anhydrous",
+    "featured": true
+  },
+  {
+    "id": "potassium-bromide-anhydrous",
+    "name": "Potassium Bromide / Anhydrous",
+    "category": "alkyl-solid",
+    "formula": "KBr"
+  },
+  {
+    "id": "calcium-bromide-solution-anhydrous",
+    "name": "Calcium Bromide Solution / Anhydrous",
+    "category": "alkyl-solid",
+    "formula": "CaBr2",
+    "grade": "Solution / Anhydrous",
+    "featured": true
+  },
+  {
+    "id": "zinc-bromide-anhydrous",
+    "name": "Zinc Bromide Anhydrous",
+    "category": "alkyl-solid",
+    "formula": "ZnBr2",
+    "featured": true
+  },
+  {
+    "id": "hydrobromic-acid-48",
+    "name": "Hydrobromic Acid 48%",
+    "category": "alkyl-solid",
+    "formula": "HBr",
+    "grade": "48%",
+    "featured": true
+  },
+  {
+    "id": "hbr-in-acetic-acid-30",
+    "name": "HBr in Acetic Acid 30%",
+    "category": "alkyl-solid",
+    "formula": "HBr",
+    "grade": "30% in acetic acid"
+  },
+  {
+    "id": "ammonium-bromide",
+    "name": "Ammonium Bromide",
+    "category": "alkyl-solid",
+    "formula": "NH4Br"
+  },
+  {
+    "id": "n-propyl-bromide-2",
+    "name": "n-Propyl Bromide",
+    "category": "other",
+    "formula": "C3H7Br"
+  },
+  {
+    "id": "iso-propyl-bromide",
+    "name": "iso-Propyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "n-butyl-bromide",
+    "name": "n-Butyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "sec-butyl-bromide",
+    "name": "sec-Butyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "iso-butyl-bromide",
+    "name": "iso-Butyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "tert-butyl-bromide",
+    "name": "tert-Butyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "n-pentyl-bromide",
+    "name": "n-Pentyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "iso-amyl-bromide",
+    "name": "Iso Amyl Bromide (3-Methylpentyl Bromide)",
+    "category": "other"
+  },
+  {
+    "id": "n-hexyl-bromide",
+    "name": "n-Hexyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "n-heptyl-bromide",
+    "name": "n-Heptyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "n-octyl-bromide",
+    "name": "n-Octyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "2-ethyl-hexyl-bromide",
+    "name": "2-Ethyl Hexyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "n-decyl-bromide",
+    "name": "n-Decyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "n-lauryl-bromide",
+    "name": "n-Lauryl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "n-cetyl-bromide",
+    "name": "n-Cetyl Bromide",
+    "category": "other"
+  },
+  {
+    "id": "allyl-bromide",
+    "name": "Allyl Bromide",
+    "category": "other",
+    "formula": "C3H5Br",
+    "featured": true
+  }
+]
