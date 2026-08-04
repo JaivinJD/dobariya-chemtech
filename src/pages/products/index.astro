@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// Read every product from the collection (already schema-validated).
+const products = await getCollection('products');
+
+// Group them by category so we can show three labelled sections.
+const categories = [
+  { slug: 'alkyl-solvents', name: 'Alkyl Bromides', sub: 'in solvents' },
+  { slug: 'alkyl-solid',    name: 'Alkyl Bromides', sub: 'solid / other forms' },
+  { slug: 'other',          name: 'Other Bromides', sub: 'specialty range' },
+];
+
+// Small helper: get all products belonging to one category.
+const inCategory = (slug) => products.filter((p) => p.data.category === slug);
+---
+
+<Layout>
+  <section class="plist">
+    <div class="container">
+      <header class="plist__head">
+        <span class="plist__eyebrow">Our products</span>
+        <h1 class="plist__title">Bromine derivatives</h1>
+        <p class="plist__lead">
+          {products.length} products across three categories, manufactured and supplied
+          from our facility in Kadi, Gujarat.
+        </p>
+      </header>
+
+      {categories.map((cat) => (
+        <div class="plist__group">
+          <div class="plist__grouphead">
+            <h2>{cat.name} <span>· {cat.sub}</span></h2>
+            <span class="plist__badge">{inCategory(cat.slug).length} products</span>
+          </div>
+
+          <div class="plist__grid">
+            {inCategory(cat.slug).map((product) => (
+              <a href={`/products/${product.id}`} class="pcard">
+                <span class="pcard__name">{product.data.name}</span>
+                {product.data.formula && (
+                  <span class="pcard__formula">{product.data.formula}</span>
+                )}
+                <span class="pcard__arrow">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .plist { padding-block: var(--space-xl); }
+  .plist__head { max-width: 640px; margin-bottom: var(--space-lg); }
+  .plist__eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-brand); font-weight: 600;
+  }
+  .plist__title { font-size: clamp(2rem, 5vw, 3rem); color: var(--color-ink); margin-top: 0.5rem; }
+  .plist__lead { color: var(--color-muted); margin-top: var(--space-sm); font-size: 1.05rem; }
+
+  .plist__group { margin-top: var(--space-lg); }
+  .plist__grouphead {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: var(--space-sm); margin-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .plist__grouphead h2 { font-size: 1.4rem; color: var(--color-ink); }
+  .plist__grouphead h2 span { color: var(--color-muted); font-weight: 400; font-size: 1rem; }
+  .plist__badge {
+    font-size: 0.72rem; font-weight: 600; color: var(--color-brand);
+    background: var(--color-brand-tint); padding: 0.25rem 0.6rem; border-radius: 20px;
+  }
+
+  .plist__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-sm);
+  }
+  .pcard {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--color-border); border-radius: 10px;
+    background: var(--color-surface);
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .pcard:hover {
+    border-color: var(--color-brand);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+  }
+  .pcard__name { font-weight: 500; color: var(--color-ink); font-size: 0.95rem; }
+  .pcard__formula { font-size: 0.8rem; color: var(--color-muted); }
+  .pcard__arrow { margin-left: auto; color: var(--color-brand); }
+</style>
