@@ -13,7 +13,7 @@ const categories = [
 ];
 
 // Small helper: get all products belonging to one category.
-const inCategory = (slug) => products.filter((p) => p.data.category === slug);
+const inCategory = (slug: string) => products.filter((p) => p.data.category === slug);
 ---
 
 <Layout>
