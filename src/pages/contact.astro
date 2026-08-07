@@ -52,7 +52,7 @@ const offices = [
           <button type="submit" class="btn btn--primary">Send request →</button>
         </form>
 
-        <!-- RIGHT: the details -->
+        <!-- RIGHT: slimmed sidebar — quick contact only -->
         <aside class="cinfo">
           <div class="cinfo__block">
             <h3>Contact</h3>
@@ -62,21 +62,24 @@ const offices = [
             </p>
             <a href={`https://wa.me/${contact.whatsapp}`} class="cinfo__wa">Chat on WhatsApp →</a>
           </div>
-
           <div class="cinfo__block">
             <h3>Working hours</h3>
             <p>{contact.hours}</p>
           </div>
-
-          {offices.map((office) => (
-            <div class="cinfo__block">
-              <h3>{office.label}</h3>
-              <p>{office.lines.map((line) => <span>{line}<br /></span>)}</p>
-            </div>
-          ))}
         </aside>
-      </div>
-    </div>
+      </div>  <!-- closes .contact__grid -->
+
+      <!-- addresses get their own full-width row, below -->
+      <div class="contact__offices">
+        {offices.map((office) => (
+          <div class="office card">
+            <h3>{office.label}</h3>
+            <p>{office.lines.map((line) => <span>{line}<br /></span>)}</p>
+          </div>
+        ))}
+      </div>  <!-- closes .contact__offices -->
+
+    </div>  <!-- closes .container -->
   </section>
 </Layout>
 
@@ -90,8 +93,11 @@ const offices = [
   .contact__lead { color: var(--color-muted); margin-top: var(--space-sm); max-width: 46ch; }
 
   .contact__grid {
-    display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1.6fr 0.9fr;   /* was 1.3fr 1fr — form gets more room */
+    gap: var(--space-lg);
     margin-top: var(--space-lg);
+    align-items: start;
   }
 
   .cform { display: flex; flex-direction: column; gap: var(--space-sm); }
@@ -111,6 +117,22 @@ const offices = [
   .cinfo__block p { color: var(--color-muted); line-height: 1.7; font-size: 0.95rem; }
   .cinfo__block a:hover { color: var(--color-brand); }
   .cinfo__wa { display: inline-block; margin-top: 0.5rem; color: var(--color-brand); font-weight: 500; }
+
+  .contact__offices {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+  .office h3 {
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--color-ink); margin-bottom: 0.5rem;
+  }
+  .office p { color: var(--color-muted); line-height: 1.7; font-size: 0.95rem; }
+
+  @media (max-width: 860px) {
+    .contact__offices { grid-template-columns: 1fr; }
+  }
 
   @media (max-width: 860px) { .contact__grid { grid-template-columns: 1fr; } }
 </style>
