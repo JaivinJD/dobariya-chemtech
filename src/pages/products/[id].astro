@@ -29,7 +29,10 @@ if (d.grade)     specs.push({ label: 'Grade / Purity', value: d.grade });
 if (d.packaging) specs.push({ label: 'Packaging', value: d.packaging.join(', ') });
 ---
 
-<Layout>
+<Layout
+  title={`${d.name} — Bromine Derivative | Dobariya Chemtech`}
+  description={`${d.name}${d.formula ? ` (${d.formula})` : ''} — manufactured and supplied by Dobariya Chemtech, Ahmedabad. Request a quote for pricing and availability.`}
+>
   <section class="pd">
     <div class="container">
       <a href="/products" class="pd__back">← All products</a>
