@@ -38,7 +38,7 @@ const inCategory = (slug: string) => products.filter((p) => p.data.category === 
             <span class="plist__badge">{inCategory(cat.slug).length} products</span>
           </div>
 
-          <div class="plist__grid">
+          <div class="plist__grid" data-reveal-group>
             {inCategory(cat.slug).map((product) => (
               <a href={`/products/${product.id}`} class="pcard">
                 <span class="pcard__name">{product.data.name}</span>

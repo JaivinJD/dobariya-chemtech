@@ -42,9 +42,9 @@ const features = [
       <h2 class="why__title">Built for buyers who need reliability</h2>
     </div>
 
-    <div class="why__grid">
+    <div class="why__grid" data-reveal-group>
       {features.map((f) => (
-        <article class="feature">
+        <article class="feature" data-reveal>
           <span class="feature__icon" set:html={f.icon}></span>
           <h3 class="feature__title">{f.title}</h3>
           <p class="feature__text">{f.text}</p>
@@ -55,10 +55,10 @@ const features = [
 </section>
 
 <style>
-  .why { background: var(--color-surface); padding-block: var(--space-xl); }
+  .why { padding-block: var(--space-xl); }
   .why__head { max-width: 640px; margin-bottom: var(--space-lg); }
   .why__eyebrow {
-    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+    font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--color-brand); font-weight: 600;
   }
   .why__title {

@@ -31,6 +31,41 @@ const {
 	</body>
 </html>
 
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 1. Groups: children of a [data-reveal-group] cascade one after another.
+  document.querySelectorAll('[data-reveal-group]').forEach((group) => {
+    gsap.fromTo(
+      group.children,
+      { autoAlpha: 0, y: 40 },
+      {
+        autoAlpha: 1, y: 0,
+        duration: 0.8, ease: 'power2.out',
+        stagger: 0.12,                          // ← each child 0.12s after the last
+        scrollTrigger: { trigger: group, start: 'top 80%' },
+      }
+    );
+  });
+
+  // 2. Singles: individual [data-reveal] elements, smooth scrub.
+  document.querySelectorAll('[data-reveal]').forEach((el) => {
+    gsap.fromTo(
+      el,
+      { autoAlpha: 0, y: 40 },
+      {
+        autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 55%', scrub: 1},
+      }
+    );
+  });
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+  
+</script>
+
 <style>
 	html,
 	body {

@@ -48,7 +48,7 @@ const facilities = [
         {story.map((para) => <p>{para}</p>)}
       </div>
 
-      <div class="about__caps">
+      <div class="about__caps" data-reveal-group>
         {capabilities.map((c) => (
           <article class="cap card">
             <h3>{c.title}</h3>
@@ -59,7 +59,7 @@ const facilities = [
 
       <div class="about__facilities">
         <h2 class="about__subhead">Our facilities</h2>
-        <div class="about__facgrid">
+        <div class="about__facgrid" data-reveal-group>
           {facilities.map((f) => (
             <div class="fac">
               <h4>{f.label}</h4>

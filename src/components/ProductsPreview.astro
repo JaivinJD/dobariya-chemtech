@@ -29,7 +29,7 @@ const categories = [
 ];
 ---
 
-<section class="products">
+<section class="products sect-white">
   <div class="container">
     <div class="products__head">
       <div>
@@ -39,9 +39,9 @@ const categories = [
       <a href="/products" class="btn btn--ghost">View all products →</a>
     </div>
 
-    <div class="products__grid">
+    <div class="products__grid" data-reveal-group>
       {categories.map((cat) => (
-        <article class="cat">
+        <article class="cat" data-reveal>
           <span class="cat__count">{cat.count} products</span>
           <h3 class="cat__name">{cat.name}</h3>
           <span class="cat__sub">{cat.sub}</span>
@@ -57,7 +57,7 @@ const categories = [
 </section>
 
 <style>
-  .products { background: var(--color-surface-2); padding-block: var(--space-xl); }
+  .products { padding-block: var(--space-xl); }
 
   .products__head {
     display: flex;
@@ -68,7 +68,7 @@ const categories = [
     flex-wrap: wrap;
   }
   .products__eyebrow {
-    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+    font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--color-brand); font-weight: 600;
   }
   .products__title {

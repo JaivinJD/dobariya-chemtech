@@ -35,7 +35,7 @@ const documents = [
         <p class="quality__lead">{intro.lead}</p>
       </header>
 
-      <div class="quality__grid">
+      <div class="quality__grid" data-reveal-group>
         {commitments.map((c) => (
           <article class="qcard card">
             <h3>{c.title}</h3>
@@ -46,7 +46,7 @@ const documents = [
 
       <div class="quality__docs">
         <h2 class="quality__subhead">Documentation we provide</h2>
-        <div class="quality__docgrid">
+        <div class="quality__docgrid" data-reveal-group>
           {documents.map((doc) => (
             <div class="doc">
               <span class="doc__code">{doc.code}</span>

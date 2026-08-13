@@ -25,7 +25,7 @@ const stats = [
       </p>
       <div class="hero__actions">
         <a href="/products" class="btn btn--primary">Explore products →</a>
-        <a href="/brochure.pdf" class="btn btn--ghost">Download brochure</a>
+        <a href="/brochure.pdf" class="btn btn--ghost-light">Download brochure</a>
       </div>
     </div>
 
@@ -34,7 +34,7 @@ const stats = [
     </div>
   </div>
 
-  <div class="container hero__stats">
+  <div class="container hero__stats" data-reveal-group>
     {stats.map((s) => (
       <div class="stat">
         <span class="stat__value">{s.value}</span>
@@ -45,7 +45,7 @@ const stats = [
 </section>
 
 <style>
-  .hero { background: var(--color-surface-2); padding-block: var(--space-lg); }
+  .hero { background: var(--color-ink); padding-block: var(--space-lg); }
   .hero__grid {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -54,47 +54,36 @@ const stats = [
   }
   .hero__eyebrow {
     display: inline-block;
-    background: #fff;
-    border: 1px solid var(--color-border);
-    color: var(--color-muted);
-    font-size: 0.72rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #C3CFD1;
+    font-size: 0.9rem;                          /* bumped up from 0.72 */
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 0.4rem 0.7rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
     margin-bottom: var(--space-sm);
   }
   .hero__title {
-    font-size: clamp(2.2rem, 5vw, 3.4rem);   /* scales with screen width */
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
     line-height: 1.08;
     letter-spacing: -0.02em;
-    color: var(--color-ink);
+    color: #fff;                                /* was --color-ink */
   }
   .hero__title .accent { color: var(--color-brand); }
   .hero__lead {
     margin-top: var(--space-sm);
-    color: var(--color-muted);
+    color: #93A5A8;                             /* muted light grey on dark */
     font-size: 1.05rem;
     max-width: 42ch;
   }
   .hero__actions { display: flex; gap: 0.8rem; margin-top: var(--space-md); flex-wrap: wrap; }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.4rem;
-    border-radius: var(--radius);
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: transform 0.15s ease, box-shadow 0.15s ease,
-                background 0.15s ease, color 0.15s ease;
-  }
-
   .hero__media {
     aspect-ratio: 4 / 3;
     border-radius: 14px;
     overflow: hidden;
-    background: var(--color-border);
+    background: #2E363C;                        /* lighter graphite while image loads */
   }
   .hero__img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -104,21 +93,21 @@ const stats = [
     gap: var(--space-md);
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid rgba(255,255,255,0.1);  /* faint divider, visible on dark */
   }
   .stat__value {
     display: block;
     font-family: var(--font-display);
     font-size: 2rem;
     font-weight: 700;
-    color: var(--color-brand);
+    color: var(--color-brand);                  /* orange numbers pop on dark */
     line-height: 1;
   }
-  .stat__label { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.35rem; display: block; }
+  .stat__label { font-size: 0.85rem; color: #7E9195; margin-top: 0.35rem; display: block; }
 
   @media (max-width: 860px) {
     .hero__grid { grid-template-columns: 1fr; }
-    .hero__media { order: -1; }               /* photo moves on top on mobile */
+    .hero__media { order: -1; }
     .hero__stats { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
