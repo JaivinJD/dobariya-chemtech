@@ -11,6 +11,7 @@ const products = defineCollection({
     category: z.enum(['alkyl-solvents', 'alkyl-solid', 'other']),  // must be one of these
     formula:  z.string().optional(),                        // may be missing
     grade:    z.string().optional(),
+    synonyms: z.array(z.string()).optional(),
     cas:      z.string().optional(),
     packaging:    z.array(z.string()).optional(),           // a list of strings
     applications: z.array(z.string()).optional(),

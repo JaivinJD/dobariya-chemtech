@@ -1,138 +1,404 @@
 [
   {
-    "id": "1-bromomethane",
-    "name": "1-bromomethane",
-    "category": "alkyl-solvents"
+    "id": "methyl-bromide",
+    "name": "Methyl Bromide (Bromomethane)",
+    "category": "alkyl-solvents",
+    "formula": "CH3Br",
+    "cas": "74-83-9",
+    "synonyms": [
+      "Bromomethane",
+      "Monobromomethane"
+    ],
+    "applications": [
+      "Fumigant / pest-control agent",
+      "Methylating agent in organic synthesis",
+      "Chemical intermediate"
+    ]
   },
   {
     "id": "n-propyl-bromide",
-    "name": "n-propyl Bromide",
+    "name": "n-Propyl Bromide",
     "category": "alkyl-solvents",
-    "formula": "C3H7Br"
+    "formula": "C3H7Br",
+    "cas": "106-94-5",
+    "synonyms": [
+      "1-Bromopropane",
+      "Propyl bromide",
+      "1-BP"
+    ],
+    "applications": [
+      "Solvent for degreasing and cleaning",
+      "Adhesives and aerosols",
+      "Chemical intermediate"
+    ],
+    "featured": true
   },
   {
     "id": "ethyl-bromide",
     "name": "Ethyl Bromide",
-    "category": "alkyl-solvents"
+    "category": "alkyl-solvents",
+    "formula": "C2H5Br",
+    "cas": "74-96-4",
+    "synonyms": [
+      "Bromoethane",
+      "Monobromoethane"
+    ],
+    "applications": [
+      "Ethylating agent in organic synthesis",
+      "Pharmaceutical intermediate",
+      "Solvent"
+    ]
   },
   {
-    "id": "2-bromopropane",
-    "name": "2-bromopropane",
-    "category": "alkyl-solvents"
+    "id": "iso-propyl-bromide",
+    "name": "iso-Propyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C3H7Br",
+    "cas": "75-26-3",
+    "synonyms": [
+      "2-Bromopropane",
+      "Isopropyl bromide",
+      "sec-Propyl bromide"
+    ],
+    "applications": [
+      "Isopropylating agent in organic synthesis",
+      "Pharmaceutical and agrochemical intermediate",
+      "Industrial solvent"
+    ]
   },
   {
-    "id": "1-bromobutane",
-    "name": "1-bromobutane",
-    "category": "alkyl-solvents"
+    "id": "n-butyl-bromide",
+    "name": "n-Butyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C4H9Br",
+    "cas": "109-65-9",
+    "synonyms": [
+      "1-Bromobutane",
+      "Butyl bromide"
+    ],
+    "applications": [
+      "Alkylating agent",
+      "Grignard-reagent precursor",
+      "Solvent for cleaning and degreasing"
+    ],
+    "featured": true
   },
   {
-    "id": "2-bromobutane",
-    "name": "2-bromobutane",
-    "category": "alkyl-solvents"
+    "id": "sec-butyl-bromide",
+    "name": "sec-Butyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C4H9Br",
+    "cas": "78-76-2",
+    "synonyms": [
+      "2-Bromobutane",
+      "Methylethylbromomethane"
+    ],
+    "applications": [
+      "Intermediate in organic synthesis",
+      "Grignard-reagent precursor",
+      "Solvent"
+    ]
   },
   {
-    "id": "1-bromo-2-methylpropane",
-    "name": "1-bromo-2-methylpropane",
-    "category": "alkyl-solvents"
+    "id": "iso-butyl-bromide",
+    "name": "iso-Butyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C4H9Br",
+    "cas": "78-77-3",
+    "synonyms": [
+      "1-Bromo-2-methylpropane",
+      "Isobutyl bromide",
+      "1-Bromoisobutane"
+    ],
+    "applications": [
+      "Alkylating agent",
+      "Pharmaceutical intermediate",
+      "Grignard-reagent precursor"
+    ]
   },
   {
-    "id": "2-bromo-2-methylpropane",
-    "name": "2-bromo-2-methylpropane",
-    "category": "alkyl-solvents"
+    "id": "tert-butyl-bromide",
+    "name": "tert-Butyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C4H9Br",
+    "cas": "507-19-7",
+    "synonyms": [
+      "2-Bromo-2-methylpropane",
+      "Trimethylbromomethane",
+      "2-Bromoisobutane"
+    ],
+    "applications": [
+      "tert-Butylating reagent in organic synthesis",
+      "Chemical intermediate"
+    ]
   },
   {
-    "id": "1-bromopentane",
-    "name": "1-bromopentane",
-    "category": "alkyl-solvents"
+    "id": "n-pentyl-bromide",
+    "name": "n-Pentyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C5H11Br",
+    "cas": "110-53-2",
+    "synonyms": [
+      "1-Bromopentane",
+      "n-Amyl bromide",
+      "Pentyl bromide"
+    ],
+    "applications": [
+      "Alkylating agent in organic synthesis",
+      "Intermediate",
+      "Solvent"
+    ]
   },
   {
     "id": "2-bromopentane",
-    "name": "2-bromopentane",
-    "category": "alkyl-solvents"
-  },
-  {
-    "id": "1-bromohexane",
-    "name": "1-bromohexane",
-    "category": "alkyl-solvents"
-  },
-  {
-    "id": "1-bromoheptane",
-    "name": "1-bromoheptane",
-    "category": "alkyl-solvents"
-  },
-  {
-    "id": "1-bromooctane",
-    "name": "1-bromooctane",
+    "name": "2-Bromopentane",
     "category": "alkyl-solvents",
+    "formula": "C5H11Br",
+    "cas": "107-81-3",
+    "synonyms": [
+      "2-Pentyl bromide",
+      "sec-Amyl bromide"
+    ],
+    "applications": [
+      "Intermediate in organic synthesis",
+      "Research reagent"
+    ]
+  },
+  {
+    "id": "n-hexyl-bromide",
+    "name": "n-Hexyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C6H13Br",
+    "cas": "111-25-1",
+    "synonyms": [
+      "1-Bromohexane",
+      "Hexyl bromide"
+    ],
+    "applications": [
+      "Alkylating agent",
+      "Intermediate in organic synthesis",
+      "Surfactant precursor"
+    ]
+  },
+  {
+    "id": "n-heptyl-bromide",
+    "name": "n-Heptyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C7H15Br",
+    "cas": "629-04-9",
+    "synonyms": [
+      "1-Bromoheptane",
+      "Heptyl bromide"
+    ],
+    "applications": [
+      "Alkylating agent",
+      "Intermediate in organic synthesis"
+    ]
+  },
+  {
+    "id": "n-octyl-bromide",
+    "name": "n-Octyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C8H17Br",
+    "cas": "111-83-1",
+    "synonyms": [
+      "1-Bromooctane",
+      "Capryl bromide",
+      "Octyl bromide"
+    ],
+    "applications": [
+      "Alkylating agent",
+      "Phase-transfer chemistry reagent",
+      "Intermediate"
+    ],
     "featured": true
   },
   {
-    "id": "1-bromo-2-ethylhexane",
-    "name": "1-bromo-2-ethylhexane",
-    "category": "alkyl-solvents"
+    "id": "2-ethylhexyl-bromide",
+    "name": "2-Ethylhexyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C8H17Br",
+    "cas": "18908-66-2",
+    "synonyms": [
+      "1-Bromo-2-ethylhexane",
+      "3-(Bromomethyl)heptane"
+    ],
+    "applications": [
+      "Branched side-chain / solubility-enhancing reagent",
+      "Intermediate in organic synthesis"
+    ]
   },
   {
     "id": "1-bromo-6-methylheptane",
-    "name": "1-bromo-6-methylheptane",
-    "category": "alkyl-solvents"
+    "name": "1-Bromo-6-methylheptane",
+    "category": "alkyl-solvents",
+    "formula": "C8H17Br",
+    "cas": "52648-04-1",
+    "synonyms": [
+      "6-Methylheptyl bromide",
+      "Isooctyl bromide"
+    ],
+    "applications": [
+      "Intermediate in organic synthesis",
+      "Specialty reagent"
+    ]
   },
   {
-    "id": "1-bromodecane",
-    "name": "1-bromodecane",
-    "category": "alkyl-solvents"
+    "id": "n-decyl-bromide",
+    "name": "n-Decyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C10H21Br",
+    "cas": "112-29-8",
+    "synonyms": [
+      "1-Bromodecane",
+      "Decyl bromide"
+    ],
+    "applications": [
+      "Long-chain alkylating agent",
+      "Surfactant intermediate"
+    ]
   },
   {
-    "id": "1-bromododecane",
-    "name": "1-bromododecane",
-    "category": "alkyl-solvents"
+    "id": "n-lauryl-bromide",
+    "name": "n-Lauryl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C12H25Br",
+    "cas": "143-15-7",
+    "synonyms": [
+      "1-Bromododecane",
+      "Dodecyl bromide",
+      "Lauryl bromide"
+    ],
+    "applications": [
+      "Long-chain alkylating agent",
+      "Surfactant intermediate"
+    ]
   },
   {
     "id": "7-bromomethylpentadecane",
-    "name": "7-bromomethylpentadecane",
-    "category": "alkyl-solvents"
+    "name": "7-(Bromomethyl)pentadecane",
+    "category": "alkyl-solvents",
+    "formula": "C16H33Br",
+    "cas": "52997-43-0",
+    "synonyms": [
+      "1-Bromo-2-hexyldecane",
+      "2-Hexyldecyl bromide"
+    ],
+    "applications": [
+      "Branched-chain building block for organic synthesis",
+      "Specialty reagent"
+    ]
   },
   {
-    "id": "1-bromotetradecane",
-    "name": "1-bromotetradecane",
-    "category": "alkyl-solvents"
+    "id": "n-tetradecyl-bromide",
+    "name": "n-Tetradecyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C14H29Br",
+    "cas": "112-71-0",
+    "synonyms": [
+      "1-Bromotetradecane",
+      "Myristyl bromide",
+      "Tetradecyl bromide"
+    ],
+    "applications": [
+      "Long-chain alkylating agent",
+      "Surfactant intermediate"
+    ]
   },
   {
-    "id": "1-bromohexadecane",
-    "name": "1-bromohexadecane",
-    "category": "alkyl-solvents"
+    "id": "n-cetyl-bromide",
+    "name": "n-Cetyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C16H33Br",
+    "cas": "112-82-3",
+    "synonyms": [
+      "1-Bromohexadecane",
+      "Cetyl bromide",
+      "Palmityl bromide"
+    ],
+    "applications": [
+      "Long-chain alkylating agent",
+      "Surfactant intermediate"
+    ]
   },
   {
-    "id": "1-bromooctadecane",
-    "name": "1-bromooctadecane",
-    "category": "alkyl-solvents"
+    "id": "stearyl-bromide",
+    "name": "Stearyl Bromide",
+    "category": "alkyl-solvents",
+    "formula": "C18H37Br",
+    "cas": "112-89-0",
+    "synonyms": [
+      "1-Bromooctadecane",
+      "Octadecyl bromide"
+    ],
+    "applications": [
+      "Long-chain alkylating agent",
+      "Surfactant intermediate"
+    ]
   },
   {
-    "id": "sodium-bromide-anhydrous",
-    "name": "Sodium Bromide / Anhydrous",
+    "id": "sodium-bromide",
+    "name": "Sodium Bromide",
     "category": "alkyl-solid",
     "formula": "NaBr",
-    "grade": "Anhydrous",
+    "cas": "7647-15-6",
+    "synonyms": [
+      "Anhydrous sodium bromide"
+    ],
+    "applications": [
+      "Oil & gas drilling and completion fluids",
+      "Bromide source in organic synthesis",
+      "Photographic chemicals"
+    ],
     "featured": true
   },
   {
-    "id": "potassium-bromide-anhydrous",
-    "name": "Potassium Bromide / Anhydrous",
+    "id": "potassium-bromide",
+    "name": "Potassium Bromide",
     "category": "alkyl-solid",
-    "formula": "KBr"
+    "formula": "KBr",
+    "cas": "7758-02-3",
+    "synonyms": [
+      "Anhydrous potassium bromide"
+    ],
+    "applications": [
+      "IR-spectroscopy optical windows",
+      "Photographic emulsions",
+      "Bromide source"
+    ]
   },
   {
-    "id": "calcium-bromide-solution-anhydrous",
-    "name": "Calcium Bromide Solution / Anhydrous",
+    "id": "calcium-bromide",
+    "name": "Calcium Bromide",
     "category": "alkyl-solid",
     "formula": "CaBr2",
-    "grade": "Solution / Anhydrous",
+    "cas": "7789-41-5",
+    "synonyms": [
+      "Calcium dibromide",
+      "Calcium bromide solution"
+    ],
+    "applications": [
+      "High-density oil & gas drilling and completion fluids",
+      "Flame-retardant additive",
+      "Photographic chemicals"
+    ],
     "featured": true
   },
   {
-    "id": "zinc-bromide-anhydrous",
-    "name": "Zinc Bromide Anhydrous",
+    "id": "zinc-bromide",
+    "name": "Zinc Bromide",
     "category": "alkyl-solid",
     "formula": "ZnBr2",
+    "cas": "7699-45-8",
+    "synonyms": [
+      "Zinc dibromide",
+      "Anhydrous zinc bromide"
+    ],
+    "applications": [
+      "High-density oil & gas well and completion fluids",
+      "Battery electrolyte (zinc-bromine)",
+      "Lewis-acid catalyst"
+    ],
     "featured": true
   },
   {
@@ -140,103 +406,95 @@
     "name": "Hydrobromic Acid 48%",
     "category": "alkyl-solid",
     "formula": "HBr",
-    "grade": "48%",
+    "cas": "10035-10-6",
+    "synonyms": [
+      "Hydrogen bromide (aqueous)",
+      "Hydrobromic acid"
+    ],
+    "applications": [
+      "Brominating agent",
+      "Raw material for bromide salts and bromine compounds",
+      "Catalyst in organic reactions"
+    ],
     "featured": true
   },
   {
     "id": "hbr-in-acetic-acid-30",
     "name": "HBr in Acetic Acid 30%",
     "category": "alkyl-solid",
-    "formula": "HBr",
-    "grade": "30% in acetic acid"
+    "formula": "HBr in CH3COOH",
+    "cas": "37348-16-6",
+    "synonyms": [
+      "Hydrogen bromide in acetic acid",
+      "HBr/AcOH"
+    ],
+    "applications": [
+      "Reagent in organic synthesis",
+      "Pharmaceutical intermediate"
+    ]
   },
   {
     "id": "ammonium-bromide",
     "name": "Ammonium Bromide",
     "category": "alkyl-solid",
-    "formula": "NH4Br"
+    "formula": "NH4Br",
+    "cas": "12124-97-9",
+    "synonyms": [
+      "Azanium bromide"
+    ],
+    "applications": [
+      "Photographic chemicals",
+      "Flame retardant",
+      "Bromide source"
+    ]
   },
   {
-    "id": "n-propyl-bromide-2",
-    "name": "n-Propyl Bromide",
+    "id": "isoamyl-bromide",
+    "name": "Isoamyl Bromide",
     "category": "other",
-    "formula": "C3H7Br"
+    "formula": "C5H11Br",
+    "cas": "107-82-4",
+    "synonyms": [
+      "1-Bromo-3-methylbutane",
+      "Isopentyl bromide",
+      "3-Methylbutyl bromide"
+    ],
+    "applications": [
+      "Alkylating / organic-synthesis reagent",
+      "Intermediate"
+    ]
   },
   {
-    "id": "iso-propyl-bromide",
-    "name": "iso-Propyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "n-butyl-bromide",
-    "name": "n-Butyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "sec-butyl-bromide",
-    "name": "sec-Butyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "iso-butyl-bromide",
-    "name": "iso-Butyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "tert-butyl-bromide",
-    "name": "tert-Butyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "n-pentyl-bromide",
-    "name": "n-Pentyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "iso-amyl-bromide",
-    "name": "Iso Amyl Bromide (3-Methylpentyl Bromide)",
-    "category": "other"
-  },
-  {
-    "id": "n-hexyl-bromide",
-    "name": "n-Hexyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "n-heptyl-bromide",
-    "name": "n-Heptyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "n-octyl-bromide",
-    "name": "n-Octyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "2-ethyl-hexyl-bromide",
-    "name": "2-Ethyl Hexyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "n-decyl-bromide",
-    "name": "n-Decyl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "n-lauryl-bromide",
-    "name": "n-Lauryl Bromide",
-    "category": "other"
-  },
-  {
-    "id": "n-cetyl-bromide",
-    "name": "n-Cetyl Bromide",
-    "category": "other"
+    "id": "3-methylpentyl-bromide",
+    "name": "3-Methylpentyl Bromide",
+    "category": "other",
+    "formula": "C6H13Br",
+    "cas": "51116-73-5",
+    "synonyms": [
+      "1-Bromo-3-methylpentane",
+      "3-Methyl-1-bromopentane"
+    ],
+    "applications": [
+      "Intermediate in organic synthesis",
+      "Alkylating reagent"
+    ]
   },
   {
     "id": "allyl-bromide",
     "name": "Allyl Bromide",
     "category": "other",
     "formula": "C3H5Br",
+    "cas": "106-95-6",
+    "synonyms": [
+      "3-Bromopropene",
+      "3-Bromo-1-propene",
+      "2-Propenyl bromide"
+    ],
+    "applications": [
+      "Allylating agent in organic synthesis",
+      "Pharmaceutical and agrochemical intermediate",
+      "Polymer / resin precursor"
+    ],
     "featured": true
   }
 ]
