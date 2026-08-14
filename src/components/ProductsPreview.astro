@@ -1,31 +1,29 @@
 ---
 // The three real categories from Shrut's brochure, as data.
-// counts add up to 44. Blurbs are placeholders — confirm with him later.
+
+import { getCollection } from 'astro:content';
+
+const products = await getCollection('products');
+const countIn = (slug: string) => products.filter((p) => p.data.category === slug).length;
+
 const categories = [
-  {
-    slug: 'alkyl-solvents',
-    name: 'Alkyl Bromides',
+  { slug: 'alkyl-solvents', 
+    name: 'Alkyl Bromides', 
     sub: 'in solvents',
-    count: 21,
     blurb: 'Bromoalkanes supplied in solvent form for synthesis and industrial processes.',
-    samples: ['1-Bromobutane', '1-Bromooctane', '1-Bromodecane'],
-  },
-  {
-    slug: 'alkyl-solid',
-    name: 'Alkyl Bromides',
+    samples: ['1-Bromobutane', '1-Bromooctane', '1-Bromodecane'] },
+
+  { slug: 'alkyl-solid', 
+    name: 'Alkyl Bromides', 
     sub: 'solid / other forms',
-    count: 7,
     blurb: 'Inorganic and solid-form bromides, including acids and anhydrous salts.',
-    samples: ['Sodium Bromide', 'Zinc Bromide', 'HBr 48%'],
-  },
-  {
-    slug: 'other',
-    name: 'Other Bromides',
+    samples: ['Sodium Bromide', 'Zinc Bromide', 'HBr 48%'] },
+
+  { slug: 'other', 
+    name: 'Other Bromides', 
     sub: 'specialty range',
-    count: 16,
     blurb: 'A broad range of n-, iso- and specialty alkyl bromides for diverse applications.',
-    samples: ['n-Butyl Bromide', 'Allyl Bromide', 'n-Cetyl Bromide'],
-  },
+    samples: ['n-Butyl Bromide', 'Allyl Bromide', 'n-Cetyl Bromide'] },
 ];
 ---
 
@@ -34,7 +32,7 @@ const categories = [
     <div class="products__head">
       <div>
         <span class="products__eyebrow">Our products</span>
-        <h2 class="products__title">44 bromine derivatives, three categories</h2>
+        <h2 class="products__title">{products.length} bromine derivatives, three categories</h2>
       </div>
       <a href="/products" class="btn btn--ghost">View all products →</a>
     </div>
@@ -42,7 +40,7 @@ const categories = [
     <div class="products__grid" data-reveal-group>
       {categories.map((cat) => (
         <article class="cat" data-reveal>
-          <span class="cat__count">{cat.count} products</span>
+          <span class="cat__count">{countIn(cat.slug)} products</span>
           <h3 class="cat__name">{cat.name}</h3>
           <span class="cat__sub">{cat.sub}</span>
           <p class="cat__blurb">{cat.blurb}</p>

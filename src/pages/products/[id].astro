@@ -40,6 +40,8 @@ if (d.packaging) specs.push({ label: 'Packaging', value: d.packaging.join(', ') 
       <span class="pd__cat">{categoryLabels[d.category]}</span>
       <h1 class="pd__name">{d.name}</h1>
       {d.formula && <p class="pd__formula">{d.formula}</p>}
+      {d.synonyms && d.synonyms.length > 0 && (
+        <p class="pd__synonyms">Also known as: {d.synonyms.join(', ')}</p>)}
 
       <div class="pd__body">
         <div class="pd__main">
@@ -87,7 +89,13 @@ if (d.packaging) specs.push({ label: 'Packaging', value: d.packaging.join(', ') 
   }
   .pd__name { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--color-ink); margin-top: 0.3rem; }
   .pd__formula { font-size: 1.2rem; color: var(--color-muted); margin-top: 0.3rem; }
-
+  .pd__synonyms {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  font-style: italic;
+  margin-top: 0.2rem;
+  }
+  
   .pd__body {
     display: grid; grid-template-columns: 1.6fr 1fr; gap: var(--space-lg);
     margin-top: var(--space-lg);

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
 // EDITABLE COPY — swap these for Shrut's real words when he sends them.
 const intro = {
@@ -14,9 +15,11 @@ const story = [
   'We produce and supply a broad range of alkyl, aryl and inorganic bromides — from common solvents to specialty compounds — with a focus on consistent purity and dependable supply for domestic and international customers.',
 ];
 
+const products = await getCollection('products');
+
 const capabilities = [
   { title: 'In-house manufacturing', text: 'Production at our own facility in Kadi, Gujarat — not just trading.' },
-  { title: 'Broad product range', text: '44 bromine derivatives across three categories, from bulk to specialty.' },
+  { title: 'Broad product range', text: `${products.length} bromine derivatives across three categories, from bulk to specialty.` },
   { title: 'Export-ready supply', text: 'Export-grade quality and documentation for international buyers.' },
 ];
 

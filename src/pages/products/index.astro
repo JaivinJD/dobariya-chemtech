@@ -14,6 +14,10 @@ const categories = [
 
 // Small helper: get all products belonging to one category.
 const inCategory = (slug: string) => products.filter((p) => p.data.category === slug);
+
+// Give the browser a sensible place to wrap long parenthetical names,
+// e.g. "7-(Bromomethyl)pentadecane" → breaks after ")" not mid-word.
+const withBreaks = (name: string) => name.replace(/\)/g, ')<wbr/>');
 ---
 
 <Layout
@@ -41,7 +45,7 @@ const inCategory = (slug: string) => products.filter((p) => p.data.category === 
           <div class="plist__grid" data-reveal-group>
             {inCategory(cat.slug).map((product) => (
               <a href={`/products/${product.id}`} class="pcard">
-                <span class="pcard__name">{product.data.name}</span>
+               <span class="pcard__name" set:html={withBreaks(product.data.name)} />
                 {product.data.formula && (
                   <span class="pcard__formula">{product.data.formula}</span>
                 )}
@@ -95,7 +99,13 @@ const inCategory = (slug: string) => products.filter((p) => p.data.category === 
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(0,0,0,0.05);
   }
-  .pcard__name { font-weight: 500; color: var(--color-ink); font-size: 0.95rem; }
+  .pcard__name {
+  font-weight: 500;
+  color: var(--color-ink);
+  font-size: 0.95rem;
+  min-width: 0;
+  overflow-wrap: break-word;
+  }
   .pcard__formula { font-size: 0.8rem; color: var(--color-muted); }
   .pcard__arrow { margin-left: auto; color: var(--color-brand); }
 </style>

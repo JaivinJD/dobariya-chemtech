@@ -1,10 +1,13 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import heroImg from '../assets/hero.jpg';   // if yours is .png, change to hero.png
+
+const productCount = (await getCollection('products')).length;
 
 // Stats as data — every value real and verifiable, editable in one place.
 const stats = [
-  { value: '44+',  label: 'Bromine derivatives' },
+  { value: `${productCount}+`,  label: 'Bromine derivatives' },
   { value: '3',    label: 'Product categories' },
   { value: '2',    label: 'Facilities in Gujarat' },
   { value: '100%', label: 'In-house manufacturing' },
