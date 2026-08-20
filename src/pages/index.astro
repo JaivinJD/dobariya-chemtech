@@ -1,14 +1,47 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import WhyChooseUs from '../components/WhyChooseUs.astro';
-import ProductsPreview from '../components/ProductsPreview.astro';
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import logo from '../assets/dobariya_chemtech_logo.png';
 ---
-<Layout
-  title="Dobariya Chemtech — Bromine Derivatives Manufacturer, Ahmedabad"
-  description="Manufacturer of 40+ bromine derivatives — alkyl, aryl and inorganic bromides — with in-house production in Kadi, Gujarat."
-  >
-  <Hero />
-  <WhyChooseUs />
-  <ProductsPreview />
-</Layout>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>Dobariya Chemtech Pvt. Ltd. — Coming Soon</title>
+    <meta name="description" content="Dobariya Chemtech Pvt. Ltd. — bromine derivatives manufacturer in Ahmedabad, Gujarat. Website launching soon." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="soon">
+      <Image src={logo} alt="Dobariya Chemtech" width={72} height={72} class="soon__logo" />
+      <h1 class="soon__title">Dobariya Chemtech</h1>
+      <p class="soon__tagline">Bromine derivatives, manufactured with consistency.</p>
+      <p class="soon__status">Our new website is launching soon.</p>
+      <a href="mailto:info@dobariyachemtech.com" class="soon__contact">info@dobariyachemtech.com</a>
+    </main>
+  </body>
+</html>
+
+<style>
+  .soon {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    background: var(--color-ink);
+    padding: var(--space-lg);
+  }
+  .soon__logo { border-radius: 8px; margin-bottom: var(--space-md); }
+  .soon__title { font-size: clamp(1.8rem, 5vw, 2.6rem); color: #fff; font-weight: 700; }
+  .soon__tagline { color: #93A5A8; margin-top: 0.6rem; font-size: 1.05rem; }
+  .soon__status {
+    color: var(--color-brand); font-weight: 600; margin-top: var(--space-lg);
+    letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.85rem;
+  }
+  .soon__contact { margin-top: var(--space-sm); color: #fff; font-size: 0.95rem; text-decoration: underline; text-underline-offset: 3px; }
+</style>
