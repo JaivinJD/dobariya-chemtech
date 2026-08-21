@@ -16,6 +16,11 @@ const products = defineCollection({
     packaging:    z.array(z.string()).optional(),           // a list of strings
     applications: z.array(z.string()).optional(),
     featured: z.boolean().default(false),                   // defaults to false if absent
+
+    appearance:      z.string().optional(),                 // physical state + colour
+    boilingPoint:    z.string().optional(),                 // for liquids/gases
+    meltingPoint:    z.string().optional(),                 // for solids without a meaningful bp
+    specificGravity: z.string().optional(),                 // plain decimal as a string
   }),
 });
 
