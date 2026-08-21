@@ -27,6 +27,10 @@ if (d.formula)   specs.push({ label: 'Formula', value: d.formula });
 if (d.cas)       specs.push({ label: 'CAS Number', value: d.cas });
 if (d.grade)     specs.push({ label: 'Grade / Purity', value: d.grade });
 if (d.packaging) specs.push({ label: 'Packaging', value: d.packaging.join(', ') });
+if (d.appearance)      specs.push({ label: 'Appearance', value: d.appearance });
+if (d.boilingPoint)    specs.push({ label: 'Boiling Point', value: d.boilingPoint });
+if (d.meltingPoint)    specs.push({ label: 'Melting Point', value: d.meltingPoint });
+if (d.specificGravity) specs.push({ label: 'Specific Gravity', value: d.specificGravity });
 ---
 
 <Layout
