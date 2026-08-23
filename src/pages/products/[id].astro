@@ -31,6 +31,25 @@ if (d.appearance)      specs.push({ label: 'Appearance', value: d.appearance });
 if (d.boilingPoint)    specs.push({ label: 'Boiling Point', value: d.boilingPoint });
 if (d.meltingPoint)    specs.push({ label: 'Melting Point', value: d.meltingPoint });
 if (d.specificGravity) specs.push({ label: 'Specific Gravity', value: d.specificGravity });
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: d.name,
+  description: `${d.name}${d.formula ? ` (${d.formula})` : ''} — manufactured and supplied by Dobariya Chemtech, Ahmedabad.`,
+  category: categoryLabels[d.category],
+  manufacturer: {
+    '@type': 'Organization',
+    name: 'Dobariya Chemtech Pvt. Ltd.',
+    url: 'https://dobariyachemtech.com',
+  },
+  ...(d.cas && { productID: d.cas }),
+  additionalProperty: specs.map((s) => ({
+    '@type': 'PropertyValue',
+    name: s.label,
+    value: s.value,
+  })),
+};
 ---
 
 <Layout
@@ -80,6 +99,9 @@ if (d.specificGravity) specs.push({ label: 'Specific Gravity', value: d.specific
       </div>
     </div>
   </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+  
 </Layout>
 
 <style>
