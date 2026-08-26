@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 
 // Editable contact data — nothing hardcoded in the markup below.
 const contact = {
-  email: "dobaritachemtech@gmail.com",
+  email: "dobariyachemtech@gmail.com",
   phone: "+91 63558 49826",
   whatsapp: "916355849826",
   hours: "Mon–Sat, 9:30 AM – 6:30 PM", // TODO: confirm
@@ -96,6 +96,15 @@ const offices = [
             <h3>Working hours</h3>
             <p>{contact.hours}</p>
           </div>
+
+          <div class="cinfo__block cinfo__map">
+            <h3>Our Locations</h3>
+            <div
+              id="locations-map"
+              style="height:240px; border-radius:10px; overflow:hidden;"
+            >
+            </div>
+          </div>
         </aside>
       </div>
       <!-- closes .contact__grid -->
@@ -121,6 +130,51 @@ const offices = [
       <!-- closes .contact__offices -->
     </div>
     <!-- closes .container -->
+    <script>
+      import L from "leaflet";
+      import "leaflet/dist/leaflet.css";
+
+      const map = L.map("locations-map", {
+        zoomControl: true,
+        scrollWheelZoom: true,
+      });
+
+      L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        {
+          attribution: "&copy; OpenStreetMap contributors &copy; CARTO",
+          maxZoom: 19,
+        },
+      ).addTo(map);
+
+      function addLocationMarker(lat, lng, label) {
+        const marker = L.marker([lat, lng]).addTo(map);
+        marker.bindTooltip(label, { direction: "top", offset: [0, -8] });
+        marker.on("click", () => {
+          window.open(
+            `https://www.google.com/maps?q=${lat},${lng}`,
+            "_blank",
+            "noopener",
+          );
+        });
+        return marker;
+      }
+
+      const office = addLocationMarker(
+        23.0353849,
+        72.5043858,
+        "Corporate Office",
+      );
+      const factory = addLocationMarker(
+        23.27925,
+        72.391556,
+        "Manufacturing Unit",
+      );
+
+      map.fitBounds(L.latLngBounds([office.getLatLng(), factory.getLatLng()]), {
+        padding: [30, 30],
+      });
+    </script>
   </section>
 </Layout>
 
@@ -231,7 +285,9 @@ const offices = [
     font-size: 0.95rem;
   }
 
-  .hp-field { display: none; }
+  .hp-field {
+    display: none;
+  }
 
   @media (max-width: 860px) {
     .contact__offices {
