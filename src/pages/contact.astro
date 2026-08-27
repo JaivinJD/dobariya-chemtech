@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import offices from "../data/offices.json";
 
 // Editable contact data — nothing hardcoded in the markup below.
 const contact = {
@@ -9,24 +10,6 @@ const contact = {
   hours: "Mon–Sat, 9:30 AM – 6:30 PM", // TODO: confirm
 };
 
-const offices = [
-  {
-    label: "Corporate Office",
-    lines: [
-      "522–523, Shilp Epitome",
-      "Rajpath Club Road, Bodakdev",
-      "Ahmedabad – 380054, Gujarat",
-    ],
-  },
-  {
-    label: "Manufacturing Unit",
-    lines: [
-      "Plot No. 9, Apex Industrial Park",
-      "Kadi–Chhatral Highway, Kadi",
-      "Ahmedabad – 382715, Gujarat",
-    ],
-  },
-];
 ---
 
 <Layout
@@ -134,6 +117,19 @@ const offices = [
       import L from "leaflet";
       import "leaflet/dist/leaflet.css";
 
+      const pinSvg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="40" viewBox="0 0 24 36">
+      <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24c0-6.6-5.4-12-12-12z"
+          fill="#DC2626" style="filter:drop-shadow(0 2px 2px rgba(0,0,0,0.35))"/>
+      <circle cx="12" cy="12" r="5" fill="#ffffff"/>
+      </svg>`;
+
+      const redIcon = L.icon({
+        iconUrl: `data:image/svg+xml,${encodeURIComponent(pinSvg)}`,
+        iconSize: [28, 40],
+        iconAnchor: [14, 40],
+      });
+
       const map = L.map("locations-map", {
         zoomControl: true,
         scrollWheelZoom: true,
@@ -148,7 +144,7 @@ const offices = [
       ).addTo(map);
 
       function addLocationMarker(lat, lng, label) {
-        const marker = L.marker([lat, lng]).addTo(map);
+        const marker = L.marker([lat, lng], { icon: redIcon }).addTo(map);
         marker.bindTooltip(label, { direction: "top", offset: [0, -8] });
         marker.on("click", () => {
           window.open(
@@ -287,6 +283,11 @@ const offices = [
 
   .hp-field {
     display: none;
+  }
+
+  .leaflet-marker-icon,
+  .leaflet-marker-shadow {
+    max-width: none;
   }
 
   @media (max-width: 860px) {

@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import facilities from "../data/offices.json";
 
 // EDITABLE COPY — swap these for Shrut's real words when he sends them.
 const intro = {
@@ -31,24 +32,7 @@ const capabilities = [
   },
 ];
 
-const facilities = [
-  {
-    label: "Corporate Office",
-    lines: [
-      "522–523, Shilp Epitome",
-      "Rajpath Club Road, Bodakdev",
-      "Ahmedabad – 380054, Gujarat",
-    ],
-  },
-  {
-    label: "Manufacturing Unit",
-    lines: [
-      "Plot No. 9, Apex Industrial Park",
-      "Kadi–Chhatral Highway, Kadi",
-      "Ahmedabad – 382715, Gujarat",
-    ],
-  },
-];
+
 ---
 
 <Layout
