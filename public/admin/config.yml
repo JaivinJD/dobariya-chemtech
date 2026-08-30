@@ -29,6 +29,36 @@ publish_mode: editorial_workflow
 media_folder: "public/uploads/products"
 public_folder: "/uploads/products"
 
+backend:
+  name: git-gateway
+  repo: JaivinJD/dobariya-chemtech
+  branch: cms-admin
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/e1b1d879-ba49-4427-8b1b-69b866573ca6/pkce
+  auth_token_endpoint: /sites/e1b1d879-ba49-4427-8b1b-69b866573ca6/token
+  gateway_url: https://gateway.decapbridge.com
+  commit_messages:
+    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+site_url: https://cms-admin--dobariya-chemtech.netlify.app
+
+publish_mode: editorial_workflow
+
+media_folder: "public/uploads/products"
+public_folder: "/uploads/products"
+
 collections:
   - name: "products"
     label: "Products"
@@ -37,20 +67,65 @@ collections:
         label: "Products"
         file: "src/data/products.json"
         fields:
-          - {label: "Products", name: "products", widget: "list", fields:
-              - {label: "ID (no spaces, e.g. methyl-bromide)", name: "id", widget: "string"}
-              - {label: "Name", name: "name", widget: "string"}
-              - {label: "Category", name: "category", widget: "select", options: ["alkyl-solvents", "alkyl-solid", "other"]}
-              - {label: "Formula", name: "formula", widget: "string", required: false}
-              - {label: "Grade", name: "grade", widget: "string", required: false}
-              - {label: "Synonyms", name: "synonyms", widget: "list", required: false}
-              - {label: "CAS Number", name: "cas", widget: "string", required: false}
-              - {label: "Packaging", name: "packaging", widget: "list", required: false}
-              - {label: "Applications", name: "applications", widget: "list", required: false}
-              - {label: "Featured", name: "featured", widget: "boolean", default: false}
-              - {label: "Appearance", name: "appearance", widget: "string", required: false}
-              - {label: "Boiling Point", name: "boilingPoint", widget: "string", required: false}
-              - {label: "Melting Point", name: "meltingPoint", widget: "string", required: false}
-              - {label: "Specific Gravity", name: "specificGravity", widget: "string", required: false}
-              - {label: "Product Image", name: "image", widget: "image", required: false}
-            }
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            fields:
+              - label: "ID (no spaces, e.g. methyl-bromide)"
+                name: "id"
+                widget: "string"
+              - label: "Name"
+                name: "name"
+                widget: "string"
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["alkyl-solvents", "alkyl-solid", "other"]
+              - label: "Formula"
+                name: "formula"
+                widget: "string"
+                required: false
+              - label: "Grade"
+                name: "grade"
+                widget: "string"
+                required: false
+              - label: "Synonyms"
+                name: "synonyms"
+                widget: "list"
+                required: false
+              - label: "CAS Number"
+                name: "cas"
+                widget: "string"
+                required: false
+              - label: "Packaging"
+                name: "packaging"
+                widget: "list"
+                required: false
+              - label: "Applications"
+                name: "applications"
+                widget: "list"
+                required: false
+              - label: "Featured"
+                name: "featured"
+                widget: "boolean"
+                default: false
+              - label: "Appearance"
+                name: "appearance"
+                widget: "string"
+                required: false
+              - label: "Boiling Point"
+                name: "boilingPoint"
+                widget: "string"
+                required: false
+              - label: "Melting Point"
+                name: "meltingPoint"
+                widget: "string"
+                required: false
+              - label: "Specific Gravity"
+                name: "specificGravity"
+                widget: "string"
+                required: false
+              - label: "Product Image"
+                name: "image"
+                widget: "image"
+                required: false
