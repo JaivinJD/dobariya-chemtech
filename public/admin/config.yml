@@ -23,37 +23,6 @@ auth:
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 site_url: https://cms-admin--dobariya-chemtech.netlify.app
 
-# THE SAFEGUARD: nothing Shrut saves goes live until you click Publish
-publish_mode: editorial_workflow
-
-media_folder: "public/uploads/products"
-public_folder: "/uploads/products"
-
-backend:
-  name: git-gateway
-  repo: JaivinJD/dobariya-chemtech
-  branch: cms-admin
-  auth_type: pkce
-  base_url: https://auth.decapbridge.com
-  auth_endpoint: /sites/e1b1d879-ba49-4427-8b1b-69b866573ca6/pkce
-  auth_token_endpoint: /sites/e1b1d879-ba49-4427-8b1b-69b866573ca6/token
-  gateway_url: https://gateway.decapbridge.com
-  commit_messages:
-    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
-
-auth:
-  email_claim: email
-  first_name_claim: first_name
-  last_name_claim: last_name
-  avatar_url_claim: avatar_url
-
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-site_url: https://cms-admin--dobariya-chemtech.netlify.app
-
 publish_mode: editorial_workflow
 
 media_folder: "public/uploads/products"
