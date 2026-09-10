@@ -29,15 +29,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={new URL("/og-image.jpeg", Astro.site)} />
+    <meta property="og:image" content={new URL("/og-image.png", Astro.site)} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta
-      name="twitter:image"
-      content={new URL("/og-image.jpeg", Astro.site)}
-    />
+    <meta name="twitter:image" content={new URL("/og-image.png", Astro.site)} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +50,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         "@type": "Organization",
         name: "Dobariya Chemtech Pvt. Ltd.",
         url: "https://dobariyachemtech.com",
-        logo: "https://dobariyachemtech.com/og-image.jpg",
+        logo: "https://dobariyachemtech.com/og-image.png",
         address: {
           "@type": "PostalAddress",
           streetAddress: "522-523 Shilp Epitome, Bodakdev",

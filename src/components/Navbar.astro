@@ -1,4 +1,6 @@
 ---
+import LogoLockup from '../assets/logo-lockup.svg';
+
 // The nav links live as DATA, not repeated markup.
 // Add/remove/reorder a link by editing this one array.
 const links = [
@@ -12,9 +14,8 @@ const links = [
 
 <header class="navbar">
   <div class="container navbar__inner">
-    <a href="/" class="navbar__brand">
-      <span class="name">DOBARIYA</span>
-      <span class="sub">CHEMICALS</span>
+    <a href="/" class="navbar__brand" aria-label="Dobariya Chemtech - home">
+      <LogoLockup class="navbar__logo" aria-hidden="true" />
     </a>
 
     <nav class="navbar__links">
@@ -44,20 +45,20 @@ const links = [
     height: 68px;
   }
 
-  .navbar__brand { display: flex; flex-direction: column; line-height: 1.05; }
-  .navbar__brand .name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: 0.06em;
+  /* colour is set ONCE here; the wordmark inherits it via currentColor,
+     so a future .navbar--dark only has to override this one line.
+     The teal mark keeps its own fill and is unaffected. */
+  .navbar__brand {
+    display: flex;
+    align-items: center;
     color: var(--color-ink);
   }
-  .navbar__brand .sub {
-    font-size: 0.62rem;
-    letter-spacing: 0.24em;
-    color: var(--color-muted);
-    font-weight: 500;
+  .navbar__logo {
+    height: 36px;
+    width: auto;
+    display: block;
   }
+
   .navbar__links { display: flex; align-items: center; gap: 1.6rem; }
   .navbar__links a {
     font-size: 1rem;              /* was 0.95rem — slightly larger */

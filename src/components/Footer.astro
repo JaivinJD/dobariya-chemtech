@@ -1,4 +1,6 @@
 ---
+import LogoLockup from '../assets/logo-lockup.svg';
+
 // All editable footer content lives here as data — never hardcoded below.
 const company = {
   name: "Dobariya Chemtech Pvt. Ltd.",
@@ -40,7 +42,9 @@ const year = new Date().getFullYear(); // auto-updates every year
 <footer class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <span class="footer__name">DOBARIYA <em>CHEMICALS</em></span>
+      <a href="/" class="footer__logo" aria-label="Dobariya Chemtech - home">
+        <LogoLockup class="footer__mark" aria-hidden="true" />
+      </a>
       <p class="footer__tagline">{company.tagline}</p>
       <p class="footer__contact">
         <a href={`mailto:${company.email}`}>{company.email}</a><br />
@@ -84,17 +88,16 @@ const year = new Date().getFullYear(); // auto-updates every year
     gap: var(--space-md);
     padding-block: var(--space-lg);
   }
-  .footer__name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: 0.06em;
-    color: #fff;
+  .footer__logo {
+    display: block;
+    color: #fff;          /* the wordmark inherits this via currentColor */
   }
-  .footer__name em {
-    font-style: normal;
-    color: var(--color-brand);
+  .footer__mark {
+    height: 40px;
+    width: auto;
+    display: block;
   }
+
   .footer__tagline {
     margin-top: var(--space-xs);
     font-size: 0.9rem;
