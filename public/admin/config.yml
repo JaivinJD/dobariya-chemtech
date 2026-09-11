@@ -33,6 +33,8 @@ collections:
     label: "Products"
     label_singular: "Product"
     folder: "src/data/products"
+    extension: "json"
+    format: "json"
     create: true
     slug: "{{slug}}"
     identifier_field: "name"
