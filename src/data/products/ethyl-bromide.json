@@ -1,0 +1,18 @@
+{
+  "name": "Ethyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C2H5Br",
+  "cas": "74-96-4",
+  "synonyms": [
+    "Bromoethane",
+    "Monobromoethane"
+  ],
+  "applications": [
+    "Ethylating agent in organic synthesis",
+    "Pharmaceutical intermediate",
+    "Solvent"
+  ],
+  "appearance": "Colourless liquid (turns pale yellow on exposure to light/air)",
+  "boilingPoint": "38°C",
+  "specificGravity": "1.46"
+}

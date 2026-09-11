@@ -1,0 +1,19 @@
+{
+  "name": "iso-Propyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C3H7Br",
+  "cas": "75-26-3",
+  "synonyms": [
+    "2-Bromopropane",
+    "Isopropyl bromide",
+    "sec-Propyl bromide"
+  ],
+  "applications": [
+    "Isopropylating agent in organic synthesis",
+    "Pharmaceutical and agrochemical intermediate",
+    "Industrial solvent"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "59.5°C",
+  "specificGravity": "1.31"
+}

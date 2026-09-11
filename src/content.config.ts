@@ -1,9 +1,10 @@
 import { defineCollection, z } from 'astro:content';
-import { file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
 const products = defineCollection({
-  // Load every entry from our single JSON file.
-  loader: file('src/data/products.json', { parser: (text) => JSON.parse(text).products }),
+  // Load every .json file in this folder as one product. The filename
+  // (minus .json) becomes the product's id automatically.
+  loader: glob({ pattern: '**/*.json', base: 'src/data/products' }),
 
   // The rulebook: every product is checked against this at build time.
   schema: z.object({

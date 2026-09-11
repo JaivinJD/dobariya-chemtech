@@ -1,0 +1,18 @@
+{
+  "name": "n-Hexyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C6H13Br",
+  "cas": "111-25-1",
+  "synonyms": [
+    "1-Bromohexane",
+    "Hexyl bromide"
+  ],
+  "applications": [
+    "Alkylating agent",
+    "Intermediate in organic synthesis",
+    "Surfactant precursor"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "156°C",
+  "specificGravity": "1.18"
+}

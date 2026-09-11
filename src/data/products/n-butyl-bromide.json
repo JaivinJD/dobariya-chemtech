@@ -1,0 +1,19 @@
+{
+  "name": "n-Butyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C4H9Br",
+  "cas": "109-65-9",
+  "synonyms": [
+    "1-Bromobutane",
+    "Butyl bromide"
+  ],
+  "applications": [
+    "Alkylating agent",
+    "Grignard-reagent precursor",
+    "Solvent for cleaning and degreasing"
+  ],
+  "featured": true,
+  "appearance": "Colourless liquid",
+  "boilingPoint": "101.6°C",
+  "specificGravity": "1.28"
+}

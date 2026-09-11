@@ -1,0 +1,18 @@
+{
+  "name": "n-Lauryl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C12H25Br",
+  "cas": "143-15-7",
+  "synonyms": [
+    "1-Bromododecane",
+    "Dodecyl bromide",
+    "Lauryl bromide"
+  ],
+  "applications": [
+    "Long-chain alkylating agent",
+    "Surfactant intermediate"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "276°C",
+  "specificGravity": "1.04"
+}

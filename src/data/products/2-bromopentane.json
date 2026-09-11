@@ -1,0 +1,17 @@
+{
+  "name": "2-Bromopentane",
+  "category": "alkyl-solvents",
+  "formula": "C5H11Br",
+  "cas": "107-81-3",
+  "synonyms": [
+    "2-Pentyl bromide",
+    "sec-Amyl bromide"
+  ],
+  "applications": [
+    "Intermediate in organic synthesis",
+    "Research reagent"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "117.3°C",
+  "specificGravity": "1.21"
+}

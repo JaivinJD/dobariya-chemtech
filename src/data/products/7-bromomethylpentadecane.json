@@ -1,0 +1,17 @@
+{
+  "name": "7-(Bromomethyl)pentadecane",
+  "category": "alkyl-solvents",
+  "formula": "C16H33Br",
+  "cas": "52997-43-0",
+  "synonyms": [
+    "1-Bromo-2-hexyldecane",
+    "2-Hexyldecyl bromide"
+  ],
+  "applications": [
+    "Branched-chain building block for organic synthesis",
+    "Specialty reagent"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "341°C",
+  "specificGravity": "1.00"
+}

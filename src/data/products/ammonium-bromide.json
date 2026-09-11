@@ -1,0 +1,17 @@
+{
+  "name": "Ammonium Bromide",
+  "category": "alkyl-solid",
+  "formula": "NH4Br",
+  "cas": "12124-97-9",
+  "synonyms": [
+    "Azanium bromide"
+  ],
+  "applications": [
+    "Photographic chemicals",
+    "Flame retardant",
+    "Bromide source"
+  ],
+  "appearance": "White crystalline solid",
+  "meltingPoint": "235°C",
+  "specificGravity": "2.43"
+}

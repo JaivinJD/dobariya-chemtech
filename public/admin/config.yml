@@ -31,70 +31,64 @@ public_folder: "/uploads/products"
 collections:
   - name: "products"
     label: "Products"
-    files:
-      - name: "products"
-        label: "Products"
-        file: "src/data/products.json"
-        fields:
-          - label: "Products"
-            name: "products"
-            widget: "list"
-            fields:
-              - label: "ID (no spaces, e.g. methyl-bromide)"
-                name: "id"
-                widget: "string"
-              - label: "Name"
-                name: "name"
-                widget: "string"
-              - label: "Category"
-                name: "category"
-                widget: "select"
-                options: ["alkyl-solvents", "alkyl-solid", "other"]
-              - label: "Formula"
-                name: "formula"
-                widget: "string"
-                required: false
-              - label: "Grade"
-                name: "grade"
-                widget: "string"
-                required: false
-              - label: "Synonyms"
-                name: "synonyms"
-                widget: "list"
-                required: false
-              - label: "CAS Number"
-                name: "cas"
-                widget: "string"
-                required: false
-              - label: "Packaging"
-                name: "packaging"
-                widget: "list"
-                required: false
-              - label: "Applications"
-                name: "applications"
-                widget: "list"
-                required: false
-              - label: "Featured"
-                name: "featured"
-                widget: "boolean"
-                default: false
-              - label: "Appearance"
-                name: "appearance"
-                widget: "string"
-                required: false
-              - label: "Boiling Point"
-                name: "boilingPoint"
-                widget: "string"
-                required: false
-              - label: "Melting Point"
-                name: "meltingPoint"
-                widget: "string"
-                required: false
-              - label: "Specific Gravity"
-                name: "specificGravity"
-                widget: "string"
-                required: false
-              - label: "Product Image"
-                name: "image"
-                widget: "image"
-                required: false
+    label_singular: "Product"
+    folder: "src/data/products"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "name"
+    fields:
+      - label: "Name"
+        name: "name"
+        widget: "string"
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["alkyl-solvents", "alkyl-solid", "other"]
+      - label: "Formula"
+        name: "formula"
+        widget: "string"
+        required: false
+      - label: "Grade"
+        name: "grade"
+        widget: "string"
+        required: false
+      - label: "Synonyms"
+        name: "synonyms"
+        widget: "list"
+        required: false
+      - label: "CAS Number"
+        name: "cas"
+        widget: "string"
+        required: false
+      - label: "Packaging"
+        name: "packaging"
+        widget: "list"
+        required: false
+      - label: "Applications"
+        name: "applications"
+        widget: "list"
+        required: false
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+      - label: "Appearance"
+        name: "appearance"
+        widget: "string"
+        required: false
+      - label: "Boiling Point"
+        name: "boilingPoint"
+        widget: "string"
+        required: false
+      - label: "Melting Point"
+        name: "meltingPoint"
+        widget: "string"
+        required: false
+      - label: "Specific Gravity"
+        name: "specificGravity"
+        widget: "string"
+        required: false
+      - label: "Product Image"
+        name: "image"
+        widget: "image"
+        required: false

@@ -1,0 +1,17 @@
+{
+  "name": "n-Decyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C10H21Br",
+  "cas": "112-29-8",
+  "synonyms": [
+    "1-Bromodecane",
+    "Decyl bromide"
+  ],
+  "applications": [
+    "Long-chain alkylating agent",
+    "Surfactant intermediate"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "238°C",
+  "specificGravity": "1.07"
+}

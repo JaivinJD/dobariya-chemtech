@@ -1,0 +1,18 @@
+{
+  "name": "tert-Butyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C4H9Br",
+  "cas": "507-19-7",
+  "synonyms": [
+    "2-Bromo-2-methylpropane",
+    "Trimethylbromomethane",
+    "2-Bromoisobutane"
+  ],
+  "applications": [
+    "tert-Butylating reagent in organic synthesis",
+    "Chemical intermediate"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "73.3°C",
+  "specificGravity": "1.22"
+}

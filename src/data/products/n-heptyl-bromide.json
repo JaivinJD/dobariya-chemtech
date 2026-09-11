@@ -1,0 +1,17 @@
+{
+  "name": "n-Heptyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C7H15Br",
+  "cas": "629-04-9",
+  "synonyms": [
+    "1-Bromoheptane",
+    "Heptyl bromide"
+  ],
+  "applications": [
+    "Alkylating agent",
+    "Intermediate in organic synthesis"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "180°C",
+  "specificGravity": "1.14"
+}

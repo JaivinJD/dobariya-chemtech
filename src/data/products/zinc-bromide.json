@@ -1,0 +1,19 @@
+{
+  "name": "Zinc Bromide",
+  "category": "alkyl-solid",
+  "formula": "ZnBr2",
+  "cas": "7699-45-8",
+  "synonyms": [
+    "Zinc dibromide",
+    "Anhydrous zinc bromide"
+  ],
+  "applications": [
+    "High-density oil & gas well and completion fluids",
+    "Battery electrolyte (zinc-bromine)",
+    "Lewis-acid catalyst"
+  ],
+  "featured": true,
+  "appearance": "White crystalline powder (hygroscopic)",
+  "meltingPoint": "394°C",
+  "specificGravity": "4.20"
+}

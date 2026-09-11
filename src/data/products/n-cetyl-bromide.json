@@ -1,0 +1,17 @@
+{
+  "name": "n-Cetyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C16H33Br",
+  "cas": "112-82-3",
+  "synonyms": [
+    "1-Bromohexadecane",
+    "Cetyl bromide",
+    "Palmityl bromide"
+  ],
+  "applications": [
+    "Long-chain alkylating agent",
+    "Surfactant intermediate"
+  ],
+  "appearance": "Colourless to pale yellow liquid (mp ~16–19°C, so borderline liquid/low-melting solid at room temperature)",
+  "boilingPoint": "336°C"
+}

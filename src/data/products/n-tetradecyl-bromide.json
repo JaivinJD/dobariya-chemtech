@@ -1,0 +1,17 @@
+{
+  "name": "n-Tetradecyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C14H29Br",
+  "cas": "112-71-0",
+  "synonyms": [
+    "1-Bromotetradecane",
+    "Myristyl bromide",
+    "Tetradecyl bromide"
+  ],
+  "applications": [
+    "Long-chain alkylating agent",
+    "Surfactant intermediate"
+  ],
+  "appearance": "Colourless to pale yellow liquid",
+  "boilingPoint": "307°C"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "2-Ethylhexyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C8H17Br",
+  "cas": "18908-66-2",
+  "synonyms": [
+    "1-Bromo-2-ethylhexane",
+    "3-(Bromomethyl)heptane"
+  ],
+  "applications": [
+    "Branched side-chain / solubility-enhancing reagent",
+    "Intermediate in organic synthesis"
+  ],
+  "appearance": "Colourless to pale yellow liquid",
+  "boilingPoint": "190.8°C",
+  "specificGravity": "1.10"
+}

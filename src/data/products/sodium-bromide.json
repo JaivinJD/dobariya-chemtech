@@ -1,0 +1,18 @@
+{
+  "name": "Sodium Bromide",
+  "category": "alkyl-solid",
+  "formula": "NaBr",
+  "cas": "7647-15-6",
+  "synonyms": [
+    "Anhydrous sodium bromide"
+  ],
+  "applications": [
+    "Oil & gas drilling and completion fluids",
+    "Bromide source in organic synthesis",
+    "Photographic chemicals"
+  ],
+  "featured": true,
+  "appearance": "White crystalline solid",
+  "meltingPoint": "747°C",
+  "specificGravity": "3.21"
+}

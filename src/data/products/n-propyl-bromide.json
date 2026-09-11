@@ -1,0 +1,20 @@
+{
+  "name": "n-Propyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C3H7Br",
+  "cas": "106-94-5",
+  "synonyms": [
+    "1-Bromopropane",
+    "Propyl bromide",
+    "1-BP"
+  ],
+  "applications": [
+    "Solvent for degreasing and cleaning",
+    "Adhesives and aerosols",
+    "Chemical intermediate"
+  ],
+  "featured": true,
+  "appearance": "Colourless liquid",
+  "boilingPoint": "71°C",
+  "specificGravity": "1.35"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "iso-Butyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C4H9Br",
+  "cas": "78-77-3",
+  "synonyms": [
+    "1-Bromo-2-methylpropane",
+    "Isobutyl bromide",
+    "1-Bromoisobutane"
+  ],
+  "applications": [
+    "Alkylating agent",
+    "Pharmaceutical intermediate",
+    "Grignard-reagent precursor"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "91.5°C",
+  "specificGravity": "1.26"
+}

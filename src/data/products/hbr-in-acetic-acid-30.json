@@ -1,0 +1,16 @@
+{
+  "name": "HBr in Acetic Acid 30%",
+  "category": "alkyl-solid",
+  "formula": "HBr in CH3COOH",
+  "cas": "37348-16-6",
+  "synonyms": [
+    "Hydrogen bromide in acetic acid",
+    "HBr/AcOH"
+  ],
+  "applications": [
+    "Reagent in organic synthesis",
+    "Pharmaceutical intermediate"
+  ],
+  "appearance": "Colourless to pale yellow liquid",
+  "specificGravity": "1.31"
+}

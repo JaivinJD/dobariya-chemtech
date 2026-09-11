@@ -1,0 +1,20 @@
+{
+  "name": "Allyl Bromide",
+  "category": "other",
+  "formula": "C3H5Br",
+  "cas": "106-95-6",
+  "synonyms": [
+    "3-Bromopropene",
+    "3-Bromo-1-propene",
+    "2-Propenyl bromide"
+  ],
+  "applications": [
+    "Allylating agent in organic synthesis",
+    "Pharmaceutical and agrochemical intermediate",
+    "Polymer / resin precursor"
+  ],
+  "featured": true,
+  "appearance": "Colourless to pale yellow liquid",
+  "boilingPoint": "71°C",
+  "specificGravity": "1.40"
+}

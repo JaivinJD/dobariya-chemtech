@@ -1,0 +1,17 @@
+{
+  "name": "Stearyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C18H37Br",
+  "cas": "112-89-0",
+  "synonyms": [
+    "1-Bromooctadecane",
+    "Octadecyl bromide"
+  ],
+  "applications": [
+    "Long-chain alkylating agent",
+    "Surfactant intermediate"
+  ],
+  "appearance": "Colourless to pale yellow liquid/low-melting solid (mp ~20–23°C)",
+  "boilingPoint": "370°C",
+  "specificGravity": "0.98"
+}

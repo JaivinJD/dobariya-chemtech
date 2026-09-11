@@ -1,0 +1,17 @@
+{
+  "name": "Potassium Bromide",
+  "category": "alkyl-solid",
+  "formula": "KBr",
+  "cas": "7758-02-3",
+  "synonyms": [
+    "Anhydrous potassium bromide"
+  ],
+  "applications": [
+    "IR-spectroscopy optical windows",
+    "Photographic emulsions",
+    "Bromide source"
+  ],
+  "appearance": "White crystalline solid",
+  "meltingPoint": "734°C",
+  "specificGravity": "2.75"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Calcium Bromide",
+  "category": "alkyl-solid",
+  "formula": "CaBr2",
+  "cas": "7789-41-5",
+  "synonyms": [
+    "Calcium dibromide",
+    "Calcium bromide solution"
+  ],
+  "applications": [
+    "High-density oil & gas drilling and completion fluids",
+    "Flame-retardant additive",
+    "Photographic chemicals"
+  ],
+  "featured": true,
+  "appearance": "White to colourless crystalline solid (hygroscopic)",
+  "meltingPoint": "730°C",
+  "specificGravity": "3.35"
+}

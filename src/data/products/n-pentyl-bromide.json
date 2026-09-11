@@ -1,0 +1,19 @@
+{
+  "name": "n-Pentyl Bromide",
+  "category": "alkyl-solvents",
+  "formula": "C5H11Br",
+  "cas": "110-53-2",
+  "synonyms": [
+    "1-Bromopentane",
+    "n-Amyl bromide",
+    "Pentyl bromide"
+  ],
+  "applications": [
+    "Alkylating agent in organic synthesis",
+    "Intermediate",
+    "Solvent"
+  ],
+  "appearance": "Colourless liquid",
+  "boilingPoint": "129.8°C",
+  "specificGravity": "1.22"
+}

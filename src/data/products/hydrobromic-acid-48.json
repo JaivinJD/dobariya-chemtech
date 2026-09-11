@@ -1,0 +1,19 @@
+{
+  "name": "Hydrobromic Acid 48%",
+  "category": "alkyl-solid",
+  "formula": "HBr",
+  "cas": "10035-10-6",
+  "synonyms": [
+    "Hydrogen bromide (aqueous)",
+    "Hydrobromic acid"
+  ],
+  "applications": [
+    "Brominating agent",
+    "Raw material for bromide salts and bromine compounds",
+    "Catalyst in organic reactions"
+  ],
+  "featured": true,
+  "appearance": "Colourless to pale yellow fuming liquid",
+  "boilingPoint": "122°C",
+  "specificGravity": "1.49"
+}
