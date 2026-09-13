@@ -14,6 +14,8 @@ export async function getStaticPaths() {
 const { product } = Astro.props;
 const d = product.data;
 
+const withBreaks = (name) => name.replace(/\)/g, ')<wbr/>');
+
 // Readable label for the category badge.
 const categoryLabels = {
   'alkyl-solvents': 'Alkyl Bromides · in solvents',
@@ -61,7 +63,7 @@ const productSchema = {
       <a href="/products" class="pd__back">← All products</a>
 
       <span class="pd__cat">{categoryLabels[d.category]}</span>
-      <h1 class="pd__name">{d.name}</h1>
+      <h1 class="pd__name" set:html={withBreaks(d.name)} />
       {d.formula && <p class="pd__formula">{d.formula}</p>}
       {d.synonyms && d.synonyms.length > 0 && (
         <p class="pd__synonyms">Also known as: {d.synonyms.join(', ')}</p>)}
@@ -138,6 +140,8 @@ const productSchema = {
   .pd__apps { margin-top: var(--space-md); }
   .pd__apps h2 { font-size: 1.2rem; color: var(--color-ink); margin-bottom: 0.5rem; }
   .pd__apps ul { padding-left: 1.2rem; color: var(--color-muted); line-height: 1.8; }
+
+  .pd__name { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--color-ink); margin-top: 0.3rem; overflow-wrap: break-word; }
 
   .pd__cta {
     background: var(--color-surface-2);
