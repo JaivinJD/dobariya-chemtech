@@ -94,3 +94,25 @@ collections:
         name: "image"
         widget: "image"
         required: false
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "contact"
+        label: "Contact Info"
+        file: "src/data/contact.json"
+        fields:
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Phone", name: "phone", widget: "string"}
+          - {label: "WhatsApp Number (digits only, with country code)", name: "whatsapp", widget: "string"}
+          - {label: "Business Hours", name: "hours", widget: "string"}
+      - name: "locations"
+        label: "Office Locations"
+        file: "src/data/offices.json"
+        fields:
+          - label: "Offices"
+            name: "offices"
+            widget: "list"
+            fields:
+              - {label: "Office Name", name: "label", widget: "string"}
+              - {label: "Address Lines", name: "lines", widget: "list"}
