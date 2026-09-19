@@ -22,6 +22,9 @@ const products = defineCollection({
     boilingPoint: z.string().optional(),                 // for liquids/gases
     meltingPoint: z.string().optional(),                 // for solids without a meaningful bp
     specificGravity: z.string().optional(),                 // plain decimal as a string
+    // CMS-uploaded photo, e.g. "/uploads/products/methyl-bromide.jpg".
+    // A plain path, not an Astro-optimized asset — see Hero.astro for why.
+    image: z.string().optional(),
   }),
 });
 

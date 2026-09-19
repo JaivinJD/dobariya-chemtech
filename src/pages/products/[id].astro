@@ -1,53 +1,57 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 // This function tells Astro WHICH pages to generate — one per product.
 export async function getStaticPaths() {
-  const products = await getCollection('products');
+  const products = await getCollection("products");
   return products.map((product) => ({
-    params: { id: product.id },     // the URL: /products/<id>
-    props: { product },             // hand the whole product to the page
+    params: { id: product.id }, // the URL: /products/<id>
+    props: { product }, // hand the whole product to the page
   }));
 }
 
 const { product } = Astro.props;
 const d = product.data;
 
-const withBreaks = (name) => name.replace(/\)/g, ')<wbr/>');
+const withBreaks = (name) => name.replace(/\)/g, ")<wbr/>");
 
 // Readable label for the category badge.
 const categoryLabels = {
-  'alkyl-solvents': 'Alkyl Bromides · in solvents',
-  'alkyl-solid': 'Alkyl Bromides · solid / other forms',
-  'other': 'Other Bromides',
+  "alkyl-solvents": "Alkyl Bromides · in solvents",
+  "alkyl-solid": "Alkyl Bromides · solid / other forms",
+  other: "Other Bromides",
 };
 
 // Build a spec list from ONLY the fields that exist (hides blanks).
 const specs: { label: string; value: string }[] = [];
-if (d.formula)   specs.push({ label: 'Formula', value: d.formula });
-if (d.cas)       specs.push({ label: 'CAS Number', value: d.cas });
-if (d.grade)     specs.push({ label: 'Grade / Purity', value: d.grade });
-if (d.packaging) specs.push({ label: 'Packaging', value: d.packaging.join(', ') });
-if (d.appearance)      specs.push({ label: 'Appearance', value: d.appearance });
-if (d.boilingPoint)    specs.push({ label: 'Boiling Point', value: d.boilingPoint });
-if (d.meltingPoint)    specs.push({ label: 'Melting Point', value: d.meltingPoint });
-if (d.specificGravity) specs.push({ label: 'Specific Gravity', value: d.specificGravity });
+if (d.formula) specs.push({ label: "Formula", value: d.formula });
+if (d.cas) specs.push({ label: "CAS Number", value: d.cas });
+if (d.grade) specs.push({ label: "Grade / Purity", value: d.grade });
+if (d.packaging)
+  specs.push({ label: "Packaging", value: d.packaging.join(", ") });
+if (d.appearance) specs.push({ label: "Appearance", value: d.appearance });
+if (d.boilingPoint)
+  specs.push({ label: "Boiling Point", value: d.boilingPoint });
+if (d.meltingPoint)
+  specs.push({ label: "Melting Point", value: d.meltingPoint });
+if (d.specificGravity)
+  specs.push({ label: "Specific Gravity", value: d.specificGravity });
 
 const productSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
+  "@context": "https://schema.org",
+  "@type": "Product",
   name: d.name,
-  description: `${d.name}${d.formula ? ` (${d.formula})` : ''} — manufactured and supplied by Dobariya Chemtech, Ahmedabad.`,
+  description: `${d.name}${d.formula ? ` (${d.formula})` : ""} — manufactured and supplied by Dobariya Chemtech, Ahmedabad.`,
   category: categoryLabels[d.category],
   manufacturer: {
-    '@type': 'Organization',
-    name: 'Dobariya Chemtech Pvt. Ltd.',
-    url: 'https://dobariyachemtech.com',
+    "@type": "Organization",
+    name: "Dobariya Chemtech Pvt. Ltd.",
+    url: "https://dobariyachemtech.com",
   },
   ...(d.cas && { productID: d.cas }),
   additionalProperty: specs.map((s) => ({
-    '@type': 'PropertyValue',
+    "@type": "PropertyValue",
     name: s.label,
     value: s.value,
   })),
@@ -56,7 +60,7 @@ const productSchema = {
 
 <Layout
   title={`${d.name} — Bromine Derivative | Dobariya Chemtech`}
-  description={`${d.name}${d.formula ? ` (${d.formula})` : ''} — manufactured and supplied by Dobariya Chemtech, Ahmedabad. Request a quote for pricing and availability.`}
+  description={`${d.name}${d.formula ? ` (${d.formula})` : ""} — manufactured and supplied by Dobariya Chemtech, Ahmedabad. Request a quote for pricing and availability.`}
 >
   <section class="pd">
     <div class="container">
@@ -65,37 +69,56 @@ const productSchema = {
       <span class="pd__cat">{categoryLabels[d.category]}</span>
       <h1 class="pd__name" set:html={withBreaks(d.name)} />
       {d.formula && <p class="pd__formula">{d.formula}</p>}
-      {d.synonyms && d.synonyms.length > 0 && (
-        <p class="pd__synonyms">Also known as: {d.synonyms.join(', ')}</p>)}
+      {
+        d.synonyms && d.synonyms.length > 0 && (
+          <p class="pd__synonyms">Also known as: {d.synonyms.join(", ")}</p>
+        )
+      }
 
       <div class="pd__body">
         <div class="pd__main">
-          {specs.length > 0 ? (
-            <table class="pd__specs">
-              {specs.map((row) => (
-                <tr>
-                  <th>{row.label}</th>
-                  <td>{row.value}</td>
-                </tr>
-              ))}
-            </table>
-          ) : (
-            <p class="pd__empty">Detailed specifications available on request.</p>
-          )}
+          {
+            d.image && (
+              <img src={d.image} alt={d.name} class="pd__img" loading="lazy" />
+            )
+          }
+          {
+            specs.length > 0 ? (
+              <table class="pd__specs">
+                {specs.map((row) => (
+                  <tr>
+                    <th>{row.label}</th>
+                    <td>{row.value}</td>
+                  </tr>
+                ))}
+              </table>
+            ) : (
+              <p class="pd__empty">
+                Detailed specifications available on request.
+              </p>
+            )
+          }
 
-          {d.applications && (
-            <div class="pd__apps">
-              <h2>Applications</h2>
-              <ul>
-                {d.applications.map((a) => <li>{a}</li>)}
-              </ul>
-            </div>
-          )}
+          {
+            d.applications && (
+              <div class="pd__apps">
+                <h2>Applications</h2>
+                <ul>
+                  {d.applications.map((a) => (
+                    <li>{a}</li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
         </div>
 
         <aside class="pd__cta">
           <h3>Need pricing or a datasheet?</h3>
-          <p>Request a quote for {d.name} and our team will respond with availability and rates.</p>
+          <p>
+            Request a quote for {d.name} and our team will respond with availability
+            and rates.
+          </p>
           <a href="/contact" class="btn btn--primary">Request a quote →</a>
         </aside>
       </div>
@@ -103,53 +126,124 @@ const productSchema = {
   </section>
 
   <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
-  
 </Layout>
 
 <style>
-  .pd { padding-block: var(--space-lg); }
-  .pd__back { font-size: 0.9rem; color: var(--color-muted); }
-  .pd__back:hover { color: var(--color-brand); }
+  .pd {
+    padding-block: var(--space-lg);
+  }
+  .pd__back {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+  .pd__back:hover {
+    color: var(--color-brand);
+  }
   .pd__cat {
-    display: block; margin-top: var(--space-md);
-    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--color-brand); font-weight: 600;
+    display: block;
+    margin-top: var(--space-md);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    font-weight: 600;
   }
-  .pd__name { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--color-ink); margin-top: 0.3rem; }
-  .pd__formula { font-size: 1.2rem; color: var(--color-muted); margin-top: 0.3rem; }
+  .pd__name {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--color-ink);
+    margin-top: 0.3rem;
+  }
+  .pd__formula {
+    font-size: 1.2rem;
+    color: var(--color-muted);
+    margin-top: 0.3rem;
+  }
   .pd__synonyms {
-  font-size: 0.85rem;
-  color: var(--color-muted);
-  font-style: italic;
-  margin-top: 0.2rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.2rem;
   }
-  
+
   .pd__body {
-    display: grid; grid-template-columns: 1.6fr 1fr; gap: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: var(--space-lg);
     margin-top: var(--space-lg);
   }
-  .pd__specs { width: 100%; border-collapse: collapse; }
-  .pd__specs th, .pd__specs td {
-    text-align: left; padding: 0.8rem 0;
-    border-bottom: 1px solid var(--color-border); font-size: 0.98rem;
+
+  .pd__img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--space-md);
+    display: block;
   }
-  .pd__specs th { color: var(--color-muted); font-weight: 500; width: 40%; }
-  .pd__specs td { color: var(--color-ink); }
-  .pd__empty { color: var(--color-muted); }
+  .pd__specs {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .pd__specs th,
+  .pd__specs td {
+    text-align: left;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.98rem;
+  }
+  .pd__specs th {
+    color: var(--color-muted);
+    font-weight: 500;
+    width: 40%;
+  }
+  .pd__specs td {
+    color: var(--color-ink);
+  }
+  .pd__empty {
+    color: var(--color-muted);
+  }
 
-  .pd__apps { margin-top: var(--space-md); }
-  .pd__apps h2 { font-size: 1.2rem; color: var(--color-ink); margin-bottom: 0.5rem; }
-  .pd__apps ul { padding-left: 1.2rem; color: var(--color-muted); line-height: 1.8; }
+  .pd__apps {
+    margin-top: var(--space-md);
+  }
+  .pd__apps h2 {
+    font-size: 1.2rem;
+    color: var(--color-ink);
+    margin-bottom: 0.5rem;
+  }
+  .pd__apps ul {
+    padding-left: 1.2rem;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
 
-  .pd__name { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--color-ink); margin-top: 0.3rem; overflow-wrap: break-word; }
+  .pd__name {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--color-ink);
+    margin-top: 0.3rem;
+    overflow-wrap: break-word;
+  }
 
   .pd__cta {
     background: var(--color-surface-2);
     border: 1px solid var(--color-border);
-    border-radius: 14px; padding: var(--space-md); height: fit-content;
+    border-radius: 14px;
+    padding: var(--space-md);
+    height: fit-content;
   }
-  .pd__cta h3 { font-size: 1.15rem; color: var(--color-ink); }
-  .pd__cta p { font-size: 0.92rem; color: var(--color-muted); margin: 0.6rem 0 1.2rem; }
+  .pd__cta h3 {
+    font-size: 1.15rem;
+    color: var(--color-ink);
+  }
+  .pd__cta p {
+    font-size: 0.92rem;
+    color: var(--color-muted);
+    margin: 0.6rem 0 1.2rem;
+  }
 
-  @media (max-width: 860px) { .pd__body { grid-template-columns: 1fr; } }
+  @media (max-width: 860px) {
+    .pd__body {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
