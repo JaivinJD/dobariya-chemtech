@@ -74,6 +74,7 @@ collections:
         name: "featured"
         widget: "boolean"
         default: false
+        required: false
       - label: "Appearance"
         name: "appearance"
         widget: "string"
