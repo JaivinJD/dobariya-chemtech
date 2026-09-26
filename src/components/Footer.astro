@@ -1,154 +1,127 @@
 ---
-import LogoLockup from "../assets/logo-lockup.svg";
+import LogoLockup from '../assets/logo-lockup.svg';
+// Contact details and addresses come from the CMS files, never hardcoded here.
+import contact from '../data/contact.json';
+import { offices } from '../data/offices.json';
 
-// All editable footer content lives here as data — never hardcoded below.
 const company = {
-  name: "Dobariya Chemtech Pvt. Ltd.",
-  tagline: "Manufacturer of bromine derivatives.",
-  email: "dobariyachemtech@gmail.com",
-  phone: "+91 63558 49826",
+  legalName: 'Dobariya Chemtech Pvt. Ltd.',
+  tagline: 'Manufacturer of bromine derivatives. Kadi and Ahmedabad, Gujarat.',
 };
 
-const offices = [
-  {
-    label: "Corporate Office",
-    lines: [
-      "522–523, Shilp Epitome",
-      "Rajpath Club Road, Bodakdev",
-      "Ahmedabad – 380054, Gujarat",
-    ],
-  },
-  {
-    label: "Manufacturing Unit",
-    lines: [
-      "Plot No. 9, Apex Industrial Park",
-      "Kadi–Chhatral Highway, Kadi",
-      "Ahmedabad – 382715, Gujarat",
-    ],
-  },
-];
-
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/products" },
-  { label: "Quality", href: "/quality" },
-  { label: "Contact", href: "/contact" },
+  { label: 'Home',     href: '/' },
+  { label: 'About',    href: '/about' },
+  { label: 'Products', href: '/products' },
+  { label: 'Quality',  href: '/quality' },
+  { label: 'Contact',  href: '/contact' },
 ];
 
-const year = new Date().getFullYear(); // auto-updates every year
+const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
+const year = new Date().getFullYear();
 ---
 
-<footer class="footer">
-  <div class="container footer__grid">
-    <div class="footer__brand">
-      <a href="/" class="footer__logo" aria-label="Dobariya Chemtech - home">
-        <LogoLockup class="footer__mark" aria-hidden="true" />
-      </a>
-      <p class="footer__tagline">{company.tagline}</p>
-      <p class="footer__contact">
-        <a href={`mailto:${company.email}`}>{company.email}</a><br />
-        <a href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone}</a>
-      </p>
+<footer class="foot on-dark">
+  <div class="container">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <a href="/" class="foot__logo" aria-label="Dobariya Chemtech, home">
+          <LogoLockup aria-hidden="true" />
+        </a>
+        <p class="foot__tag">{company.tagline}</p>
+        <p class="foot__contact">
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          <a href={tel}>{contact.phone}</a>
+        </p>
+      </div>
+
+      {offices.map((office) => (
+        <div>
+          <h4>{office.label}</h4>
+          <p>{office.lines.map((line, i) => <Fragment>{i > 0 && <br />}{line}</Fragment>)}</p>
+        </div>
+      ))}
+
+      <nav aria-label="Footer">
+        <h4>Explore</h4>
+        <div class="foot__nav">
+          {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+        </div>
+      </nav>
     </div>
 
-    {
-      offices.map((office) => (
-        <div class="footer__office">
-          <h4>{office.label}</h4>
-          {office.lines.map((line) => (
-            <p>{line}</p>
-          ))}
-        </div>
-      ))
-    }
-
-    <nav class="footer__nav">
-      <h4>Explore</h4>
-      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-    </nav>
+    <div class="foot__word" aria-hidden="true">DOBARIYA</div>
   </div>
 
-  <div class="footer__bar">
-    <div class="container">
-      <p>© {year} {company.name} All rights reserved.</p>
-    </div>
+  <div class="container foot__bar">
+    <span>© {year} {company.legalName} All rights reserved.</span>
+    <a class="foot__group" href="https://dobariya.in" target="_blank" rel="noopener">
+      A Dobariya Group company · <u>dobariya.in</u> ↗
+    </a>
   </div>
 </footer>
 
 <style>
-  .footer {
+  .foot {
     background: var(--color-ink);
-    color: #b9c4c4;
-    margin-top: var(--space-xl);
+    color: var(--color-muted-dark);
+    padding-top: 88px;
+    font-size: 15px;
   }
-  .footer__grid {
+  .foot__top {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
-    gap: var(--space-md);
-    padding-block: var(--space-lg);
+    grid-template-columns: 1.4fr 1fr 1fr 0.7fr;
+    gap: 48px;
+    padding-bottom: 72px;
   }
-  .footer__logo {
-    display: block;
-    color: #fff; /* the wordmark inherits this via currentColor */
-  }
-  .footer__mark {
-    height: 40px;
-    width: 123px;
-    display: block;
-  }
+  .foot__logo { display: inline-flex; color: #fff; }
+  .foot__logo :global(svg) { height: 52px; width: auto; display: block; }
+  .foot__tag { margin-top: 24px; max-width: 32ch; }
+  .foot__contact { margin-top: 20px; display: grid; gap: 4px; }
+  .foot__contact a { color: #fff; justify-self: start; }
 
-  .footer__tagline {
-    margin-top: var(--space-xs);
-    font-size: 0.9rem;
-  }
-  .footer__contact {
-    margin-top: var(--space-sm);
-    font-size: 0.9rem;
-    line-height: 1.9;
-  }
-  .footer__contact a:hover {
+  .foot h4 {
+    margin-bottom: 18px;
     color: #fff;
-  }
-
-  .footer h4 {
-    color: #fff;
-    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-variation-settings: normal;
+    font-weight: 500;
+    font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: var(--space-sm);
   }
-  .footer__office p {
-    font-size: 0.9rem;
-    line-height: 1.7;
+  .foot p { line-height: 1.75; }
+  .foot__nav { display: grid; gap: 8px; justify-items: start; }
+  .foot a { transition: color 0.2s; }
+  .foot a:hover { color: #fff; }
+
+  /* Oversized, barely-there wordmark. Decorative only. */
+  .foot__word {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 700;
+    font-size: clamp(44px, 12vw, 200px);
+    line-height: 0.8;
+    letter-spacing: -0.045em;
+    color: #1F302F;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: -0.06em;
+    user-select: none;
   }
 
-  .footer__nav {
+  .foot__bar {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding-block: 22px;
+    border-top: 1px solid var(--color-border-dark);
+    font-size: 13px;
   }
-  .footer__nav a {
-    font-size: 0.9rem;
-  }
-  .footer__nav a:hover {
-    color: #fff;
-  }
+  .foot__group { color: var(--color-on-dark); }
+  .foot__group u { text-underline-offset: 3px; text-decoration-color: var(--color-brand); }
 
-  .footer__bar {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-block: var(--space-sm);
-    font-size: 0.82rem;
-  }
-
-  @media (max-width: 900px) {
-    .footer__grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  @media (max-width: 540px) {
-    .footer__grid {
-      grid-template-columns: 1fr;
-    }
-  }
+  @media (max-width: 1080px) { .foot__top { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px)  { .foot__top { grid-template-columns: 1fr; gap: 36px; } }
 </style>

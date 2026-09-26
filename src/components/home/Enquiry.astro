@@ -1,0 +1,54 @@
+---
+// Photo band with the main call to action, just above the footer.
+import contact from '../../data/contact.json';
+import PhotoSlot from '../ui/PhotoSlot.astro';
+import Arrow from '../ui/Arrow.astro';
+
+// Real photo goes here later: import dispatchImg from '../../assets/photos/dispatch.jpg';
+const dispatchImg = undefined;
+const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
+---
+
+<section class="enq on-dark">
+  <div class="enq__bg">
+    <PhotoSlot src={dispatchImg} alt="" code="P4" note="Dispatch, drums in a warehouse. 21:9 wide." tone="dark" sizes="100vw" widths={[960, 1600, 2400, 3000]} />
+  </div>
+  <div class="container enq__in" data-reveal>
+    <span class="label">Enquiries</span>
+    <h2 class="h2 enq__title">Need a regular supply or an export quote?</h2>
+    <p class="enq__text">
+      Tell us the product, grade and quantity. We reply with pricing, lead time and
+      documentation. {contact.hours}.
+    </p>
+    <div class="enq__actions">
+      <a href="/contact#enquiry" class="btn btn--primary">Request a quote <Arrow /></a>
+      <span class="enq__direct">or call <a href={tel}>{contact.phone}</a></span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .enq { position: relative; overflow: hidden; background: var(--color-ink); }
+  .enq__bg { position: absolute; inset: 0; }
+  /* Placeholder tag sits top-right so it never collides with the text */
+  .enq__bg :global(.ph) { align-items: flex-start; justify-content: flex-end; }
+  .enq::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(16, 26, 26, 0.92) 0%, rgba(16, 26, 26, 0.6) 55%, rgba(16, 26, 26, 0.25) 100%);
+  }
+  .enq__in { position: relative; z-index: 2; padding-block: clamp(104px, 13vw, 176px); }
+  .enq__title { margin-top: 20px; max-width: 16ch; }
+  .enq__text { margin-top: 20px; max-width: 46ch; color: var(--color-on-dark); }
+  .enq__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 36px; }
+  .enq__direct { font-family: var(--font-mono); font-size: 14px; color: var(--color-on-dark); }
+  .enq__direct a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.4); }
+  .enq__direct a:hover { border-color: #fff; }
+
+  @media (max-width: 600px) {
+    .enq__bg :global(.ph__tag) { display: none; }
+  }
+</style>

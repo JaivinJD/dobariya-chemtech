@@ -4,7 +4,8 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
 const {
-  title = "Dobariya Chemtech Pvt. Ltd. — Bromine Derivatives Manufacturer",
+  navOverlay = false, // true = navbar sits transparent over a full-bleed hero (homepage)
+  title = "Dobariya Chemtech Pvt. Ltd. | Bromine Derivatives Manufacturer",
   description = "Manufacturer and supplier of bromine derivatives in Ahmedabad, Gujarat. Alkyl, aryl and inorganic bromides at export-grade quality.",
 } = Astro.props;
 
@@ -20,6 +21,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#101A1A" />
+    <!-- Lets CSS hide reveal elements only when JS actually runs -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -39,7 +43,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -63,7 +67,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
   </head>
   <body>
-    <Navbar />
+    <Navbar overlay={navOverlay} />
     <slot />
     <Footer />
   </body>
@@ -90,7 +94,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     );
   });
 
-  // 2. Singles: individual [data-reveal] elements, smooth scrub.
+  // 2. Singles: individual [data-reveal] elements rise in once.
+  //    (Was a scroll-scrubbed fade; changed so content is never left half-faded.)
   document.querySelectorAll("[data-reveal]").forEach((el) => {
     gsap.fromTo(
       el,
@@ -98,17 +103,30 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       {
         autoAlpha: 1,
         y: 0,
-        duration: 1,
+        duration: 0.9,
         ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          end: "top 55%",
-          scrub: 1,
-        },
+        scrollTrigger: { trigger: el, start: "top 85%", once: true },
       },
     );
   });
+
+  // 3. Counters: <span data-count="31">31</span> counts up once when scrolled into view.
+  //    The real number is already in the HTML, so it is correct even without JS.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion) {
+    document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+      const end = Number(el.dataset.count);
+      const counter = { value: 0 };
+      gsap.to(counter, {
+        value: end,
+        duration: 1.4,
+        ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
+        onStart: () => { el.textContent = "0"; },
+        onUpdate: () => { el.textContent = String(Math.round(counter.value)); },
+      });
+    });
+  }
 
   window.addEventListener("load", () => ScrollTrigger.refresh());
 </script>
@@ -118,6 +136,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   body {
     margin: 0;
     width: 100%;
-    height: 100%;
   }
 </style>

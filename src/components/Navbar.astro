@@ -1,134 +1,156 @@
 ---
 import LogoLockup from '../assets/logo-lockup.svg';
 
-// The nav links live as DATA, not repeated markup.
-// Add/remove/reorder a link by editing this one array.
+// overlay = true: transparent over a full-bleed hero, turns solid on scroll (homepage).
+// overlay = false: solid bar from the start (every other page).
+const { overlay = false } = Astro.props;
+
+// The nav links live as DATA. Add, remove or reorder a link here.
 const links = [
-  { label: 'Home',     href: '/' },
   { label: 'About',    href: '/about' },
   { label: 'Products', href: '/products' },
   { label: 'Quality',  href: '/quality' },
   { label: 'Contact',  href: '/contact' },
 ];
+
+// Highlight the current section ("/products/allyl-bromide" counts as Products).
+const path = Astro.url.pathname.replace(/\/$/, '');
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
 ---
 
-<header class="navbar">
-  <div class="container navbar__inner">
-    <a href="/" class="navbar__brand" aria-label="Dobariya Chemtech - home">
-      <LogoLockup class="navbar__logo" aria-hidden="true" />
+<header class:list={['nav', { 'nav--overlay': overlay, 'is-solid': !overlay }]} data-nav>
+  <div class="container container--wide nav__in">
+    <a href="/" class="nav__logo" aria-label="Dobariya Chemtech, home">
+      <LogoLockup aria-hidden="true" />
     </a>
 
-    <nav class="navbar__links">
+    <nav class="nav__links" id="nav-links" aria-label="Main">
       {links.map((link) => (
-        <a href={link.href}>{link.label}</a>
+        <a href={link.href} class="nav__link" aria-current={isActive(link.href) ? 'page' : undefined}>
+          {link.label}
+        </a>
       ))}
-      <a href="/contact" class="navbar__cta btn btn--primary">Request a quote</a>
+      <a href="/contact#enquiry" class="btn btn--primary nav__cta">Request a quote</a>
     </nav>
-    <button class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+
+    <button class="nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path class="l1" d="M3 7h18" /><path class="l2" d="M3 12h18" /><path class="l3" d="M3 17h18" />
+      </svg>
     </button>
   </div>
 </header>
 
 <style>
-  .navbar {
-    background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-    position: sticky;   /* stays pinned as you scroll */
+  .nav {
+    position: sticky;
     top: 0;
     z-index: 50;
+    color: var(--color-ink);
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
   }
-  .navbar__inner {
+  /* Overlay mode: pinned on top of the hero, white text, no background */
+  .nav--overlay { position: fixed; inset: 0 0 auto 0; color: #fff; }
+
+  .nav.is-solid { background: var(--color-bg); color: var(--color-ink); box-shadow: 0 1px 0 var(--color-border); }
+
+  .nav__in {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 68px;
+    gap: 24px;
+    height: 88px;
+    transition: height 0.3s;
   }
+  .nav.is-solid .nav__in { height: var(--nav-h); }
 
-  /* colour is set ONCE here; the wordmark inherits it via currentColor,
-     so a future .navbar--dark only has to override this one line.
-     The teal mark keeps its own fill and is unaffected. */
-  .navbar__brand {
-    display: flex;
-    align-items: center;
-    color: var(--color-ink);
-  }
-  .navbar__logo {
-    height: 36px;
-    width: auto;
-    display: block;
-  }
+  /* The wordmark uses currentColor, so it follows the nav's text colour.
+     The teal mark keeps its own fill. */
+  .nav__logo { display: flex; color: inherit; }
+  .nav__logo :global(svg) { height: 42px; width: auto; display: block; }
 
-  .navbar__links { display: flex; align-items: center; gap: 1.6rem; }
-  .navbar__links a {
-    font-size: 1rem;              /* was 0.95rem — slightly larger */
-    color: var(--color-ink);      /* was --color-muted — darker, easier to read */
+  .nav__links { display: flex; align-items: center; gap: 36px; }
+  .nav__link {
+    position: relative;
+    padding-block: 6px;
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 110;
+    font-size: 13px;
     font-weight: 500;
-    transition: color 0.15s ease;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
-  .navbar__links a:hover { color: var(--color-brand); }
-  
-  .navbar__links a.navbar__cta {
-    background: var(--color-brand);
-    color: var(--color-ink);
-    padding: 0.6rem 1.1rem;
-    border-radius: var(--radius);
-    font-weight: 600;
-    font-size: 0.9rem;
+  /* underline that draws in on hover, and stays on the current page */
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 100%; bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transition: right 0.25s;
   }
-  .navbar__links a.navbar__cta:hover {
-    color: #F3F5F6;
-  }
+  .nav__link:hover::after,
+  .nav__link[aria-current="page"]::after { right: 0; }
 
-  /* The hamburger is hidden on desktop */
-  .navbar__toggle { display: none; }
+  .nav__cta { height: 44px; }
+  .nav--overlay:not(.is-solid) .nav__cta:hover { background: #fff; color: var(--color-ink); }
 
-  @media (max-width: 760px) {
-    /* Show the hamburger, stack its three lines */
-    .navbar__toggle {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+  .nav__burger { display: none; }
+
+  @media (max-width: 900px) {
+    .nav__burger {
+      display: block;
       background: none;
-      border: none;
+      border: 0;
+      color: inherit;
+      padding: 8px;
+      margin-right: -8px;
       cursor: pointer;
-      padding: 6px;
     }
-    .navbar__toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--color-ink);
-    }
+    .nav__burger svg { width: 26px; height: 26px; display: block; }
+    .nav__burger path { transition: transform 0.25s, opacity 0.2s; transform-origin: center; }
+    .nav.is-open .l1 { transform: translateY(5px) rotate(45deg); }
+    .nav.is-open .l2 { opacity: 0; }
+    .nav.is-open .l3 { transform: translateY(-5px) rotate(-45deg); }
 
-    /* Hide the links by default on mobile... */
-    .navbar__links {
+    .nav__in, .nav.is-solid .nav__in { height: 68px; }
+    .nav__logo :global(svg) { height: 36px; }
+
+    .nav__links {
       display: none;
       position: absolute;
-      top: 68px;              /* height of the navbar */
-      left: 0;
-      right: 0;
+      top: 100%; left: 0; right: 0;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0;
-      background: var(--color-surface);
+      gap: 4px;
+      padding: 16px var(--gutter) 28px;
+      background: var(--color-bg);
+      color: var(--color-ink);
       border-bottom: 1px solid var(--color-border);
-      padding: var(--space-sm);
     }
-    /* ...until JS adds .is-open */
-    .navbar__links.is-open { display: flex; }
-
-    .navbar__links a { padding: 0.75rem 0; width: 100%; }
+    .nav.is-open { background: var(--color-bg); color: var(--color-ink); }
+    .nav.is-open .nav__links { display: flex; }
+    .nav__link { font-size: 15px; padding-block: 12px; }
+    .nav__cta { margin-top: 12px; }
   }
 </style>
 
 <script>
-  const toggle = document.querySelector('.navbar__toggle');
-  const links  = document.querySelector('.navbar__links');
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  const burger = nav?.querySelector<HTMLButtonElement>('.nav__burger');
 
-  if (toggle && links) {
-    toggle.addEventListener('click', () => {
-      const isOpen = links.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
+  if (nav && burger) {
+    // Overlay nav turns solid once the page scrolls a little.
+    if (nav.classList.contains('nav--overlay')) {
+      const update = () => nav.classList.toggle('is-solid', window.scrollY > 40);
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+    }
+
+    burger.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
   }
 </script>

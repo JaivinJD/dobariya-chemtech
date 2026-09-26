@@ -1,0 +1,64 @@
+---
+// Six promises, plain numbered text on dark. No icons on purpose.
+import PhotoSlot from '../ui/PhotoSlot.astro';
+
+// Real photo goes here later: import qcImg from '../../assets/photos/quality.jpg';
+const qcImg = undefined;
+
+const promises = [
+  { title: 'High purity',         text: 'Tightly controlled processes deliver consistently high-purity bromine derivatives.' },
+  { title: 'Consistent quality',  text: 'Every batch meets the same specification, lot after lot.' },
+  { title: 'Competitive pricing', text: 'Direct manufacturing keeps our pricing sharp and transparent.' },
+  { title: 'Timely delivery',     text: 'Reliable lead times and dependable dispatch from our Kadi facility.' },
+  { title: 'Export quality',      text: 'Export-grade standards and documentation for international buyers.' },
+  { title: 'Reliable support',    text: 'Responsive technical and commercial support before and after the sale.' },
+];
+---
+
+<section class="prom sect-dark on-dark">
+  <div class="container prom__grid">
+    <div class="prom__side" data-reveal>
+      <span class="label">Why Dobariya Chemtech</span>
+      <h2 class="h2 prom__title">Six things our buyers can hold us to.</h2>
+      <div class="prom__photo">
+        <PhotoSlot src={qcImg} alt="Lab technician filling a sample vial" code="P3" note="Quality control, gloved hands and sample vial. 4:5 portrait." tone="dark" />
+      </div>
+    </div>
+
+    <ol class="plist" data-reveal-group>
+      {promises.map((p, i) => (
+        <li class="p">
+          <span class="p__no">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="p__title">{p.title}</h3>
+          <p class="p__text">{p.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .prom { padding-block: var(--section); }
+  .prom__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 112px); }
+  .prom__title { margin-top: 20px; }
+  .prom__photo { margin-top: 48px; aspect-ratio: 4 / 5; overflow: hidden; }
+
+  .plist {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 48px;
+    align-content: start;
+  }
+  .p { padding-block: 32px; border-top: 1px solid var(--color-border-dark); }
+  .p__no { font-family: var(--font-mono); font-size: 13px; color: var(--color-brand-soft); }
+  .p__title { margin-top: 14px; font-size: 22px; line-height: 1.15; }
+  .p__text { margin-top: 10px; font-size: 15.5px; color: var(--color-muted-dark); }
+
+  @media (max-width: 900px) {
+    .prom__grid { grid-template-columns: 1fr; }
+    .prom__photo { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 600px) { .plist { grid-template-columns: 1fr; } }
+</style>

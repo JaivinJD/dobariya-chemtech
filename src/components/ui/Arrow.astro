@@ -1,0 +1,9 @@
+---
+// The sliding arrow used inside buttons and links. Direction: "right" (default) or "left".
+const { dir = 'right' } = Astro.props;
+---
+<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+  {dir === 'left'
+    ? <path d="M15 8H2M7 3L2 8l5 5" />
+    : <path d="M1 8h13M9 3l5 5-5 5" />}
+</svg>

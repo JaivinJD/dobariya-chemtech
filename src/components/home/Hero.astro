@@ -1,0 +1,175 @@
+---
+// Full-bleed homepage hero. The navbar floats over it (navOverlay on the page).
+// Swap the photo by changing this one import; everything else adapts.
+import { Image } from 'astro:assets';
+import heroImg from '../../assets/hero.jpg';
+import Arrow from '../ui/Arrow.astro';
+---
+
+<section class="hero on-dark">
+  <Image
+    src={heroImg}
+    alt=""
+    class="hero__img"
+    widths={[800, 1280, 1920, 2560]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+  />
+
+  <!-- The one bromine-coloured detail on the page -->
+  <div class="element" aria-label="Bromine, atomic number 35, atomic mass 79.904" role="img">
+    <span class="element__n">35</span>
+    <span class="element__sym">Br</span>
+    <span class="element__meta">Bromine<br />79.904</span>
+  </div>
+
+  <div class="container container--wide hero__body">
+    <div class="hero__main">
+      <p class="label hero__kicker rise">Bromine derivatives · Kadi, Gujarat</p>
+      <h1 class="hero__title rise">
+        <span>Bromine</span>
+        <span>chemistry,</span>
+        <span class="hero__accent">made in Kadi.</span>
+      </h1>
+    </div>
+
+    <div class="hero__side rise">
+      <p class="hero__lead">
+        Alkyl, aryl and inorganic bromides from our own plant in Kadi, supplied to
+        domestic manufacturers and export buyers at consistent, export-grade quality.
+      </p>
+      <div class="hero__ctas">
+        <a href="/products" class="btn btn--primary">Explore products <Arrow /></a>
+        <a href="/brochure.pdf" class="btn btn--ghost-light">Download brochure</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: clamp(640px, 100svh, 1000px);
+    display: flex;
+    align-items: flex-end;
+    background: var(--color-ink);
+    overflow: hidden;
+  }
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 60%;
+  }
+  /* Darkens the left and bottom so the type always reads, whatever the photo */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(16, 26, 26, 0.9) 0%, rgba(16, 26, 26, 0.55) 45%, rgba(16, 26, 26, 0.1) 100%),
+      linear-gradient(0deg, rgba(16, 26, 26, 0.9) 0%, rgba(16, 26, 26, 0) 60%),
+      linear-gradient(180deg, rgba(16, 26, 26, 0.5) 0%, rgba(16, 26, 26, 0) 22%);
+  }
+
+  /* Headline bottom-left, lead + buttons bottom-right: the content spans the screen */
+  .hero__body {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 48px clamp(40px, 6vw, 120px);
+    padding-block: 160px clamp(48px, 7vh, 88px);
+  }
+  .hero__kicker {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    color: #BFD9D6;
+  }
+  .hero__kicker::before { content: ""; width: 40px; height: 1px; background: currentColor; }
+
+  .hero__title {
+    font-variation-settings: "wdth" 118;
+    font-weight: 600;
+    font-size: clamp(50px, 8.6vw, 156px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+  .hero__title span { display: block; }
+  .hero__accent { color: var(--color-brand); }
+
+  .hero__side {
+    padding-top: 28px;
+    border-top: 1px solid var(--color-border-dark);
+    max-width: 520px;
+    justify-self: end;
+  }
+  .hero__lead { color: var(--color-on-dark); font-size: 18px; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+  /* Periodic-table tile, top right */
+  .element {
+    position: absolute;
+    z-index: 2;
+    top: 128px;
+    right: var(--gutter);
+    width: 132px;
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 12px 14px;
+    background: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-mono);
+  }
+  .element__n { font-size: 13px; }
+  .element__sym {
+    align-self: center;
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 100;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .element__meta { font-size: 11px; line-height: 1.35; opacity: 0.9; }
+
+  /* Load sequence: visible by default, lifts in only when JS runs */
+  :global(.js) .rise { opacity: 0; transform: translateY(24px); }
+  .rise.in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  @media (max-width: 1000px) {
+    .hero__body { grid-template-columns: 1fr; }
+    .hero__side { justify-self: start; }
+    .hero::before {
+      background: linear-gradient(0deg, rgba(16, 26, 26, 0.95) 0%, rgba(16, 26, 26, 0.75) 55%, rgba(16, 26, 26, 0.45) 100%);
+    }
+  }
+  @media (max-width: 600px) {
+    .hero { min-height: 100svh; }
+    .hero__body { padding-block: 120px 40px; }
+    .element { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .rise { opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  // Staggered entrance for the hero text.
+  document.querySelectorAll('.hero .rise').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 120 + i * 150);
+  });
+</script>

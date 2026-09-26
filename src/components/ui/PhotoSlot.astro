@@ -1,0 +1,69 @@
+---
+// A photo frame. Pass `src` (an imported image) and it shows the photo.
+// Leave `src` out and it shows a clearly-marked placeholder instead,
+// so a missing photo is never disguised as a real one.
+//
+//   <PhotoSlot src={plantImg} alt="..." />                  real photo
+//   <PhotoSlot code="P2" note="Kadi plant, 4:3" />         placeholder
+import { Image } from 'astro:assets';
+
+const {
+  src,                // ImageMetadata | undefined
+  alt = '',
+  code = '',          // placeholder id, e.g. "P2"
+  note = '',          // what photo belongs here
+  tone = 'light',     // placeholder colour: 'light' on light sections, 'dark' on dark ones
+  widths = [640, 960, 1400, 2000],
+  sizes = '(max-width: 900px) 100vw, 50vw',
+  loading = 'lazy',
+  class: className = '',
+} = Astro.props;
+---
+{src ? (
+  <Image
+    src={src}
+    alt={alt}
+    widths={widths}
+    sizes={sizes}
+    loading={loading}
+    class:list={['photo', className]}
+  />
+) : (
+  <div class:list={['photo', 'ph', `ph--${tone}`, className]} role="img" aria-label={`Photo placeholder: ${note}`}>
+    <span class="ph__tag"><b>Photo needed{code && ` · ${code}`}</b>{note}</span>
+  </div>
+)}
+
+<style>
+  :global(.photo) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ph {
+    display: flex;
+    align-items: flex-end;
+    background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(16, 26, 26, 0.05) 14px 15px),
+      #C9D0CC;
+  }
+  .ph--dark {
+    background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(255, 255, 255, 0.05) 14px 15px),
+      #2A3736;
+  }
+  .ph__tag {
+    margin: 16px;
+    max-width: 34ch;
+    padding: 10px 14px;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    border-left: 3px solid var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+  .ph__tag b {
+    display: block;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+</style>

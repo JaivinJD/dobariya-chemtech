@@ -1,0 +1,138 @@
+---
+// The three product families as numbered rows, with live product counts.
+import { getCollection } from 'astro:content';
+import { families } from '../../lib/catalog';
+import Arrow from '../ui/Arrow.astro';
+
+const products = await getCollection('products');
+const countIn = (slug: string) => products.filter((p) => p.data.category === slug).length;
+---
+
+<section class="fam sect-white" id="families">
+  <div class="container">
+    <div class="fam__head" data-reveal>
+      <div>
+        <span class="label">What we make</span>
+        <h2 class="h2 fam__title">Three families,<br />one standard.</h2>
+      </div>
+      <p class="fam__intro">
+        {products.length} bromine derivatives across three product families. Every one is
+        listed with its formula, CAS number and specification.
+      </p>
+    </div>
+
+    <div class="rows" data-reveal-group>
+      {families.map((f, i) => (
+        <a class="row" href={`/products#${f.slug}`}>
+          <span class="row__no">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="row__name">{f.name}<small>{f.sub}</small></h3>
+          <div class="row__text">
+            <p>{f.blurb}</p>
+            <p class="row__samples">{f.samples.map((s) => <span>{s}</span>)}</p>
+          </div>
+          <p class="row__count">{countIn(f.slug)}<span>products</span></p>
+          <span class="row__go" aria-hidden="true"><Arrow /></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .fam { padding-block: var(--section); }
+  .fam__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+  .fam__title { margin-top: 18px; }
+  .fam__intro { max-width: 40ch; color: var(--color-muted); }
+
+  .rows { border-top: 1px solid var(--color-ink); }
+  .row {
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1.1fr) minmax(0, 1.3fr) 150px 44px;
+    gap: 32px;
+    align-items: start;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.25s, padding 0.25s;
+  }
+  .row:hover { background: var(--color-bg); padding-inline: 16px; }
+
+  .row__no { padding-top: 8px; font-family: var(--font-mono); font-size: 14px; color: var(--color-brand-dark); }
+  .row__name {
+    font-variation-settings: "wdth" 112;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.05;
+  }
+  .row__name small {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-body);
+    font-variation-settings: normal;
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: 0;
+    color: var(--color-muted);
+  }
+  .row__text { padding-top: 4px; color: var(--color-muted); }
+  .row__samples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-ink);
+  }
+  .row__samples span + span::before { content: "·"; margin-right: 14px; color: var(--color-muted); }
+
+  .row__count {
+    text-align: right;
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 115;
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .row__count span {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .row__go {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-top: 2px;
+    border: 1px solid var(--color-border);
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .row__go :global(svg) { width: 16px; height: 16px; }
+  .row:hover .row__go { background: var(--color-brand); border-color: var(--color-brand); color: #fff; }
+
+  @media (max-width: 1080px) {
+    .row { grid-template-columns: 64px minmax(0, 1fr) 110px; }
+    .row__text { grid-column: 2 / -1; }
+    .row__count { grid-row: 1; grid-column: 3; }
+    .row__go { display: none; }
+  }
+  @media (max-width: 600px) {
+    .row { grid-template-columns: 1fr auto; gap: 16px; }
+    .row:hover { padding-inline: 0; }
+    .row__no { grid-column: 1 / -1; padding-top: 0; }
+    .row__count { grid-row: 2; grid-column: 2; font-size: 34px; }
+    .row__text { grid-column: 1 / -1; }
+  }
+</style>

@@ -1,157 +1,191 @@
 /* ============================================================
-   DESIGN TOKENS — the single source of truth for the whole site.
-   Change a value here, and every component updates automatically.
+   DESIGN TOKENS: the single source of truth for the whole site.
+   Tokens are named by ROLE, not by colour, so a palette change
+   never needs a rename. Change a value here and every page follows.
    ============================================================ */
 :root {
-  /* ---- Brand (used sparingly: primary actions, key accents) ---- */
-  --color-brand:      #F26522;   /* orange — CTAs and highlights ONLY */
-  --color-brand-dark: #C74E13;   /* darker orange for hover */
-  --color-accent:     #1F9E92;   /* logo teal, kept as a rare secondary accent */
-  --color-brand-tint: color-mix(in srgb, var(--color-brand) 10%, transparent);  /* faint orange glow */
+  /* ---- Brand ---- */
+  --color-brand:      #069592;   /* logo teal: primary actions, key accents */
+  --color-brand-dark: #04625F;   /* teal for text on light grounds (AA contrast), hover */
+  --color-brand-soft: #7FC9C5;   /* teal for small text on dark grounds */
+  --color-brand-tint: color-mix(in srgb, var(--color-brand) 10%, transparent);
+  --color-accent:     #A2401F;   /* liquid-bromine red-brown: used in ONE or two places only */
 
-  /* ---- Neutrals (graphite structure, the site's real backbone) ---- */
-  --color-ink:        #23282D;   /* graphite: text + dark surfaces */
-  --color-muted:      #5E6A70;
-  --color-surface:    #FFFFFF;
-  --color-surface-2:  #F3F5F6;   /* light concrete */
-  --color-border:     #E3E7E9;
+  /* ---- Neutrals ---- */
+  --color-ink:        #101A1A;   /* near black with a teal bias: text + dark sections */
+  --color-ink-2:      #1A2626;   /* raised surface on dark */
+  --color-muted:      #56625F;   /* secondary text on light */
+  --color-muted-dark: #9AA8A5;   /* secondary text on dark */
+  --color-bg:         #F4F5F2;   /* page background: cool off-white */
+  --color-surface:    #FFFFFF;   /* cards, white sections */
+  --color-surface-2:  #F4F5F2;   /* tinted section (same as page bg) */
+  --color-border:     #D9DEDA;   /* hairlines on light */
+  --color-border-dark: rgba(255, 255, 255, 0.14); /* hairlines on dark */
+  --color-on-dark:    #D5DEDC;   /* body text on dark */
 
   /* ---- Typography ---- */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;  /* headings */
-  --font-body:    'Inter', system-ui, sans-serif;          /* body text */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  /* ---- Spacing scale (consistent rhythm everywhere) ---- */
+  /* ---- Spacing scale ---- */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
   --space-lg: 3rem;
   --space-xl: 4rem;
+  --section: clamp(72px, 10vw, 144px);   /* vertical padding of a major section */
+  --gutter:  clamp(16px, 4vw, 56px);     /* side padding at every width */
 
   /* ---- Misc ---- */
-  --radius: 8px;
-  --container: 1140px;   /* max content width */
+  --radius: 2px;          /* near-square: industrial, not app-like */
+  --container: 1440px;    /* max content width */
+  --nav-h: 76px;
 }
 
 /* ============================================================
-   RESET — flatten the browser's inconsistent defaults.
+   RESET
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 
 /* ============================================================
-   BUTTONS — shared across the whole site.
-   Use: <a class="btn btn--primary"> or <a class="btn btn--ghost">
+   BASE ELEMENTS
    ============================================================ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.4rem;
-  border-radius: var(--radius);
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.btn--primary { background: var(--color-brand); color: var(--color-ink); }
-.btn--primary:hover {
-  color: #fff;
-  transform: translateY(-2px);                    /* lifts up */
-  box-shadow: 0 8px 20px rgba(9, 3, 0, 0.45);  /* orange glow beneath */
-}
-.btn--ghost { border: 1px solid var(--color-border); color: var(--color-ink); }
-.btn--ghost:hover { border-color: var(--color-ink); }
-.btn--ghost-light { border: 1px solid rgba(255,255,255,0.4); color: #fff; }
-.btn--ghost-light:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
-
-/* ============================================================
-   BASE ELEMENT STYLES
-   ============================================================ */
+html { scroll-padding-top: var(--nav-h); }
 body {
   font-family: var(--font-body);
+  font-size: 17px;
   color: var(--color-ink);
-  background: var(--color-surface);
+  background: var(--color-bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+@media (max-width: 600px) { body { font-size: 16px; } }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  line-height: 1.15;
-  font-weight: 700;
+  font-variation-settings: "wdth" 110;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 a   { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
 
-/* A reusable centered wrapper we'll use on every section */
+/* Centered wrapper used by every section */
 .container {
   max-width: var(--container);
   margin-inline: auto;
-  padding-inline: var(--space-sm);
+  padding-inline: var(--gutter);
 }
+/* Full-width variant (navbar, hero): content hugs the screen edge */
+.container--wide { max-width: none; }
 
 /* ============================================================
-   CARD — reusable surface used across pages.
-   Use: <article class="card"> ... </article>
+   TYPE ROLES: reuse these instead of restyling per component
+   ============================================================ */
+/* Small mono label above headings ("eyebrow") */
+.label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brand-dark);
+}
+/* Big section heading */
+.h2 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 600;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+/* Inside dark sections */
+.on-dark { color: #fff; }
+.on-dark .label { color: var(--color-brand-soft); }
+
+/* ============================================================
+   BUTTONS
+   <a class="btn btn--primary">     teal, main action
+   <a class="btn btn--ink">         dark, on light grounds
+   <a class="btn btn--ghost">       outline, on light grounds
+   <a class="btn btn--ghost-light"> outline, on dark grounds / photos
+   Put <Arrow /> inside for the sliding arrow.
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 52px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 110;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn svg { width: 16px; height: 16px; flex: none; transition: transform 0.2s; }
+.btn:hover svg { transform: translateX(4px); }
+
+.btn--primary { background: var(--color-brand); color: #fff; }
+.btn--primary:hover { background: var(--color-ink); }
+.on-dark .btn--primary:hover { background: #fff; color: var(--color-ink); }
+
+.btn--ink { background: var(--color-ink); color: #fff; }
+.btn--ink:hover { background: var(--color-brand-dark); }
+
+.btn--ghost { border-color: var(--color-ink); color: var(--color-ink); }
+.btn--ghost:hover { background: var(--color-ink); color: #fff; }
+
+.btn--ghost-light { border-color: rgba(255, 255, 255, 0.45); color: #fff; }
+.btn--ghost-light:hover { border-color: #fff; background: rgba(255, 255, 255, 0.08); }
+
+/* ============================================================
+   CARD: plain bordered surface. No lift, no accent bar.
    ============================================================ */
 .card {
   position: relative;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: var(--space-md);
-  overflow: hidden;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  transition: border-color 0.2s;
 }
-/* the small accent bar along the top edge */
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 44px; height: 3px;
-  background: var(--color-brand);
-  border-radius: 0 0 3px 0;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
-  border-color: var(--color-brand);
-}
+.card:hover { border-color: var(--color-ink); }
+
+/* Section background options */
+.sect-white { background: var(--color-surface); }
+.sect-tint  { background: var(--color-surface-2); }
+.sect-dark  { background: var(--color-ink); color: #fff; }
 
 /* ============================================================
-   SCROLL REVEAL — elements fade + rise as they enter view.
-   Add data-reveal="" to any element to opt in.
+   SCROLL REVEAL (GSAP in Layout.astro).
+   Hidden only when JS is running (html.js), so the page is
+   never blank if scripts fail.
    ============================================================ */
-[data-reveal], [data-reveal-group] > * {
+.js [data-reveal], .js [data-reveal-group] > * {
   opacity: 0;
   visibility: hidden;
 }
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal], [data-reveal-group] > * { opacity: 1 !important; }
+  .js [data-reveal], .js [data-reveal-group] > * { opacity: 1 !important; visibility: visible !important; }
 }
 
-[data-reveal].is-visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Visually hidden but read by screen readers */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-
-/* Accessibility: users who prefer no motion see content instantly, no animation. */
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1; transform: none; transition: none; }
-}
-
-/* ============================================================
-   HEX TEXTURE — a faint molecular pattern for section backgrounds.
-   Add class="hex-bg" to any section to give it subtle texture.
-   ============================================================ */
-.hex-bg {
-  position: relative;
-  background-color: var(--color-surface-2);
-  background-image: url("data:image/svg+xml,%3Csvg width='56' height='100' viewBox='0 0 56 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34zM28 100L0 84V50l28-16 28 16v34z' fill='none' stroke='%23222222' stroke-opacity='0.045' stroke-width='2'/%3E%3C/svg%3E");
-  background-size: 65px 116px;
-}
-
-/* Section background options — pick one per section for rhythm. */
-.sect-white { background: var(--color-surface); }
-.sect-tint  { background: var(--color-surface-2); }
-/* (.hex-bg already exists for the textured tint) */

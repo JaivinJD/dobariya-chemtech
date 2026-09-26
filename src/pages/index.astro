@@ -1,14 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import WhyChooseUs from '../components/WhyChooseUs.astro';
-import ProductsPreview from '../components/ProductsPreview.astro';
+import Hero from '../components/home/Hero.astro';
+import Stats from '../components/home/Stats.astro';
+import Intro from '../components/home/Intro.astro';
+import Families from '../components/home/Families.astro';
+import Featured from '../components/home/Featured.astro';
+import Promises from '../components/home/Promises.astro';
+import Enquiry from '../components/home/Enquiry.astro';
 ---
 <Layout
-  title="Dobariya Chemtech — Bromine Derivatives Manufacturer, Ahmedabad"
-  description="Manufacturer of 40+ bromine derivatives — alkyl, aryl and inorganic bromides — with in-house production in Kadi, Gujarat."
-  >
+  navOverlay
+  title="Dobariya Chemtech | Bromine Derivatives Manufacturer, Ahmedabad"
+  description="Manufacturer of bromine derivatives: alkyl, aryl and inorganic bromides, with in-house production in Kadi, Gujarat."
+>
   <Hero />
-  <WhyChooseUs />
-  <ProductsPreview />
+  <Stats />
+  <Intro />
+  <Families />
+  <Featured />
+  <Promises />
+  <Enquiry />
 </Layout>

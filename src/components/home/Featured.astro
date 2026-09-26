@@ -1,0 +1,135 @@
+---
+// Products ticked "Featured" in the CMS, as spec cards in a horizontal strip.
+// The formula is the visual, so cards stay uniform with or without photos.
+import { getCollection } from 'astro:content';
+import { familyBySlug, formulaHtml, withBreaks } from '../../lib/catalog';
+import Arrow from '../ui/Arrow.astro';
+
+const featured = (await getCollection('products', (p) => p.data.featured))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+
+{featured.length > 0 && (
+  <section class="feat">
+    <div class="container">
+      <div class="feat__head" data-reveal>
+        <div>
+          <span class="label">Featured products</span>
+          <h2 class="h2 feat__title">From the catalogue</h2>
+        </div>
+        <div class="feat__ctl">
+          <a href="/products" class="btn btn--ghost feat__all">All products <Arrow /></a>
+          <button class="feat__arrow" data-dir="-1" aria-label="Scroll to previous products"><Arrow dir="left" /></button>
+          <button class="feat__arrow" data-dir="1" aria-label="Scroll to next products"><Arrow /></button>
+        </div>
+      </div>
+
+      <div class="strip" data-strip>
+        {featured.map((p) => (
+          <a class="spec" href={`/products/${p.id}`}>
+            <div class="spec__top">
+              <span>{familyBySlug(p.data.category)?.short}</span>
+              {p.data.cas && <span>CAS {p.data.cas}</span>}
+            </div>
+            <div class="spec__formula"><span set:html={formulaHtml(p.data.formula)} /></div>
+            <div class="spec__body">
+              <h3 class="spec__name" set:html={withBreaks(p.data.name)} />
+              <p class="spec__use">{p.data.applications?.[0] ?? p.data.appearance}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .feat { padding-block: var(--section); }
+  .feat__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .feat__title { margin-top: 18px; }
+  .feat__ctl { display: flex; gap: 8px; }
+  .feat__all { margin-right: 16px; }
+  .feat__arrow {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: 1px solid var(--color-ink);
+    background: none;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .feat__arrow :global(svg) { width: 18px; height: 18px; }
+  .feat__arrow:hover { background: var(--color-ink); color: #fff; }
+
+  .strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(270px, calc((100% - 48px) / 4));
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 16px;
+    scrollbar-width: thin;
+  }
+  .spec {
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+    scroll-snap-align: start;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    transition: border-color 0.2s;
+  }
+  .spec:hover { border-color: var(--color-ink); }
+  .spec__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-muted);
+  }
+  .spec__formula {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: 28px 16px;
+    font-family: var(--font-mono);
+    font-size: clamp(28px, 2.6vw, 36px);
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+  .spec__formula :global(sub) { font-size: 0.55em; }
+  .spec__body { min-height: 124px; padding: 20px 22px 22px; border-top: 1px solid var(--color-border); }
+  .spec__name { font-size: 20px; line-height: 1.15; overflow-wrap: anywhere; }
+  .spec__use { margin-top: 6px; font-size: 14px; line-height: 1.45; color: var(--color-muted); }
+
+  @media (max-width: 600px) {
+    .feat__all { display: none; }
+    .strip { grid-auto-columns: 82%; }
+  }
+</style>
+
+<script>
+  // Arrow buttons scroll the strip by one card.
+  const strip = document.querySelector<HTMLElement>('[data-strip]');
+  document.querySelectorAll<HTMLButtonElement>('.feat__arrow').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!strip?.firstElementChild) return;
+      const step = strip.firstElementChild.getBoundingClientRect().width + 16;
+      strip.scrollBy({ left: step * Number(btn.dataset.dir), behavior: 'smooth' });
+    });
+  });
+</script>

@@ -1,0 +1,78 @@
+---
+// Big numbers with a sentence each. Counts come from the real data,
+// so adding a product in the CMS updates the number automatically.
+import { getCollection } from 'astro:content';
+import { offices } from '../../data/offices.json';
+import { families } from '../../lib/catalog';
+
+const productCount = (await getCollection('products')).length;
+
+const stats = [
+  { value: productCount, suffix: '+', title: 'Bromine derivatives',
+    text: 'Alkyl, inorganic and specialty bromides, each with its own specification sheet.' },
+  { value: families.length, suffix: '', title: 'Product families',
+    text: 'Alkyl bromides, solid and inorganic bromides, and a specialty range.' },
+  { value: offices.length, suffix: '', title: 'Sites in Gujarat',
+    text: 'Corporate office in Bodakdev, Ahmedabad and our manufacturing unit in Kadi.' },
+  { value: 100, suffix: '%', title: 'In-house manufacturing',
+    text: 'Produced at our own facility, so we control every batch we ship.' },
+];
+---
+
+<section class="stats on-dark" aria-label="Dobariya Chemtech in numbers">
+  <div class="container stats__grid" data-reveal-group>
+    {stats.map((s) => (
+      <div class="stat">
+        <p class="stat__num">
+          <span data-count={s.value}>{s.value}</span>{s.suffix && <sup>{s.suffix}</sup>}
+        </p>
+        <h2 class="stat__title">{s.title}</h2>
+        <p class="stat__text">{s.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stats { background: var(--color-ink); padding-block: 72px 96px; }
+  .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat { padding-right: 32px; }
+  .stat + .stat { padding-left: 32px; border-left: 1px solid var(--color-border-dark); }
+
+  .stat__num {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 115;
+    font-weight: 500;
+    font-size: clamp(52px, 6vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat__num sup {
+    position: relative;
+    top: 0.25em;
+    margin-left: 4px;
+    font-size: 0.4em;
+    vertical-align: top;
+    color: var(--color-brand);
+  }
+  .stat__title {
+    margin-top: 20px;
+    font-family: var(--font-body);
+    font-variation-settings: normal;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .stat__text { margin-top: 6px; max-width: 30ch; font-size: 15px; line-height: 1.55; color: var(--color-muted-dark); }
+
+  @media (max-width: 900px) {
+    .stats__grid { grid-template-columns: 1fr 1fr; row-gap: 48px; }
+    .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .stats__grid { grid-template-columns: 1fr; row-gap: 32px; }
+    .stat, .stat + .stat { padding: 0 0 32px; border-left: 0; border-bottom: 1px solid var(--color-border-dark); }
+    .stat:last-child { border-bottom: 0; padding-bottom: 0; }
+  }
+</style>
