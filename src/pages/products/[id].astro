@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Arrow from '../../components/ui/Arrow.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
 import { familyBySlug, formulaHtml, withBreaks } from '../../lib/catalog';
 
 // Tells Astro WHICH pages to generate: one per product in the CMS collection.
@@ -29,6 +30,13 @@ if (d.boilingPoint) specs.push({ label: 'Boiling point', value: d.boilingPoint, 
 if (d.meltingPoint) specs.push({ label: 'Melting point', value: d.meltingPoint, mono: true });
 if (d.specificGravity) specs.push({ label: 'Specific gravity', value: d.specificGravity, mono: true });
 if (d.packaging?.length) specs.push({ label: 'Packaging', value: d.packaging.join(', ') });
+
+// Up to three key facts for the data plate in the header.
+const plateFacts = [
+  d.boilingPoint && { label: 'Boiling point', value: d.boilingPoint },
+  d.meltingPoint && { label: 'Melting point', value: d.meltingPoint },
+  d.specificGravity && { label: 'Specific gravity', value: d.specificGravity },
+].filter(Boolean).slice(0, 3) as { label: string; value: string }[];
 
 // Up to four other products from the same family.
 const related = (await getCollection('products', (p) => p.data.category === d.category && p.id !== product.id))
@@ -60,40 +68,42 @@ const productSchema = {
   title={`${d.name} | Bromine Derivative | Dobariya Chemtech`}
   description={`${summary} Request a quote for pricing and availability.`}
 >
+  <PageHeader
+    crumbs={[
+      { label: 'Products', href: '/products' },
+      { label: `${family?.name} · ${family?.sub}`, href: `/products#${d.category}` },
+    ]}
+    label={familyLabel}
+  >
+    <Fragment slot="title"><span set:html={withBreaks(d.name)} /></Fragment>
+    {d.synonyms && d.synonyms.length > 0 && (
+      <p class="aka"><span>Also known as</span> {d.synonyms.join(' · ')}</p>
+    )}
+    <div class="actions">
+      <a href={quoteHref} class="btn btn--primary">Request a quote <Arrow /></a>
+      <a href="/brochure.pdf" class="btn btn--ghost-light">Download brochure</a>
+    </div>
+
+    <!-- Data plate: the product's "label". Shows the CMS photo on top when one exists. -->
+    <div slot="aside" class="plate">
+      {d.image && <img src={d.image} alt={d.name} class="plate__img" loading="eager" />}
+      <div class="plate__top">
+        <span>{family?.short}</span>
+        {d.cas && <span>CAS {d.cas}</span>}
+      </div>
+      {d.formula && <p class="plate__formula"><span set:html={formulaHtml(d.formula)} /></p>}
+      {plateFacts.length > 0 && (
+        <dl class="plate__facts">
+          {plateFacts.map((f) => (
+            <div><dt>{f.label}</dt><dd>{f.value}</dd></div>
+          ))}
+        </dl>
+      )}
+    </div>
+  </PageHeader>
+
   <section class="pd">
     <div class="container">
-      <nav class="crumbs" aria-label="Breadcrumb">
-        <a href="/products">Products</a><span aria-hidden="true">/</span>
-        <a href={`/products#${d.category}`}>{family?.name} · {family?.sub}</a>
-      </nav>
-
-      <div class="pd__top">
-        <div class="pd__intro">
-          <span class="label">{familyLabel}</span>
-          <h1 class="pd__name" set:html={withBreaks(d.name)} />
-          {d.synonyms && d.synonyms.length > 0 && (
-            <p class="pd__aka"><span>Also known as</span> {d.synonyms.join(' · ')}</p>
-          )}
-          <div class="pd__actions">
-            <a href={quoteHref} class="btn btn--primary">Request a quote <Arrow /></a>
-            <a href="/brochure.pdf" class="btn btn--ghost">Download brochure</a>
-          </div>
-        </div>
-
-        <!-- Specimen tile: the formula is this product's picture -->
-        <div class="specimen">
-          {d.image ? (
-            <img src={d.image} alt={d.name} class="specimen__img" loading="eager" />
-          ) : (
-            <p class="specimen__formula"><span set:html={formulaHtml(d.formula) || '&nbsp;'} /></p>
-          )}
-          <div class="specimen__foot">
-            <span>{d.image ? <Fragment set:html={formulaHtml(d.formula)} /> : 'Formula'}</span>
-            {d.cas && <span>CAS {d.cas}</span>}
-          </div>
-        </div>
-      </div>
-
       <div class="pd__body">
         <div>
           <h2 class="pd__h2">Specification</h2>
@@ -121,18 +131,15 @@ const productSchema = {
           </div>
         )}
       </div>
-    </div>
-  </section>
 
-  <!-- Quote band -->
-  <section class="qband on-dark">
-    <div class="container qband__in">
-      <div>
-        <span class="label">Pricing and datasheet</span>
-        <h2 class="qband__title">Need {d.name}?</h2>
-        <p class="qband__text">Tell us the grade and quantity. We reply with availability, pricing and documentation.</p>
+      <!-- Quote strip: light and framed, so the page stays calm between the dark header and footer -->
+      <div class="qstrip">
+        <div>
+          <p class="qstrip__title">Need {d.name}?</p>
+          <p class="qstrip__text">Tell us the grade and quantity. We reply with availability, pricing and documentation.</p>
+        </div>
+        <a href={quoteHref} class="btn btn--primary">Request a quote <Arrow /></a>
       </div>
-      <a href={quoteHref} class="btn btn--primary">Request a quote <Arrow /></a>
     </div>
   </section>
 
@@ -160,76 +167,50 @@ const productSchema = {
 </Layout>
 
 <style>
-  .pd { padding-block: clamp(40px, 6vw, 80px) var(--section); }
+  /* ---- Header extras (inside the dark PageHeader) ---- */
+  .aka { margin-top: 20px; max-width: 60ch; color: var(--color-on-dark); }
+  .aka span { margin-right: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand-soft); }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
 
-  .crumbs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  .plate {
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-border-dark);
     font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-muted);
   }
-  .crumbs a:hover { color: var(--color-ink); }
-
-  .pd__top {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: 40px clamp(40px, 6vw, 112px);
-    align-items: end;
-    margin-top: clamp(40px, 6vw, 72px);
-    padding-bottom: clamp(48px, 6vw, 80px);
-    border-bottom: 1px solid var(--color-ink);
-  }
-  .pd__name {
-    margin-top: 18px;
-    font-variation-settings: "wdth" 114;
-    font-size: clamp(40px, 6vw, 88px);
-    line-height: 0.98;
-    letter-spacing: -0.035em;
-    overflow-wrap: anywhere;
-  }
-  .pd__aka { margin-top: 20px; max-width: 60ch; color: var(--color-muted); }
-  .pd__aka span { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 8px; color: var(--color-ink); }
-  .pd__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
-
-  .specimen {
-    display: flex;
-    flex-direction: column;
-    aspect-ratio: 5 / 4;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-  }
-  .specimen__formula {
-    flex: 1;
-    display: grid;
-    place-items: center;
-    padding: 24px;
-    font-family: var(--font-mono);
-    font-size: clamp(36px, 4.4vw, 64px);
-    letter-spacing: -0.03em;
-    text-align: center;
-  }
-  .specimen__formula :global(sub) { font-size: 0.55em; }
-  .specimen__img { flex: 1; min-height: 0; width: 100%; object-fit: cover; }
-  .specimen__foot {
+  .plate__img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .plate__top {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 18px;
-    border-top: 1px solid var(--color-border);
-    font-family: var(--font-mono);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--color-border-dark);
     font-size: 12px;
-    color: var(--color-muted);
+    color: var(--color-muted-dark);
   }
+  .plate__formula {
+    padding: 28px 20px;
+    font-size: clamp(34px, 3.6vw, 52px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #fff;
+  }
+  .plate__formula :global(sub) { font-size: 0.55em; }
+  .plate__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    border-top: 1px solid var(--color-border-dark);
+  }
+  .plate__facts div { padding: 14px 20px; }
+  .plate__facts div + div { border-left: 1px solid var(--color-border-dark); }
+  .plate__facts dt { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted-dark); }
+  .plate__facts dd { margin: 6px 0 0; font-size: 17px; color: #fff; }
 
+  /* ---- Body ---- */
+  .pd { padding-block: clamp(56px, 7vw, 96px) clamp(64px, 8vw, 112px); }
   .pd__body {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: 48px clamp(40px, 6vw, 112px);
-    margin-top: clamp(48px, 6vw, 80px);
   }
   .pd__h2 {
     font-family: var(--font-mono);
@@ -260,14 +241,32 @@ const productSchema = {
   .apps li { position: relative; padding: 16px 0 16px 28px; border-bottom: 1px solid var(--color-border); }
   .apps li::before { content: ""; position: absolute; left: 0; top: 27px; width: 12px; height: 1px; background: var(--color-brand); }
 
-  /* Quote band */
-  .qband { background: var(--color-ink); padding-block: clamp(56px, 7vw, 96px); }
-  .qband__in { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px; }
-  .qband__title { margin-top: 16px; font-variation-settings: "wdth" 112; font-size: clamp(30px, 4vw, 52px); line-height: 1.02; letter-spacing: -0.03em; overflow-wrap: anywhere; }
-  .qband__text { margin-top: 14px; max-width: 48ch; color: var(--color-on-dark); }
+  /* ---- Quote strip ---- */
+  .qstrip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px 40px;
+    margin-top: clamp(56px, 7vw, 96px);
+    padding: clamp(24px, 3vw, 40px);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-brand);
+  }
+  .qstrip__title {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 112;
+    font-weight: 600;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  .qstrip__text { margin-top: 8px; max-width: 52ch; color: var(--color-muted); }
 
   /* Related */
-  .more { padding-block: clamp(64px, 8vw, 112px); }
+  .more { padding-block: 0 var(--section); }
   .more__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0 16px; }
   .more__all { white-space: nowrap; margin-bottom: 20px; }
   .more__all { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 13px; }
@@ -290,13 +289,12 @@ const productSchema = {
   .mini__cas { font-family: var(--font-mono); font-size: 12px; color: var(--color-muted); }
 
   @media (max-width: 900px) {
-    .pd__top, .pd__body { grid-template-columns: 1fr; }
-    .specimen { aspect-ratio: 16 / 9; }
+    .pd__body { grid-template-columns: 1fr; }
     .more__grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .specs__row { grid-template-columns: 1fr; gap: 4px; }
     .more__grid { grid-template-columns: 1fr; }
-    .qband__in .btn { width: 100%; justify-content: center; }
+    .qstrip .btn { width: 100%; justify-content: center; }
   }
 </style>

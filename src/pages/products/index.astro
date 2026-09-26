@@ -108,21 +108,21 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
 
 <style>
   /* ---- Family jump list in the header ---- */
-  .jump { border-top: 1px solid var(--color-ink); }
-  .jump__label { color: var(--color-muted); padding-block: 14px 6px; }
+  .jump { border-top: 1px solid rgba(255, 255, 255, 0.5); }
+  .jump__label { padding-block: 14px 6px; }
   .jump__row {
     display: grid;
     grid-template-columns: 40px 1fr auto;
     align-items: baseline;
     gap: 12px;
     padding-block: 14px;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border-dark);
     transition: color 0.2s;
   }
-  .jump__row:hover { color: var(--color-brand-dark); }
-  .jump__no { font-family: var(--font-mono); font-size: 13px; color: var(--color-brand-dark); }
+  .jump__row:hover { color: var(--color-brand-soft); }
+  .jump__no { font-family: var(--font-mono); font-size: 13px; color: var(--color-brand-soft); }
   .jump__name { font-weight: 600; }
-  .jump__name small { font-weight: 400; font-size: 15px; color: var(--color-muted); }
+  .jump__name small { font-weight: 400; font-size: 15px; color: var(--color-muted-dark); }
   .jump__count { font-family: var(--font-mono); font-size: 14px; }
 
   /* ---- Search bar, sticks under the navbar ---- */
@@ -159,8 +159,6 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
     grid-template-columns: 64px 1fr auto;
     gap: 24px;
     align-items: end;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--color-ink);
   }
   .fam__no { align-self: start; padding-top: 10px; font-family: var(--font-mono); font-size: 14px; color: var(--color-brand-dark); }
   .fam__name { font-variation-settings: "wdth" 112; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.05; }
@@ -177,25 +175,28 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
   }
   .fam__count span { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
 
-  /* ---- Catalogue table ---- */
+  /* ---- Catalogue table: one framed white panel per family ---- */
+  .tbl { margin-top: 28px; background: var(--color-surface); border: 1px solid var(--color-border); }
+  .tbl__row:last-child { border-bottom: 0; }
   .tbl__row {
     display: grid;
     grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr) minmax(0, 1.1fr) minmax(0, 2fr) 44px;
     gap: 24px;
     align-items: center;
-    padding: 18px 12px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--color-border);
     transition: background 0.2s;
   }
   .tbl__row--head {
     padding-block: 14px;
+    background: #E9ECE9;
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-muted);
   }
-  a.tbl__row:hover { background: var(--color-surface); }
+  a.tbl__row:hover { background: var(--color-bg); }
   .tbl__name { font-weight: 600; font-size: 17px; overflow-wrap: anywhere; }
   .tbl__formula { font-family: var(--font-mono); font-size: 16px; }
   .tbl__formula :global(sub) { font-size: 0.7em; }
@@ -233,7 +234,7 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
       grid-template-columns: 1fr 40px;
       grid-template-areas: "name go" "meta go";
       gap: 4px 16px;
-      padding-inline: 0;
+      padding-inline: 16px;
     }
     .tbl__name { grid-area: name; }
     .tbl__go { grid-area: go; }

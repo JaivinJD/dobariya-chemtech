@@ -2,7 +2,8 @@
 import LogoLockup from '../assets/logo-lockup.svg';
 
 // overlay = true: transparent over a full-bleed hero, turns solid on scroll (homepage).
-// overlay = false: solid bar from the start (every other page).
+// overlay = false: solid dark bar from the start (every other page).
+// "Solid" is always the dark ink band, so the top of every page reads the same.
 const { overlay = false } = Astro.props;
 
 // The nav links live as DATA. Add, remove or reorder a link here.
@@ -46,13 +47,13 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
     position: sticky;
     top: 0;
     z-index: 50;
-    color: var(--color-ink);
+    color: #fff;
     transition: background 0.3s, color 0.3s, box-shadow 0.3s;
   }
   /* Overlay mode: pinned on top of the hero, white text, no background */
   .nav--overlay { position: fixed; inset: 0 0 auto 0; color: #fff; }
 
-  .nav.is-solid { background: var(--color-bg); color: var(--color-ink); box-shadow: 0 1px 0 var(--color-border); }
+  .nav.is-solid { background: var(--color-ink); color: #fff; box-shadow: 0 1px 0 var(--color-border-dark); }
 
   .nav__in {
     display: flex;
@@ -93,7 +94,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
   .nav__link[aria-current="page"]::after { right: 0; }
 
   .nav__cta { height: 44px; }
-  .nav--overlay:not(.is-solid) .nav__cta:hover { background: #fff; color: var(--color-ink); }
+  .nav__cta:hover { background: #fff; color: var(--color-ink); }
 
   .nav__burger { display: none; }
 
@@ -124,11 +125,11 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
       align-items: flex-start;
       gap: 4px;
       padding: 16px var(--gutter) 28px;
-      background: var(--color-bg);
-      color: var(--color-ink);
-      border-bottom: 1px solid var(--color-border);
+      background: var(--color-ink);
+      color: #fff;
+      border-bottom: 1px solid var(--color-border-dark);
     }
-    .nav.is-open { background: var(--color-bg); color: var(--color-ink); }
+    .nav.is-open { background: var(--color-ink); color: #fff; }
     .nav.is-open .nav__links { display: flex; }
     .nav__link { font-size: 15px; padding-block: 12px; }
     .nav__cta { margin-top: 12px; }

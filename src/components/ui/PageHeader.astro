@@ -1,21 +1,27 @@
 ---
-// The one header used by every inner page (Products, Quality, About, Contact...),
-// so all pages open the same way. Optional `crumbs` shows a small trail above.
+// The one header used by every inner page (Products, product detail, Quality,
+// About, Contact), so all pages open the same way: a dark band that continues
+// the dark navbar, with the logo mark as a faint watermark on the right.
 //
 //   <PageHeader label="Products" title="Bromine derivatives" lead="..." />
-//   <PageHeader crumbs={[{ label: 'Products', href: '/products' }]} ...>
-//     <div slot="aside">...</div>          optional right-hand block
+//   <PageHeader crumbs={[{ label: 'Products', href: '/products' }]} label="...">
+//     <Fragment slot="title">Custom <em>title</em></Fragment>   optional rich title
+//     <div>...</div>                                            extra content under the lead
+//     <div slot="aside">...</div>                               optional right-hand block
 //   </PageHeader>
+import LogoIcon from '../../assets/logo-icon.svg';
+
 const { label, title, lead, crumbs = [] } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 ---
 
-<header class:list={['phead', { 'phead--aside': hasAside }]}>
+<header class:list={['phead', 'on-dark', { 'phead--aside': hasAside }]}>
+  <LogoIcon class="phead__mark" aria-hidden="true" />
   <div class="container phead__in">
     <div class="phead__main">
       {crumbs.length > 0 && (
         <nav class="phead__crumbs" aria-label="Breadcrumb">
-          {crumbs.map((c) => <Fragment><a href={c.href}>{c.label}</a><span aria-hidden="true">/</span></Fragment>)}
+          {crumbs.map((c, i) => <Fragment>{i > 0 && <span aria-hidden="true">/</span>}<a href={c.href}>{c.label}</a></Fragment>)}
         </nav>
       )}
       {label && <span class="label">{label}</span>}
@@ -28,22 +34,38 @@ const hasAside = Astro.slots.has('aside');
 </header>
 
 <style>
-  .phead { padding-block: clamp(56px, 8vw, 112px) clamp(40px, 5vw, 64px); border-bottom: 1px solid var(--color-border); }
-  .phead__in { display: grid; gap: 40px clamp(40px, 6vw, 112px); }
+  .phead {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-ink);
+    padding-block: clamp(56px, 8vw, 112px) clamp(48px, 6vw, 88px);
+  }
+  /* Faint logo mark, cropped off the right edge. Decoration only. */
+  .phead__mark {
+    position: absolute;
+    right: -4%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 150%;
+    width: auto;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .phead__in { position: relative; display: grid; gap: 40px clamp(40px, 6vw, 112px); }
   .phead--aside .phead__in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
 
   .phead__crumbs {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-muted);
+    color: var(--color-muted-dark);
   }
-  .phead__crumbs a:hover { color: var(--color-ink); }
+  .phead__crumbs a:hover { color: #fff; }
 
   .phead__title {
     margin-top: 18px;
@@ -51,12 +73,13 @@ const hasAside = Astro.slots.has('aside');
     font-size: clamp(42px, 7vw, 104px);
     line-height: 0.95;
     letter-spacing: -0.04em;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
   }
-  .phead__lead { margin-top: 28px; max-width: 56ch; font-size: 19px; line-height: 1.55; color: var(--color-muted); }
+  .phead__lead { margin-top: 28px; max-width: 56ch; font-size: 19px; line-height: 1.55; color: var(--color-on-dark); }
 
   @media (max-width: 900px) {
     .phead--aside .phead__in { grid-template-columns: 1fr; align-items: start; }
+    .phead__mark { height: 110%; right: -18%; }
   }
   @media (max-width: 600px) { .phead__lead { font-size: 17px; } }
 </style>
