@@ -2,10 +2,9 @@
 // "A manufacturer, not a trader." Company intro + plant photo + both addresses.
 import { offices } from '../../data/offices.json';
 import PhotoSlot from '../ui/PhotoSlot.astro';
+import ampouleImg from '../../assets/photos/ampoule.jpg';
 import Arrow from '../ui/Arrow.astro';
 
-// Real photo goes here later: import plantImg from '../../assets/photos/plant.jpg';
-const plantImg = undefined;
 ---
 
 <section class="intro">
@@ -31,7 +30,7 @@ const plantImg = undefined;
 
     <div class="intro__media" data-reveal>
       <div class="intro__photo">
-        <PhotoSlot src={plantImg} alt="Stainless steel process pipework and valves" code="P2" note="Process pipework and valves, 4:3 landscape." />
+        <PhotoSlot src={ampouleImg} alt="Glass ampoule of red-brown liquid on a slate surface" />
       </div>
       <div class="intro__facts">
         {offices.map((o) => (

@@ -2,16 +2,15 @@
 // Photo band with the main call to action, just above the footer.
 import contact from '../../data/contact.json';
 import PhotoSlot from '../ui/PhotoSlot.astro';
+import warehouseImg from '../../assets/photos/warehouse.jpg';
 import Arrow from '../ui/Arrow.astro';
 
-// Real photo goes here later: import dispatchImg from '../../assets/photos/dispatch.jpg';
-const dispatchImg = undefined;
 const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
 ---
 
 <section class="enq on-dark">
   <div class="enq__bg">
-    <PhotoSlot src={dispatchImg} alt="" code="P4" note="Dispatch, drums in a warehouse. 21:9 wide." tone="dark" sizes="100vw" widths={[960, 1600, 2400, 3000]} />
+    <PhotoSlot src={warehouseImg} alt="" sizes="100vw" widths={[960, 1600, 2400, 3000]} />
   </div>
   <div class="container enq__in" data-reveal>
     <span class="label">Enquiries</span>

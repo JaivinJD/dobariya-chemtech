@@ -20,11 +20,11 @@ Goal: replace the generic look with a confident industrial-editorial design, ref
 ## Photo slots
 | Code | Where | Status |
 |---|---|---|
-| P1 | Home hero (`components/home/Hero.astro`, import `heroImg`) | current stock silo photo, to be replaced |
-| P2 | Home intro (`Intro.astro`, `plantImg`) and About | waiting |
-| P3 | Home promises (`Promises.astro`, `qcImg`) and Quality | waiting |
-| P4 | Home enquiry band (`Enquiry.astro`, `dispatchImg`) | waiting |
-| P5 | About header | waiting |
+| P1 | Home hero (`Hero.astro`) | AI image `photos/hero-lab.jpg` (placeholder until real photos) |
+| P2 | Home intro (`Intro.astro`) | AI image `photos/ampoule.jpg` |
+| P3 | dropped (weak image); promises section is text-only with sticky heading |
+| P4 | Home enquiry band (`Enquiry.astro`) | AI image `photos/warehouse.jpg` |
+| P5 | dropped; About uses the standard dark header |
 Put photos in `src/assets/photos/`, import them, pass to `<PhotoSlot src={...}>`.
 
 ## Progress

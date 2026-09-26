@@ -2,14 +2,14 @@
 // Full-bleed homepage hero. The navbar floats over it (navOverlay on the page).
 // Swap the photo by changing this one import; everything else adapts.
 import { Image } from 'astro:assets';
-import heroImg from '../../assets/hero.jpg';
+import heroImg from '../../assets/photos/hero-lab.jpg';
 import Arrow from '../ui/Arrow.astro';
 ---
 
 <section class="hero on-dark">
   <Image
     src={heroImg}
-    alt=""
+    alt="Laboratory bench with flasks of red-brown liquid"
     class="hero__img"
     widths={[800, 1280, 1920, 2560]}
     sizes="100vw"
@@ -62,7 +62,7 @@ import Arrow from '../ui/Arrow.astro';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 60% 60%;
+    object-position: 78% 70%;
   }
   /* Darkens the left and bottom so the type always reads, whatever the photo */
   .hero::before {

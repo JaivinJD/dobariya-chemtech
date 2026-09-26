@@ -1,9 +1,5 @@
 ---
 // Six promises, plain numbered text on dark. No icons on purpose.
-import PhotoSlot from '../ui/PhotoSlot.astro';
-
-// Real photo goes here later: import qcImg from '../../assets/photos/quality.jpg';
-const qcImg = undefined;
 
 const promises = [
   { title: 'High purity',         text: 'Tightly controlled processes deliver consistently high-purity bromine derivatives.' },
@@ -20,9 +16,6 @@ const promises = [
     <div class="prom__side" data-reveal>
       <span class="label">Why Dobariya Chemtech</span>
       <h2 class="h2 prom__title">Six things our buyers can hold us to.</h2>
-      <div class="prom__photo">
-        <PhotoSlot src={qcImg} alt="Lab technician filling a sample vial" code="P3" note="Quality control, gloved hands and sample vial. 4:5 portrait." tone="dark" />
-      </div>
     </div>
 
     <ol class="plist" data-reveal-group>
@@ -41,7 +34,7 @@ const promises = [
   .prom { padding-block: var(--section); }
   .prom__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 112px); }
   .prom__title { margin-top: 20px; }
-  .prom__photo { margin-top: 48px; aspect-ratio: 4 / 5; overflow: hidden; }
+  .prom__side { align-self: start; position: sticky; top: calc(var(--nav-h) + 40px); }
 
   .plist {
     list-style: none;
@@ -58,7 +51,7 @@ const promises = [
 
   @media (max-width: 900px) {
     .prom__grid { grid-template-columns: 1fr; }
-    .prom__photo { aspect-ratio: 16 / 10; }
+    .prom__side { position: static; }
   }
   @media (max-width: 600px) { .plist { grid-template-columns: 1fr; } }
 </style>
