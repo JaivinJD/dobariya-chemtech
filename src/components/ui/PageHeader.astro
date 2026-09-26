@@ -1,0 +1,62 @@
+---
+// The one header used by every inner page (Products, Quality, About, Contact...),
+// so all pages open the same way. Optional `crumbs` shows a small trail above.
+//
+//   <PageHeader label="Products" title="Bromine derivatives" lead="..." />
+//   <PageHeader crumbs={[{ label: 'Products', href: '/products' }]} ...>
+//     <div slot="aside">...</div>          optional right-hand block
+//   </PageHeader>
+const { label, title, lead, crumbs = [] } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+
+<header class:list={['phead', { 'phead--aside': hasAside }]}>
+  <div class="container phead__in">
+    <div class="phead__main">
+      {crumbs.length > 0 && (
+        <nav class="phead__crumbs" aria-label="Breadcrumb">
+          {crumbs.map((c) => <Fragment><a href={c.href}>{c.label}</a><span aria-hidden="true">/</span></Fragment>)}
+        </nav>
+      )}
+      {label && <span class="label">{label}</span>}
+      <h1 class="phead__title"><slot name="title">{title}</slot></h1>
+      {lead && <p class="phead__lead">{lead}</p>}
+      <slot />
+    </div>
+    {hasAside && <div class="phead__aside"><slot name="aside" /></div>}
+  </div>
+</header>
+
+<style>
+  .phead { padding-block: clamp(56px, 8vw, 112px) clamp(40px, 5vw, 64px); border-bottom: 1px solid var(--color-border); }
+  .phead__in { display: grid; gap: 40px clamp(40px, 6vw, 112px); }
+  .phead--aside .phead__in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
+
+  .phead__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .phead__crumbs a:hover { color: var(--color-ink); }
+
+  .phead__title {
+    margin-top: 18px;
+    font-variation-settings: "wdth" 116;
+    font-size: clamp(42px, 7vw, 104px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    overflow-wrap: break-word;
+  }
+  .phead__lead { margin-top: 28px; max-width: 56ch; font-size: 19px; line-height: 1.55; color: var(--color-muted); }
+
+  @media (max-width: 900px) {
+    .phead--aside .phead__in { grid-template-columns: 1fr; align-items: start; }
+  }
+  @media (max-width: 600px) { .phead__lead { font-size: 17px; } }
+</style>

@@ -1,297 +1,254 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { offices } from "../data/offices.json";
-import contact from "../data/contact.json";
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import Arrow from '../components/ui/Arrow.astro';
+import { offices } from '../data/offices.json';
+import contact from '../data/contact.json';
 
+// Product names for the "Product" field suggestions.
+const productNames = (await getCollection('products')).map((p) => p.data.name).sort();
+const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
 ---
 
 <Layout
-  title="Contact & Request a Quote — Dobariya Chemtech"
-  description="Request a quote for bromine derivatives. Offices in Bodakdev, Ahmedabad and manufacturing in Kadi, Gujarat."
+  title="Contact and Request a Quote | Dobariya Chemtech"
+  description="Request a quote for bromine derivatives. Corporate office in Bodakdev, Ahmedabad and manufacturing in Kadi, Gujarat."
 >
-  <section class="contact">
-    <div class="container">
-      <span class="contact__eyebrow">Get in touch</span>
-      <h1 class="contact__title">Request a quote</h1>
-      <p class="contact__lead">
-        Tell us the products and quantities you need. We'll respond with
-        availability, pricing and documentation.
-      </p>
+  <PageHeader
+    label="Contact"
+    title="Request a quote"
+    lead="Tell us the products and quantities you need. We respond with availability, pricing and documentation."
+  />
 
-      <div class="contact__grid">
-        <!-- LEFT: the form -->
-        <form
-          class="cform"
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-        >
-          <input type="hidden" name="form-name" value="contact" />
-          <p class="hp-field">
-            <label>Don't fill this out: <input name="bot-field" /></label>
-          </p>
-          <label>
-            Name
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Company
-            <input type="text" name="company" />
-          </label>
-          <label>
-            What do you need?
-            <textarea
-              name="message"
-              rows="5"
-              placeholder="Product names and quantities…"
-              required></textarea>
-          </label>
-          <button type="submit" class="btn btn--primary">Send request →</button>
-        </form>
+  <section class="enquiry" id="enquiry">
+    <div class="container enquiry__grid">
+      <!--
+        NETLIFY FORMS WIRING: do not remove or rename any of these:
+        name="contact", data-netlify, netlify-honeypot, the hidden form-name
+        input, the bot-field input and its .hp-field wrapper.
+      -->
+      <form
+        class="cform"
+        name="contact"
+        method="POST"
+        action="/thanks"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp-field">
+          <label>Don't fill this out: <input name="bot-field" /></label>
+        </p>
 
-        <!-- RIGHT: slimmed sidebar — quick contact only -->
-        <aside class="cinfo">
-          <div class="cinfo__block">
-            <h3>Contact</h3>
-            <p>
-              <a href={`mailto:${contact.email}`}>{contact.email}</a><br />
-              <a href={`tel:${contact.phone.replace(/\s/g, "")}`}
-                >{contact.phone}</a
-              >
-            </p>
-            <a href={`https://wa.me/${contact.whatsapp}`} class="cinfo__wa"
-              >Chat on WhatsApp →</a
-            >
+        <div class="cform__grid">
+          <div class="field">
+            <label for="f-name">Name <span aria-hidden="true">*</span></label>
+            <input id="f-name" type="text" name="name" autocomplete="name" required />
           </div>
-          <div class="cinfo__block">
-            <h3>Working hours</h3>
-            <p>{contact.hours}</p>
+          <div class="field">
+            <label for="f-company">Company</label>
+            <input id="f-company" type="text" name="company" autocomplete="organization" />
           </div>
-
-          <div class="cinfo__block cinfo__map">
-            <h3>Our Locations</h3>
-            <div
-              id="locations-map"
-              style="height:240px; border-radius:10px; overflow:hidden;"
-            >
-            </div>
+          <div class="field">
+            <label for="f-email">Email <span aria-hidden="true">*</span></label>
+            <input id="f-email" type="email" name="email" autocomplete="email" required />
           </div>
-        </aside>
-      </div>
-      <!-- closes .contact__grid -->
+          <div class="field">
+            <label for="f-phone">Phone / WhatsApp</label>
+            <input id="f-phone" type="tel" name="phone" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="f-product">Product</label>
+            <input id="f-product" type="text" name="product" list="product-list" placeholder="e.g. n-Butyl Bromide" />
+            <datalist id="product-list">
+              {productNames.map((n) => <option value={n} />)}
+            </datalist>
+          </div>
+          <div class="field">
+            <label for="f-qty">Quantity</label>
+            <input id="f-qty" type="text" name="quantity" placeholder="e.g. 2 MT per month" />
+          </div>
+          <div class="field field--full">
+            <label for="f-message">What do you need? <span aria-hidden="true">*</span></label>
+            <textarea id="f-message" name="message" rows="5" placeholder="Grade, packaging, destination, delivery schedule..." required></textarea>
+          </div>
+        </div>
 
-      <!-- addresses get their own full-width row, below -->
-      <div class="contact__offices" data-reveal-group>
-        {
-          offices.map((office) => (
-            <div class="office card">
-              <h3>{office.label}</h3>
-              <p>
-                {office.lines.map((line) => (
-                  <span>
-                    {line}
-                    <br />
-                  </span>
-                ))}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-      <!-- closes .contact__offices -->
+        <div class="cform__foot">
+          <button type="submit" class="btn btn--primary">Send request <Arrow /></button>
+          <p class="cform__note">* Required fields</p>
+        </div>
+      </form>
+
+      <aside class="direct">
+        <div class="direct__block">
+          <span class="label">Talk to us directly</span>
+          <a href={tel} class="direct__big">{contact.phone}</a>
+          <a href={`mailto:${contact.email}`} class="direct__mail">{contact.email}</a>
+          <a href={`https://wa.me/${contact.whatsapp}`} class="btn btn--ink direct__wa" target="_blank" rel="noopener">
+            Chat on WhatsApp <Arrow />
+          </a>
+        </div>
+        <div class="direct__block">
+          <span class="label">Working hours</span>
+          <p class="direct__hours">{contact.hours}</p>
+        </div>
+      </aside>
     </div>
-    <!-- closes .container -->
-    <script>
-      import L from "leaflet";
-      import "leaflet/dist/leaflet.css";
+  </section>
 
-      const pinSvg = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="40" viewBox="0 0 24 36">
-      <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24c0-6.6-5.4-12-12-12z"
-          fill="#DC2626" style="filter:drop-shadow(0 2px 2px rgba(0,0,0,0.35))"/>
-      <circle cx="12" cy="12" r="5" fill="#ffffff"/>
-      </svg>`;
-
-      const redIcon = L.icon({
-        iconUrl: `data:image/svg+xml,${encodeURIComponent(pinSvg)}`,
-        iconSize: [28, 40],
-        iconAnchor: [14, 40],
-      });
-
-      const map = L.map("locations-map", {
-        zoomControl: true,
-        scrollWheelZoom: true,
-      });
-
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-        {
-          attribution: "&copy; OpenStreetMap contributors &copy; CARTO",
-          maxZoom: 19,
-        },
-      ).addTo(map);
-
-      function addLocationMarker(lat, lng, label) {
-        const marker = L.marker([lat, lng], { icon: redIcon }).addTo(map);
-        marker.bindTooltip(label, { direction: "top", offset: [0, -8] });
-        marker.on("click", () => {
-          window.open(
-            `https://www.google.com/maps?q=${lat},${lng}`,
-            "_blank",
-            "noopener",
-          );
-        });
-        return marker;
-      }
-
-      const office = addLocationMarker(
-        23.0353849,
-        72.5043858,
-        "Corporate Office",
-      );
-      const factory = addLocationMarker(
-        23.27925,
-        72.391556,
-        "Manufacturing Unit",
-      );
-
-      map.fitBounds(L.latLngBounds([office.getLatLng(), factory.getLatLng()]), {
-        padding: [30, 30],
-      });
-    </script>
+  <section class="locs sect-white">
+    <div class="container locs__grid">
+      <div class="locs__list">
+        <span class="label">Locations</span>
+        <h2 class="h2 locs__title">Two sites in Gujarat.</h2>
+        {offices.map((office) => (
+          <div class="office">
+            <h3 class="office__label">{office.label}</h3>
+            <p>{office.lines.map((line, i) => <Fragment>{i > 0 && <br />}{line}</Fragment>)}</p>
+          </div>
+        ))}
+      </div>
+      <div class="locs__map" id="locations-map" aria-label="Map showing the corporate office and the manufacturing unit"></div>
+    </div>
   </section>
 </Layout>
 
-<style>
-  .contact {
-    padding-block: var(--space-lg);
-  }
-  .contact__eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-brand);
-    font-weight: 600;
-  }
-  .contact__title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--color-ink);
-    margin-top: 0.4rem;
-  }
-  .contact__lead {
-    color: var(--color-muted);
-    margin-top: var(--space-sm);
-    max-width: 46ch;
+<script>
+  // Pre-fill the product field when arriving from a product page (?product=Name).
+  const product = new URLSearchParams(location.search).get('product');
+  const field = document.querySelector<HTMLInputElement>('#f-product');
+  if (product && field) field.value = product;
+</script>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  // Teal map pin as an inline SVG (no external marker images).
+  const pinSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="40" viewBox="0 0 24 36">
+      <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24c0-6.6-5.4-12-12-12z"
+        fill="#069592" style="filter:drop-shadow(0 2px 2px rgba(0,0,0,0.35))"/>
+      <circle cx="12" cy="12" r="5" fill="#ffffff"/>
+    </svg>`;
+
+  const pinIcon = L.icon({
+    iconUrl: `data:image/svg+xml,${encodeURIComponent(pinSvg)}`,
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
+  });
+
+  const map = L.map('locations-map', { zoomControl: true, scrollWheelZoom: false });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    maxZoom: 19,
+  }).addTo(map);
+
+  function addLocationMarker(lat: number, lng: number, label: string) {
+    const marker = L.marker([lat, lng], { icon: pinIcon }).addTo(map);
+    marker.bindTooltip(label, { direction: 'top', offset: [0, -34] });
+    marker.on('click', () => {
+      window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank', 'noopener');
+    });
+    return marker;
   }
 
-  .contact__grid {
+  const office = addLocationMarker(23.0353849, 72.5043858, 'Corporate Office');
+  const factory = addLocationMarker(23.27925, 72.391556, 'Manufacturing Unit');
+
+  map.fitBounds(L.latLngBounds([office.getLatLng(), factory.getLatLng()]), { padding: [40, 40] });
+</script>
+
+<style>
+  .enquiry { padding-block: clamp(48px, 6vw, 88px) var(--section); }
+  .enquiry__grid {
     display: grid;
-    grid-template-columns: 1.6fr 0.9fr; /* was 1.3fr 1fr — form gets more room */
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: 48px clamp(40px, 6vw, 112px);
     align-items: start;
   }
 
-  .cform {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-  .cform label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    font-size: 0.9rem;
-    color: var(--color-muted);
-  }
-  .cform input,
-  .cform textarea {
-    font: inherit;
-    padding: 0.7rem 0.9rem;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: var(--color-surface);
-    color: var(--color-ink);
-  }
-  .cform input:focus,
-  .cform textarea:focus {
-    outline: none;
-    border-color: var(--color-brand);
-  }
-  .cform button {
-    align-self: flex-start;
-    margin-top: var(--space-xs);
-  }
-
-  .cinfo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-  .cinfo__block h3 {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-ink);
-    margin-bottom: 0.4rem;
-  }
-  .cinfo__block p {
-    color: var(--color-muted);
-    line-height: 1.7;
-    font-size: 0.95rem;
-  }
-  .cinfo__block a:hover {
-    color: var(--color-brand);
-  }
-  .cinfo__wa {
-    display: inline-block;
-    margin-top: 0.5rem;
-    color: var(--color-brand);
+  /* ---- Form ---- */
+  .cform { background: var(--color-surface); border: 1px solid var(--color-border); padding: clamp(24px, 3.5vw, 48px); }
+  .cform__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .field { display: grid; gap: 8px; }
+  .field--full { grid-column: 1 / -1; }
+  .field label {
+    font-family: var(--font-mono);
+    font-size: 12px;
     font-weight: 500;
-  }
-
-  .contact__offices {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-    margin-top: var(--space-lg);
-  }
-  .office h3 {
-    font-size: 0.8rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-ink);
-    margin-bottom: 0.5rem;
-  }
-  .office p {
     color: var(--color-muted);
-    line-height: 1.7;
-    font-size: 0.95rem;
   }
-
-  .hp-field {
-    display: none;
+  .field label span { color: var(--color-brand-dark); }
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 14px 0;
+    font: inherit;
+    color: var(--color-ink);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+    transition: border-color 0.2s;
   }
+  .field textarea { resize: vertical; min-height: 120px; }
+  .field input::placeholder, .field textarea::placeholder { color: #9AA3A0; }
+  .field input:focus,
+  .field textarea:focus { outline: none; border-bottom-color: var(--color-ink); box-shadow: 0 1px 0 var(--color-ink); }
+  .cform__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 36px; }
+  .cform__note { font-size: 14px; color: var(--color-muted); }
 
-  .leaflet-marker-icon,
-  .leaflet-marker-shadow {
-    max-width: none;
+  /* ---- Direct contact ---- */
+  .direct { display: grid; gap: 40px; }
+  .direct__block { display: grid; gap: 12px; justify-items: start; padding-top: 16px; border-top: 1px solid var(--color-ink); }
+  .direct__big {
+    margin-top: 6px;
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 112;
+    font-size: clamp(28px, 2.6vw, 38px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
+  .direct__big:hover, .direct__mail:hover { color: var(--color-brand-dark); }
+  .direct__mail { font-size: 18px; text-decoration: underline; text-decoration-color: var(--color-brand); text-underline-offset: 4px; overflow-wrap: anywhere; }
+  .direct__wa { margin-top: 12px; }
+  .direct__hours { font-size: 18px; }
 
-  @media (max-width: 860px) {
-    .contact__offices {
-      grid-template-columns: 1fr;
-    }
+  /* ---- Locations ---- */
+  .locs { padding-block: var(--section); }
+  .locs__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); align-items: stretch; }
+  .locs__title { margin-top: 18px; margin-bottom: 40px; }
+  .office { padding-block: 20px; border-top: 1px solid var(--color-border); line-height: 1.7; }
+  .office__label {
+    margin-bottom: 8px;
+    font-family: var(--font-mono);
+    font-variation-settings: normal;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand-dark);
   }
+  .locs__map { min-height: 440px; border: 1px solid var(--color-border); z-index: 0; }
 
-  @media (max-width: 860px) {
-    .contact__grid {
-      grid-template-columns: 1fr;
-    }
+  /* Netlify honeypot: must stay hidden */
+  .hp-field { display: none; }
+
+  /* Keep Leaflet's pins from being squashed by the global img reset */
+  :global(.leaflet-marker-icon), :global(.leaflet-marker-shadow) { max-width: none; }
+
+  @media (max-width: 900px) {
+    .enquiry__grid, .locs__grid { grid-template-columns: 1fr; }
+    .locs__map { min-height: 340px; }
+  }
+  @media (max-width: 600px) {
+    .cform__grid { grid-template-columns: 1fr; }
   }
 </style>

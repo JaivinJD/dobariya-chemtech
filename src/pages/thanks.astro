@@ -1,0 +1,39 @@
+---
+// Where the contact form lands after a successful Netlify Forms submission
+// (the form's action="/thanks"). Kept out of search results.
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/ui/Arrow.astro';
+import contact from '../data/contact.json';
+---
+
+<Layout title="Thank you | Dobariya Chemtech" description="Your enquiry has been received.">
+  <meta name="robots" content="noindex" slot="head" />
+  <section class="thanks">
+    <div class="container">
+      <span class="label">Enquiry received</span>
+      <h1 class="thanks__title">Thank you.<br />We'll be in touch.</h1>
+      <p class="thanks__text">
+        Your request has reached our team. If it is urgent, call us on
+        <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>.
+      </p>
+      <div class="thanks__actions">
+        <a href="/products" class="btn btn--primary">Back to products <Arrow /></a>
+        <a href="/" class="btn btn--ghost">Home</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .thanks { padding-block: clamp(96px, 14vw, 200px); }
+  .thanks__title {
+    margin-top: 18px;
+    font-variation-settings: "wdth" 116;
+    font-size: clamp(42px, 7vw, 104px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+  .thanks__text { margin-top: 28px; max-width: 52ch; font-size: 19px; color: var(--color-muted); }
+  .thanks__text a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-brand); text-underline-offset: 3px; }
+  .thanks__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+</style>

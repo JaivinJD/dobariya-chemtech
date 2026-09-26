@@ -29,7 +29,7 @@ Put photos in `src/assets/photos/`, import them, pass to `<PhotoSlot src={...}>`
 
 ## Progress
 - [x] Day 1: tokens, Layout (fonts, overlay nav prop, counters, one-shot reveals), Navbar, Footer (reads contact.json / offices.json, dobariya.in link), full homepage in `components/home/`, shared `lib/catalog.ts`, `ui/PhotoSlot`, `ui/Arrow`.
-- [ ] Day 2: Products list (anchors `#alkyl-solvents`, `#alkyl-solid`, `#other` are already linked from home), product detail, Contact (add `id="enquiry"` on the form section; nav CTA links `/contact#enquiry`).
+- [x] Day 2: shared `ui/PageHeader`, Products list (catalogue table + live search + family jump list), product detail (specimen tile, spec list, related, quote prefill `?product=`), Contact (new fields phone/product/quantity, `action="/thanks"`, map restyled), `/thanks` page (noindex, out of sitemap).
 - [ ] Day 3: About (Dobariya Group band with dobariya.in button), Quality, 404, drop in photos, mobile pass.
 - [ ] Day 4: feedback, performance, OG image, merge `cms-admin` in, launch prep.
 

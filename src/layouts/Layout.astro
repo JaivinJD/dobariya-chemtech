@@ -65,6 +65,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         },
       })}
     />
+    <slot name="head" />
   </head>
   <body>
     <Navbar overlay={navOverlay} />
