@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/ui/PageHeader.astro';
 import Arrow from '../../components/ui/Arrow.astro';
+import headerImg from '../../assets/photos/hero-lab.jpg';
 import { families, formulaHtml, withBreaks } from '../../lib/catalog';
 
 // Every product from the CMS collection (already schema-validated), A to Z.
@@ -20,6 +21,8 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
   description="Our full range of bromine derivatives in three families: alkyl bromides in solvents, solid and inorganic bromides, and specialty bromides. Formula, CAS number and specification for each."
 >
   <PageHeader
+    image={headerImg}
+    imagePos="80% 65%"
     label="Products"
     title="Bromine derivatives"
     lead={`${products.length} products across three families, manufactured and supplied from our facility in Kadi, Gujarat. Open any product for its full specification.`}
@@ -152,7 +155,7 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
   .finder__count { font-family: var(--font-mono); font-size: 13px; color: var(--color-muted); white-space: nowrap; }
 
   /* ---- Family blocks ---- */
-  .cat { padding-block: clamp(48px, 6vw, 88px) var(--section); }
+  .cat { padding-block: clamp(48px, 6vw, 88px) clamp(64px, 8vw, 104px); }
   .fam + .fam { margin-top: clamp(64px, 8vw, 112px); }
   .fam__head {
     display: grid;
@@ -161,13 +164,13 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
     align-items: end;
   }
   .fam__no { align-self: start; padding-top: 10px; font-family: var(--font-mono); font-size: 14px; color: var(--color-brand-dark); }
-  .fam__name { font-variation-settings: "wdth" 112; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.05; }
+  .fam__name { font-variation-settings: "wdth" var(--display-wdth); font-size: clamp(28px, 3.4vw, 44px); line-height: 1.05; }
   .fam__name span { font-family: var(--font-body); font-variation-settings: normal; font-weight: 400; font-size: 17px; letter-spacing: 0; color: var(--color-muted); }
   .fam__blurb { margin-top: 10px; max-width: 60ch; color: var(--color-muted); }
   .fam__count {
     text-align: right;
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 115;
+    font-variation-settings: "wdth" var(--display-wdth);
     font-size: 48px;
     font-weight: 500;
     line-height: 1;
@@ -217,7 +220,7 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
   .empty a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-brand); text-underline-offset: 3px; }
 
   /* ---- Closing prompt ---- */
-  .ask { background: var(--color-surface); border-top: 1px solid var(--color-border); padding-block: clamp(64px, 8vw, 112px); }
+  .ask { background: var(--color-surface); border-top: 1px solid var(--color-border); padding-block: clamp(56px, 7vw, 96px); }
   .ask__in { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
   .ask__title { margin-top: 18px; }
   .ask__text { max-width: 44ch; color: var(--color-muted); margin-bottom: 28px; }

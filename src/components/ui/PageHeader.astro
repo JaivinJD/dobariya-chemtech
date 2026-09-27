@@ -1,22 +1,30 @@
 ---
 // The one header used by every inner page (Products, product detail, Quality,
 // About, Contact), so all pages open the same way: a dark band that continues
-// the dark navbar, with the logo mark as a faint watermark on the right.
+// the dark navbar. Pass `image` for a darkened photo behind it (like the
+// homepage hero); without one, the logo mark shows as a faint watermark.
 //
+//   <PageHeader image={someImport} imagePos="60% 50%" ... />
 //   <PageHeader label="Products" title="Bromine derivatives" lead="..." />
 //   <PageHeader crumbs={[{ label: 'Products', href: '/products' }]} label="...">
 //     <Fragment slot="title">Custom <em>title</em></Fragment>   optional rich title
 //     <div>...</div>                                            extra content under the lead
 //     <div slot="aside">...</div>                               optional right-hand block
 //   </PageHeader>
+import { Image } from 'astro:assets';
 import LogoIcon from '../../assets/logo-icon.svg';
 
-const { label, title, lead, crumbs = [], compact = false } = Astro.props; // compact: smaller title for long names
+// compact: smaller title for long names. image: optional ImageMetadata. imagePos: CSS object-position.
+const { label, title, lead, crumbs = [], compact = false, image, imagePos = '50% 50%' } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 ---
 
-<header class:list={['phead', 'on-dark', { 'phead--aside': hasAside }]}>
-  <LogoIcon class="phead__mark" aria-hidden="true" />
+<header class:list={['phead', 'on-dark', { 'phead--aside': hasAside, 'phead--photo': image }]}>
+  {image ? (
+    <Image src={image} alt="" class="phead__img" style={`object-position: ${imagePos}`} widths={[800, 1280, 1920, 2560]} sizes="100vw" loading="eager" />
+  ) : (
+    <LogoIcon class="phead__mark" aria-hidden="true" />
+  )}
   <div class="container phead__in">
     <div class="phead__main">
       {crumbs.length > 0 && (
@@ -24,12 +32,12 @@ const hasAside = Astro.slots.has('aside');
           {crumbs.map((c, i) => <Fragment>{i > 0 && <span aria-hidden="true">/</span>}<a href={c.href}>{c.label}</a></Fragment>)}
         </nav>
       )}
-      {label && <span class="label">{label}</span>}
-      <h1 class:list={['phead__title', { 'phead__title--compact': compact }]}><slot name="title">{title}</slot></h1>
-      {lead && <p class="phead__lead">{lead}</p>}
-      <slot />
+      {label && <span class="label rise">{label}</span>}
+      <h1 class:list={['phead__title', 'rise', { 'phead__title--compact': compact }]}><slot name="title">{title}</slot></h1>
+      {lead && <p class="phead__lead rise">{lead}</p>}
+      <div class="rise"><slot /></div>
     </div>
-    {hasAside && <div class="phead__aside"><slot name="aside" /></div>}
+    {hasAside && <div class="phead__aside rise"><slot name="aside" /></div>}
   </div>
 </header>
 
@@ -51,6 +59,19 @@ const hasAside = Astro.slots.has('aside');
     opacity: 0.07;
     pointer-events: none;
   }
+  /* Photo variant: the image sits behind a heavy ink wash, so it still reads as the dark band */
+  .phead--photo { padding-block: clamp(96px, 12vw, 176px) clamp(56px, 7vw, 104px); }
+  .phead__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .phead--photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(16, 26, 26, 0.92) 0%, rgba(16, 26, 26, 0.7) 50%, rgba(16, 26, 26, 0.45) 100%),
+      linear-gradient(0deg, rgba(16, 26, 26, 0.85) 0%, rgba(16, 26, 26, 0) 60%);
+  }
+  .phead__in { z-index: 2; }
   .phead__in { position: relative; display: grid; gap: 40px clamp(40px, 6vw, 112px); }
   .phead--aside .phead__in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
 
@@ -69,15 +90,20 @@ const hasAside = Astro.slots.has('aside');
 
   .phead__title {
     margin-top: 18px;
-    font-variation-settings: "wdth" 116;
-    font-size: clamp(42px, 7vw, 104px);
-    line-height: 0.95;
-    letter-spacing: -0.04em;
+    font-variation-settings: "wdth" var(--display-wdth);
+    font-size: clamp(38px, 6vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.03em;
     overflow-wrap: anywhere;
   }
-  .phead__title--compact { font-size: clamp(36px, 5vw, 76px); line-height: 1; }
+  .phead__title--compact { font-size: clamp(34px, 4.4vw, 64px); line-height: 1.02; }
   .phead__main { min-width: 0; }
   .phead__lead { margin-top: 28px; max-width: 56ch; font-size: 19px; line-height: 1.55; color: var(--color-on-dark); }
+
+  /* Load sequence, same as the homepage hero: visible by default, lifts in when JS runs */
+  :global(.js) .rise { opacity: 0; transform: translateY(20px); }
+  .rise.in { opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  @media (prefers-reduced-motion: reduce) { :global(.js) .rise { opacity: 1; transform: none; } }
 
   @media (max-width: 900px) {
     .phead--aside .phead__in { grid-template-columns: 1fr; align-items: start; }
@@ -85,3 +111,9 @@ const hasAside = Astro.slots.has('aside');
   }
   @media (max-width: 600px) { .phead__lead { font-size: 17px; } }
 </style>
+
+<script>
+  document.querySelectorAll('.phead .rise').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 80 + i * 120);
+  });
+</script>

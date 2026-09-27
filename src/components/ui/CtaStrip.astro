@@ -28,8 +28,8 @@ const { title, text } = Astro.props;
   }
   .cta__title {
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 112;
-    font-weight: 600;
+    font-variation-settings: "wdth" var(--display-wdth);
+    font-weight: var(--display-weight);
     font-size: clamp(24px, 2.6vw, 34px);
     line-height: 1.1;
     letter-spacing: -0.02em;

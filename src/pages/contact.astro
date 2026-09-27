@@ -1,10 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import Arrow from '../components/ui/Arrow.astro';
 import { offices } from '../data/offices.json';
 import contact from '../data/contact.json';
+import panelImg from '../assets/photos/warehouse.jpg';
 
 // Product names for the "Product" field suggestions.
 const productNames = (await getCollection('products')).map((p) => p.data.name).sort();
@@ -17,12 +19,27 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
 >
   <PageHeader
     label="Contact"
-    title="Request a quote"
-    lead="Tell us the products and quantities you need. We respond with availability, pricing and documentation."
+    title="Tell us what you need."
+    lead="Send the product, grade and quantity. We respond with availability, pricing and documentation."
   />
 
+  <!-- Layout follows dobariya.in/contact-us: photo panel on the left, form on the right -->
   <section class="enquiry" id="enquiry">
     <div class="container enquiry__grid">
+      <aside class="panel on-dark">
+        <Image src={panelImg} alt="" class="panel__img" widths={[640, 960, 1400]} sizes="(max-width: 900px) 100vw, 45vw" />
+        <div class="panel__body">
+          <h2 class="panel__title">Buying for export?</h2>
+          <p class="panel__text">
+            Technical data sheets, certificates of analysis and safety data sheets are
+            available on request.
+          </p>
+          <a href={`https://wa.me/${contact.whatsapp}`} class="panel__link" target="_blank" rel="noopener">
+            Chat on WhatsApp <Arrow />
+          </a>
+        </div>
+      </aside>
+
       <!--
         NETLIFY FORMS WIRING: do not remove or rename any of these:
         name="contact", data-netlify, netlify-honeypot, the hidden form-name
@@ -43,20 +60,20 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
 
         <div class="cform__grid">
           <div class="field">
-            <label for="f-name">Name <span aria-hidden="true">*</span></label>
-            <input id="f-name" type="text" name="name" autocomplete="name" required />
+            <label for="f-name">Full name <span aria-hidden="true">*</span></label>
+            <input id="f-name" type="text" name="name" autocomplete="name" placeholder="Your name" required />
           </div>
           <div class="field">
             <label for="f-company">Company</label>
-            <input id="f-company" type="text" name="company" autocomplete="organization" />
+            <input id="f-company" type="text" name="company" autocomplete="organization" placeholder="Company name" />
           </div>
           <div class="field">
             <label for="f-email">Email <span aria-hidden="true">*</span></label>
-            <input id="f-email" type="email" name="email" autocomplete="email" required />
+            <input id="f-email" type="email" name="email" autocomplete="email" placeholder="you@company.com" required />
           </div>
           <div class="field">
             <label for="f-phone">Phone / WhatsApp</label>
-            <input id="f-phone" type="tel" name="phone" autocomplete="tel" />
+            <input id="f-phone" type="tel" name="phone" autocomplete="tel" placeholder="+91" />
           </div>
           <div class="field">
             <label for="f-product">Product</label>
@@ -70,47 +87,40 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
             <input id="f-qty" type="text" name="quantity" placeholder="e.g. 2 MT per month" />
           </div>
           <div class="field field--full">
-            <label for="f-message">What do you need? <span aria-hidden="true">*</span></label>
-            <textarea id="f-message" name="message" rows="5" placeholder="Grade, packaging, destination, delivery schedule..." required></textarea>
+            <label for="f-message">Detailed message <span aria-hidden="true">*</span></label>
+            <textarea id="f-message" name="message" rows="5" placeholder="Grade, packaging, destination, delivery schedule" required></textarea>
           </div>
         </div>
 
-        <div class="cform__foot">
-          <button type="submit" class="btn btn--primary">Send request <Arrow /></button>
-          <p class="cform__note">* Required fields</p>
-        </div>
+        <button type="submit" class="btn btn--ink cform__submit">Send request <Arrow /></button>
+        <p class="cform__note">* Required fields</p>
       </form>
-
-      <aside class="direct">
-        <div class="direct__block">
-          <span class="label">Talk to us directly</span>
-          <a href={tel} class="direct__big">{contact.phone}</a>
-          <a href={`mailto:${contact.email}`} class="direct__mail">{contact.email}</a>
-          <a href={`https://wa.me/${contact.whatsapp}`} class="btn btn--ink direct__wa" target="_blank" rel="noopener">
-            Chat on WhatsApp <Arrow />
-          </a>
-        </div>
-        <div class="direct__block">
-          <span class="label">Working hours</span>
-          <p class="direct__hours">{contact.hours}</p>
-        </div>
-      </aside>
     </div>
   </section>
 
-  <section class="locs sect-white" id="locations">
-    <div class="container locs__grid">
-      <div class="locs__list">
-        <span class="label">Locations</span>
-        <h2 class="h2 locs__title">Two sites in Gujarat.</h2>
+  <!-- Contact details + map, like the info block on dobariya.in -->
+  <section class="info sect-white" id="locations">
+    <div class="container">
+      <div class="info__grid">
         {offices.map((office) => (
-          <div class="office">
-            <h3 class="office__label">{office.label}</h3>
+          <div class="info__item">
+            <h3 class="info__label">{office.label}</h3>
             <p>{office.lines.map((line, i) => <Fragment>{i > 0 && <br />}{line}</Fragment>)}</p>
           </div>
         ))}
+        <div class="info__item">
+          <h3 class="info__label">Phone and email</h3>
+          <p>
+            <a href={tel}>{contact.phone}</a><br />
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          </p>
+        </div>
+        <div class="info__item">
+          <h3 class="info__label">Working hours</h3>
+          <p>{contact.hours}</p>
+        </div>
       </div>
-      <div class="locs__map" id="locations-map" aria-label="Map showing the corporate office and the manufacturing unit"></div>
+      <div class="info__map" id="locations-map" aria-label="Map showing the corporate office and the manufacturing unit"></div>
     </div>
   </section>
 </Layout>
@@ -164,17 +174,45 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
 </script>
 
 <style>
-  .enquiry { padding-block: clamp(48px, 6vw, 88px) var(--section); }
+  .enquiry { padding-block: clamp(48px, 6vw, 88px); }
   .enquiry__grid {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-    gap: 48px clamp(40px, 6vw, 112px);
-    align-items: start;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 16px;
+    align-items: stretch;
   }
 
-  /* ---- Form ---- */
+  /* ---- Photo panel ---- */
+  .panel { position: relative; overflow: hidden; min-height: 520px; display: flex; align-items: flex-end; background: var(--color-ink); }
+  .panel__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 50%; }
+  .panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(0deg, rgba(16, 26, 26, 0.95) 0%, rgba(16, 26, 26, 0.55) 55%, rgba(16, 26, 26, 0.15) 100%);
+  }
+  .panel__body { position: relative; z-index: 2; padding: clamp(24px, 3vw, 40px); }
+  .panel__title { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; }
+  .panel__text { margin-top: 12px; max-width: 40ch; color: var(--color-on-dark); }
+  .panel__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 110;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .panel__link :global(svg) { width: 16px; height: 16px; transition: transform 0.2s; }
+  .panel__link:hover :global(svg) { transform: translateX(4px); }
+
+  /* ---- Form: boxed inputs, full-width submit ---- */
   .cform { background: var(--color-surface); border: 1px solid var(--color-border); padding: clamp(24px, 3.5vw, 48px); }
-  .cform__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .cform__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .field { display: grid; gap: 8px; }
   .field--full { grid-column: 1 / -1; }
   .field label {
@@ -183,52 +221,34 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-muted);
+    color: var(--color-ink);
   }
   .field label span { color: var(--color-brand-dark); }
   .field input,
   .field textarea {
     width: 100%;
-    padding: 14px 0;
+    padding: 14px 16px;
     font: inherit;
     color: var(--color-ink);
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid var(--color-border);
-    border-radius: 0;
-    transition: border-color 0.2s;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s, background 0.2s;
   }
-  .field textarea { resize: vertical; min-height: 120px; }
-  .field input::placeholder, .field textarea::placeholder { color: #9AA3A0; }
+  .field textarea { resize: vertical; min-height: 128px; }
+  .field input::placeholder, .field textarea::placeholder { color: #98A19E; }
   .field input:focus,
-  .field textarea:focus { outline: none; border-bottom-color: var(--color-ink); box-shadow: 0 1px 0 var(--color-ink); }
-  .cform__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 36px; }
-  .cform__note { font-size: 14px; color: var(--color-muted); }
+  .field textarea:focus { outline: none; border-color: var(--color-ink); background: var(--color-surface); }
+  .cform__submit { width: 100%; justify-content: center; margin-top: 28px; height: 56px; }
+  .cform__note { margin-top: 12px; font-size: 14px; color: var(--color-muted); }
 
-  /* ---- Direct contact ---- */
-  .direct { display: grid; gap: 40px; }
-  .direct__block { display: grid; gap: 12px; justify-items: start; padding-top: 16px; border-top: 1px solid var(--color-ink); }
-  .direct__big {
-    margin-top: 6px;
-    font-family: var(--font-display);
-    font-variation-settings: "wdth" 112;
-    font-size: clamp(28px, 2.6vw, 38px);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-  .direct__big:hover, .direct__mail:hover { color: var(--color-brand-dark); }
-  .direct__mail { font-size: 18px; text-decoration: underline; text-decoration-color: var(--color-brand); text-underline-offset: 4px; overflow-wrap: anywhere; }
-  .direct__wa { margin-top: 12px; }
-  .direct__hours { font-size: 18px; }
-
-  /* ---- Locations ---- */
-  .locs { padding-block: var(--section); }
-  .locs__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); align-items: stretch; }
-  .locs__title { margin-top: 18px; margin-bottom: 40px; }
-  .office { padding-block: 20px; border-top: 1px solid var(--color-border); line-height: 1.7; }
-  .office__label {
-    margin-bottom: 8px;
+  /* ---- Info + map ---- */
+  .info { padding-block: clamp(64px, 8vw, 112px); }
+  .info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .info__item { padding-top: 16px; border-top: 1px solid var(--color-ink); line-height: 1.7; }
+  .info__item a:hover { color: var(--color-brand-dark); }
+  .info__label {
+    margin-bottom: 10px;
     font-family: var(--font-mono);
     font-variation-settings: normal;
     font-size: 12px;
@@ -237,9 +257,9 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
     text-transform: uppercase;
     color: var(--color-brand-dark);
   }
-  .locs__map { min-height: 440px; border: 1px solid var(--color-border); z-index: 0; }
+  .info__map { margin-top: 48px; height: 440px; border: 1px solid var(--color-border); z-index: 0; }
   /* Grey map so the teal pins are the only colour */
-  .locs__map :global(.leaflet-tile-pane) { filter: grayscale(1) contrast(0.95) brightness(1.03); }
+  .info__map :global(.leaflet-tile-pane) { filter: grayscale(1) contrast(0.95) brightness(1.03); }
 
   /* Netlify honeypot: must stay hidden */
   .hp-field { display: none; }
@@ -247,11 +267,13 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
   /* Keep Leaflet's pins from being squashed by the global img reset */
   :global(.leaflet-marker-icon), :global(.leaflet-marker-shadow) { max-width: none; }
 
+  @media (max-width: 1000px) { .info__grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 900px) {
-    .enquiry__grid, .locs__grid { grid-template-columns: 1fr; }
-    .locs__map { min-height: 340px; }
+    .enquiry__grid { grid-template-columns: 1fr; }
+    .panel { min-height: 340px; }
   }
   @media (max-width: 600px) {
-    .cform__grid { grid-template-columns: 1fr; }
+    .cform__grid, .info__grid { grid-template-columns: 1fr; }
+    .info__map { height: 340px; }
   }
 </style>

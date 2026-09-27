@@ -97,11 +97,11 @@ import Arrow from '../ui/Arrow.astro';
   .hero__kicker::before { content: ""; width: 40px; height: 1px; background: currentColor; }
 
   .hero__title {
-    font-variation-settings: "wdth" 118;
-    font-weight: 600;
-    font-size: clamp(50px, 8.6vw, 156px);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
+    font-variation-settings: "wdth" var(--display-wdth);
+    font-weight: var(--display-weight);
+    font-size: clamp(46px, 7.6vw, 132px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
   }
   .hero__title span { display: block; }
   .hero__accent { color: var(--color-brand); }

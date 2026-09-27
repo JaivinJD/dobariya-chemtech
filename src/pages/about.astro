@@ -5,6 +5,7 @@ import CtaStrip from '../components/ui/CtaStrip.astro';
 import Arrow from '../components/ui/Arrow.astro';
 import { getCollection } from 'astro:content';
 import { offices as facilities } from '../data/offices.json';
+import headerImg from '../assets/photos/warehouse.jpg';
 
 // Copy below is Shrut's approved text. Only punctuation was changed
 // (em dashes replaced), the wording is his.
@@ -45,7 +46,7 @@ const capabilities = [
   title="About | Dobariya Chemtech Pvt. Ltd."
   description="A bromine-derivatives manufacturer in Ahmedabad, Gujarat, with in-house production in Kadi and a focus on consistent, export-grade quality."
 >
-  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} />
+  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} image={headerImg} imagePos="60% 55%" />
 
   <!-- Story: pull quote on the left (sticky), Shrut's paragraphs on the right -->
   <section class="story">
@@ -146,7 +147,7 @@ const capabilities = [
     padding-left: 24px;
     border-left: 3px solid var(--color-brand);
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 112;
+    font-variation-settings: "wdth" var(--display-wdth);
     font-weight: 500;
     font-size: clamp(26px, 2.8vw, 40px);
     line-height: 1.15;
@@ -164,13 +165,13 @@ const capabilities = [
   .cap p { color: var(--color-muted); }
 
   /* ---- Leadership ---- */
-  .lead { padding-block: var(--section); }
-  .lead__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); align-items: end; }
+  .lead { padding-block: clamp(64px, 8vw, 112px); }
+  .lead__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); align-items: center; }
   .lead__photo { aspect-ratio: 4 / 5; max-width: 420px; background: var(--color-border); overflow: hidden; }
   .lead__photo img { width: 100%; height: 100%; object-fit: cover; }
   .lead__name {
     margin-top: 18px;
-    font-variation-settings: "wdth" 114;
+    font-variation-settings: "wdth" var(--display-wdth);
     font-size: clamp(40px, 5vw, 72px);
     line-height: 0.98;
     letter-spacing: -0.035em;
@@ -192,7 +193,7 @@ const capabilities = [
   }
   .group__title {
     margin-top: 18px;
-    font-variation-settings: "wdth" 114;
+    font-variation-settings: "wdth" var(--display-wdth);
     font-size: clamp(32px, 4vw, 56px);
     line-height: 1.02;
     letter-spacing: -0.03em;

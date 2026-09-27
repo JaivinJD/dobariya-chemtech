@@ -65,7 +65,7 @@ const countIn = (slug: string) => products.filter((p) => p.data.category === slu
 
   .row__no { padding-top: 8px; font-family: var(--font-mono); font-size: 14px; color: var(--color-brand-dark); }
   .row__name {
-    font-variation-settings: "wdth" 112;
+    font-variation-settings: "wdth" var(--display-wdth);
     font-size: clamp(24px, 2.6vw, 34px);
     line-height: 1.05;
   }
@@ -94,7 +94,7 @@ const countIn = (slug: string) => products.filter((p) => p.data.category === slu
   .row__count {
     text-align: right;
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 115;
+    font-variation-settings: "wdth" var(--display-wdth);
     font-size: 44px;
     font-weight: 500;
     line-height: 1;

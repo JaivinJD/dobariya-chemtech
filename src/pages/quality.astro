@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import CtaStrip from '../components/ui/CtaStrip.astro';
 import Arrow from '../components/ui/Arrow.astro';
+import headerImg from '../assets/photos/ampoule.jpg';
 
 const intro = {
   label: 'Quality',
@@ -30,7 +31,7 @@ const documents = [
   title="Quality | Dobariya Chemtech Pvt. Ltd."
   description="Consistent, export-grade bromine derivatives with batch consistency and documentation available on request."
 >
-  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} />
+  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} image={headerImg} imagePos="75% 60%" />
 
   <!-- Commitments: 2 x 2, rule on top, no cards -->
   <section class="commit">
@@ -135,7 +136,7 @@ const documents = [
   /* ---- Certifications ---- */
   .certs { padding-block: clamp(64px, 8vw, 112px); border-bottom: 1px solid var(--color-border); }
   .certs__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px clamp(40px, 6vw, 112px); align-items: end; }
-  .certs__title { margin-top: 18px; font-variation-settings: "wdth" 114; font-size: clamp(32px, 4vw, 56px); line-height: 1; letter-spacing: -0.03em; }
+  .certs__title { margin-top: 18px; font-variation-settings: "wdth" var(--display-wdth); font-size: clamp(32px, 4vw, 56px); line-height: 1; letter-spacing: -0.03em; }
   .certs__text { max-width: 52ch; font-size: 19px; line-height: 1.6; color: var(--color-muted); }
 
   .end { padding-block: clamp(64px, 8vw, 112px); }

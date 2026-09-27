@@ -27,6 +27,10 @@
   --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --font-body:    "Archivo", "Helvetica Neue", Arial, sans-serif;
   --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  /* Headings: medium weight, near-normal width. Calm and confident, not shouty
+     (tuned to sit closer to dobariya.in's restrained type). */
+  --display-weight: 500;
+  --display-wdth: 102;
 
   /* ---- Spacing scale ---- */
   --space-xs: 0.5rem;
@@ -66,9 +70,9 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-variation-settings: "wdth" 110;
+  font-variation-settings: "wdth" var(--display-wdth);
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: var(--display-weight);
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
@@ -105,10 +109,10 @@ img { display: block; max-width: 100%; }
 /* Big section heading */
 .h2 {
   font-family: var(--font-display);
-  font-variation-settings: "wdth" 112;
-  font-weight: 600;
-  font-size: clamp(34px, 5vw, 64px);
-  line-height: 1.02;
+  font-variation-settings: "wdth" var(--display-wdth);
+  font-weight: var(--display-weight);
+  font-size: clamp(32px, 4.2vw, 54px);
+  line-height: 1.05;
   letter-spacing: -0.025em;
 }
 /* Inside dark sections */
