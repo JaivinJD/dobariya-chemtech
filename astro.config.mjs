@@ -6,5 +6,5 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://dobariyachemtech.com',
   // /thanks is the form confirmation page, so it stays out of the sitemap.
-  integrations: [sitemap({ filter: (page) => !page.includes('/thanks') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/thanks') && !page.includes('/404') })],
 });

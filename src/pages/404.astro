@@ -1,0 +1,39 @@
+---
+// Netlify serves dist/404.html for any unknown URL.
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/ui/Arrow.astro';
+---
+
+<Layout title="Page not found | Dobariya Chemtech" description="The page you were looking for does not exist.">
+  <meta name="robots" content="noindex" slot="head" />
+  <section class="nf">
+    <div class="container nf__in">
+      <p class="nf__code" aria-hidden="true">404</p>
+      <div>
+        <span class="label">Page not found</span>
+        <h1 class="nf__title">This page doesn't exist.</h1>
+        <p class="nf__text">The link may be old or mistyped. Try the product catalogue, or get in touch and we'll help you find what you need.</p>
+        <div class="nf__actions">
+          <a href="/products" class="btn btn--primary">Browse products <Arrow /></a>
+          <a href="/" class="btn btn--ghost">Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf { padding-block: clamp(80px, 12vw, 176px); }
+  .nf__in { display: grid; grid-template-columns: auto 1fr; gap: 32px clamp(40px, 6vw, 112px); align-items: center; }
+  .nf__code {
+    font-family: var(--font-mono);
+    font-size: clamp(96px, 16vw, 240px);
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    color: var(--color-border);
+  }
+  .nf__title { margin-top: 18px; font-variation-settings: "wdth" 116; font-size: clamp(36px, 5vw, 72px); line-height: 1; letter-spacing: -0.035em; }
+  .nf__text { margin-top: 24px; max-width: 52ch; font-size: 18px; color: var(--color-muted); }
+  .nf__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  @media (max-width: 800px) { .nf__in { grid-template-columns: 1fr; } }
+</style>

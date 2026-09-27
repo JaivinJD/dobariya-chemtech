@@ -1,21 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import CtaStrip from '../components/ui/CtaStrip.astro';
+import Arrow from '../components/ui/Arrow.astro';
 
 const intro = {
-  eyebrow: 'Quality',
+  label: 'Quality',
   title: 'Consistency you can specify against',
-  lead: 'Every batch is made to the same specification and checked before it ships. Here is how we keep our bromine derivatives dependable — lot after lot.',
+  lead: 'Every batch is made to the same specification and checked before it ships. Here is how we keep our bromine derivatives dependable, lot after lot.',
 };
 
-// True today — no invented claims.
+// True today. No invented claims, certifications or purity figures.
 const commitments = [
   { title: 'In-house manufacturing', text: 'We produce at our own facility in Kadi, giving us direct control over process and consistency.' },
-  { title: 'Batch consistency', text: 'Each batch is made to the same specification, so what you order is what you receive — every time.' },
+  { title: 'Batch consistency', text: 'Each batch is made to the same specification, so what you order is what you receive, every time.' },
   { title: 'Export-grade standards', text: 'Our products are supplied to meet the quality expectations of domestic and international buyers.' },
   { title: 'Documentation on request', text: 'Technical and analysis documentation is available to support your purchasing and compliance needs.' },
 ];
 
-// The documents buyers can request (real, standard industry docs).
+// Standard industry documents buyers can request.
 const documents = [
   { code: 'TDS', name: 'Technical Data Sheet', text: 'Product identity, specification and typical properties.' },
   { code: 'COA', name: 'Certificate of Analysis', text: 'Batch-specific test results for what you receive.' },
@@ -24,115 +27,124 @@ const documents = [
 ---
 
 <Layout
-  title="Quality — Dobariya Chemtech Pvt. Ltd."
+  title="Quality | Dobariya Chemtech Pvt. Ltd."
   description="Consistent, export-grade bromine derivatives with batch consistency and documentation available on request."
 >
-  <section class="quality">
-    <div class="container">
-      <header class="quality__head">
-        <span class="quality__eyebrow">{intro.eyebrow}</span>
-        <h1 class="quality__title">{intro.title}</h1>
-        <p class="quality__lead">{intro.lead}</p>
-      </header>
+  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} />
 
-      <div class="quality__grid" data-reveal-group>
+  <!-- Commitments: 2 x 2, rule on top, no cards -->
+  <section class="commit">
+    <div class="container commit__grid">
+      <h2 class="h2 commit__title">How we keep every batch the same.</h2>
+      <div class="commit__list" data-reveal-group>
         {commitments.map((c) => (
-          <article class="qcard card">
-            <h3>{c.title}</h3>
+          <div class="c">
+            <h3 class="c__title">{c.title}</h3>
             <p>{c.text}</p>
-          </article>
+          </div>
         ))}
       </div>
+    </div>
+  </section>
 
-      <div class="quality__docs">
-        <h2 class="quality__subhead">Documentation we provide</h2>
-        <div class="quality__docgrid" data-reveal-group>
-          {documents.map((doc) => (
-            <div class="doc">
-              <span class="doc__code">{doc.code}</span>
-              <div>
-                <h4>{doc.name}</h4>
-                <p>{doc.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+  <!-- Documents: styled like document tabs -->
+  <section class="docs sect-white">
+    <div class="container">
+      <span class="label">Documentation</span>
+      <h2 class="h2 docs__title">Documents available on request.</h2>
+      <div class="docs__grid" data-reveal-group>
+        {documents.map((d) => (
+          <div class="doc">
+            <span class="doc__code">{d.code}</span>
+            <h3 class="doc__name">{d.name}</h3>
+            <p>{d.text}</p>
+          </div>
+        ))}
       </div>
+    </div>
+  </section>
 
-      <div class="quality__certs">
-        <h2 class="quality__subhead">Certifications</h2>
-        <p class="quality__certnote">
-          As our Kadi facility scales up, we are pursuing formal quality certifications.
-          Current certification status and documentation are available on request.
-        </p>
+  <!-- Certifications: an honest status note, nothing claimed -->
+  <section class="certs">
+    <div class="container certs__grid">
+      <div>
+        <span class="label">Certifications</span>
+        <h2 class="certs__title">In progress.</h2>
       </div>
+      <p class="certs__text">
+        As our Kadi facility scales up, we are pursuing formal quality certifications.
+        Current certification status and documentation are available on request.
+      </p>
+    </div>
+  </section>
 
-      <div class="quality__cta">
-        <div>
-          <h2>Need documentation for a specific product?</h2>
-          <p>Request a quote and we'll include the technical details you need.</p>
-        </div>
-        <a href="/contact" class="btn btn--primary">Request a quote →</a>
-      </div>
+  <section class="end">
+    <div class="container">
+      <CtaStrip title="Need documentation for a specific product?" text="Request a quote and we'll include the technical details you need.">
+        <a href="/contact#enquiry" class="btn btn--primary">Request a quote <Arrow /></a>
+      </CtaStrip>
     </div>
   </section>
 </Layout>
 
 <style>
-  .quality { padding-block: var(--space-lg); }
-  .quality__head { max-width: 720px; }
-  .quality__eyebrow {
-    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--color-brand); font-weight: 600;
-  }
-  .quality__title { font-size: clamp(2rem, 5vw, 3rem); color: var(--color-ink); margin-top: 0.4rem; }
-  .quality__lead { color: var(--color-muted); margin-top: var(--space-sm); font-size: 1.1rem; line-height: 1.6; }
+  /* ---- Commitments ---- */
+  .commit { padding-block: var(--section); }
+  .commit__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); }
+  .commit__title { align-self: start; position: sticky; top: calc(var(--nav-h) + 40px); }
+  .commit__list { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 40px; }
+  .c { padding-top: 20px; border-top: 1px solid var(--color-ink); }
+  .c__title { font-size: 22px; line-height: 1.15; margin-bottom: 10px; }
+  .c p { color: var(--color-muted); }
 
-  .quality__grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md);
-    margin-top: var(--space-lg);
-  }
-  .qcard {
-    background: var(--color-surface-2);
+  /* ---- Documents ---- */
+  .docs { padding-block: var(--section); }
+  .docs__title { margin-top: 18px; margin-bottom: 48px; }
+  .docs__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .doc {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+    padding: 28px;
+    background: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: 12px; padding: var(--space-md);
+    /* folded corner, like a sheet of paper */
+    clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
   }
-  .qcard h3 { font-size: 1.1rem; color: var(--color-ink); margin-bottom: 0.4rem; }
-  .qcard p { font-size: 0.95rem; color: var(--color-muted); line-height: 1.65; }
-
-  .quality__docs, .quality__certs { margin-top: var(--space-xl); }
-  .quality__subhead { font-size: 1.5rem; color: var(--color-ink); margin-bottom: var(--space-md); }
-  .quality__docgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
-  .doc { display: flex; gap: var(--space-sm); align-items: flex-start; }
+  .doc::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(225deg, var(--color-surface) 50%, var(--color-border) 50%);
+  }
   .doc__code {
-    flex-shrink: 0;
-    font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
-    color: var(--color-brand);
-    background: var(--color-brand-tint);
-    padding: 0.4rem 0.6rem; border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-dark);
   }
-  .doc h4 { font-size: 1rem; color: var(--color-ink); }
-  .doc p { font-size: 0.9rem; color: var(--color-muted); line-height: 1.55; margin-top: 0.2rem; }
+  .doc__name { margin-top: 64px; font-size: 22px; line-height: 1.15; }
+  .doc p { margin-top: 8px; color: var(--color-muted); }
 
-  .quality__certnote {
-    color: var(--color-muted); line-height: 1.7; max-width: 640px;
-    background: var(--color-surface-2);
-    border: 1px dashed var(--color-border);
-    border-radius: 12px; padding: var(--space-md);
-  }
+  /* ---- Certifications ---- */
+  .certs { padding-block: clamp(64px, 8vw, 112px); border-bottom: 1px solid var(--color-border); }
+  .certs__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px clamp(40px, 6vw, 112px); align-items: end; }
+  .certs__title { margin-top: 18px; font-variation-settings: "wdth" 114; font-size: clamp(32px, 4vw, 56px); line-height: 1; letter-spacing: -0.03em; }
+  .certs__text { max-width: 52ch; font-size: 19px; line-height: 1.6; color: var(--color-muted); }
 
-  .quality__cta {
-    margin-top: var(--space-xl);
-    background: var(--color-ink);
-    border-radius: 16px; padding: var(--space-lg);
-    display: flex; align-items: center; justify-content: space-between;
-    gap: var(--space-md); flex-wrap: wrap;
-  }
-  .quality__cta h2 { color: #fff; font-size: 1.4rem; }
-  .quality__cta p { color: #b9c4c4; margin-top: 0.4rem; }
+  .end { padding-block: clamp(64px, 8vw, 112px); }
 
-  @media (max-width: 860px) {
-    .quality__grid { grid-template-columns: 1fr; }
-    .quality__docgrid { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    .commit__grid, .certs__grid { grid-template-columns: 1fr; }
+    .commit__title { position: static; }
+    .docs__grid { grid-template-columns: 1fr; }
+    .doc { min-height: 0; }
   }
+  @media (max-width: 600px) { .commit__list { grid-template-columns: 1fr; } }
 </style>

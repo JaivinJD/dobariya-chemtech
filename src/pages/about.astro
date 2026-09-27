@@ -1,21 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import CtaStrip from '../components/ui/CtaStrip.astro';
+import Arrow from '../components/ui/Arrow.astro';
 import { getCollection } from 'astro:content';
 import { offices as facilities } from '../data/offices.json';
 
+// Copy below is Shrut's approved text. Only punctuation was changed
+// (em dashes replaced), the wording is his.
 const intro = {
-  eyebrow: 'About us',
+  label: 'About us',
   title: 'Chemistry built on consistency',
-  lead: 'Dobariya Chemtech Pvt. Ltd. manufactures and supplies bromine derivatives from Gujarat, India — serving industrial and export buyers who need reliable quality, batch after batch.',
+  lead: 'Dobariya Chemtech Pvt. Ltd. manufactures and supplies bromine derivatives from Gujarat, India, serving industrial and export buyers who need reliable quality, batch after batch.',
 };
 
 const story = [
-  "Dobariya Chemtech Pvt. Ltd. manufactures bromine derivatives from our own production facility in Kadi, Gujarat, with corporate offices in Ahmedabad. We're part of the Dobariya Group, which has been building across Ahmedabad since 1989 — and that same discipline shows up in how we run our chemical operations: in-house production, consistent specifications, and a straightforward relationship with every buyer we work with.",
-  "Our product range covers alkyl, aryl, and inorganic bromides — from high-volume industrial chemicals to specialty bromine compounds — serving customers across a range of industries with a focus on dependable quality, consistent specifications, and reliable supply.",
-  "We work with both domestic manufacturers and international buyers, supplying products that meet defined technical and commercial requirements. Our operations are supported by quality checks, batch-wise documentation, appropriate packaging, and a practical approach to customer requirements — whether it is a regular supply program or a new product requirement.",
+  "Dobariya Chemtech Pvt. Ltd. manufactures bromine derivatives from our own production facility in Kadi, Gujarat, with corporate offices in Ahmedabad. We're part of the Dobariya Group, which has been building across Ahmedabad since 1989, and that same discipline shows up in how we run our chemical operations: in-house production, consistent specifications, and a straightforward relationship with every buyer we work with.",
+  "Our product range covers alkyl, aryl, and inorganic bromides, from high-volume industrial chemicals to specialty bromine compounds, serving customers across a range of industries with a focus on dependable quality, consistent specifications, and reliable supply.",
+  "We work with both domestic manufacturers and international buyers, supplying products that meet defined technical and commercial requirements. Our operations are supported by quality checks, batch-wise documentation, appropriate packaging, and a practical approach to customer requirements, whether it is a regular supply program or a new product requirement.",
   "We believe long-term relationships in the chemical industry are built through consistency and accountability. Our objective is not simply to supply a product, but to become a dependable manufacturing partner for customers who value reliable quality, responsive communication, and supply they can plan around.",
-  "We're a company built on an established foundation — small enough that every order gets direct attention, backed by a group with decades of experience delivering on commitments, and focused on building a modern chemical manufacturing business for the long term.",
+  "We're a company built on an established foundation: small enough that every order gets direct attention, backed by a group with decades of experience delivering on commitments, and focused on building a modern chemical manufacturing business for the long term.",
 ];
+
+// Pull quote: a line lifted from the story above, not new copy.
+const pullQuote = 'Not simply to supply a product, but to become a dependable manufacturing partner.';
 
 const founder = {
   name: 'Shrut Dobariya',
@@ -25,155 +33,202 @@ const founder = {
 
 const products = await getCollection('products');
 
+// Fixed in code by decision (not CMS-editable).
 const capabilities = [
-  { title: 'In-house manufacturing', text: 'Production at our own facility in Kadi, Gujarat — not just trading.' },
+  { title: 'In-house manufacturing', text: 'Production at our own facility in Kadi, Gujarat, not just trading.' },
   { title: 'Broad product range', text: `${products.length} bromine derivatives across three categories, from bulk to specialty.` },
   { title: 'Export-ready supply', text: 'Export-grade quality and documentation for international buyers.' },
 ];
-
 ---
 
 <Layout
-  title="About — Dobariya Chemtech Pvt. Ltd."
+  title="About | Dobariya Chemtech Pvt. Ltd."
   description="A bromine-derivatives manufacturer in Ahmedabad, Gujarat, with in-house production in Kadi and a focus on consistent, export-grade quality."
 >
-  <section class="about">
-    <div class="container">
-      <header class="about__head">
-        <span class="about__eyebrow">{intro.eyebrow}</span>
-        <h1 class="about__title">{intro.title}</h1>
-        <p class="about__lead">{intro.lead}</p>
-      </header>
+  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} />
 
-      <div class="about__story">
-        {story.map((para) => <p>{para}</p>)}
+  <!-- Story: pull quote on the left (sticky), Shrut's paragraphs on the right -->
+  <section class="story">
+    <div class="container story__grid">
+      <aside class="story__side">
+        <span class="label">Our story</span>
+        <blockquote class="story__quote">{pullQuote}</blockquote>
+      </aside>
+      <div class="story__text" data-reveal>
+        {story.map((para, i) => <p class:list={{ 'story__first': i === 0 }}>{para}</p>)}
       </div>
+    </div>
+  </section>
 
-      <div class="about__leader">
-        <div class="leader__text">
-          <span class="leader__eyebrow">Leadership</span>
-          <h3>{founder.name}</h3>
-          <span class="leader__title">{founder.title}</span>
-          <p>{founder.bio}</p>
+  <!-- Capabilities: three columns with a top rule. No cards, no numbering. -->
+  <section class="caps sect-white">
+    <div class="container caps__grid" data-reveal-group>
+      {capabilities.map((c) => (
+        <div class="cap">
+          <h2 class="cap__title">{c.title}</h2>
+          <p>{c.text}</p>
         </div>
-        <img src="/shrut-photo.jpeg" alt="Shrut Dobariya, Director" class="leader__photo" />
-      </div>
+      ))}
+    </div>
+  </section>
 
-      <div class="about__caps" data-reveal-group>
-        {capabilities.map((c) => (
-          <article class="cap card">
-            <h3>{c.title}</h3>
-            <p>{c.text}</p>
-          </article>
+  <!-- Leadership -->
+  <section class="lead">
+    <div class="container lead__grid">
+      <div class="lead__photo">
+        <img src="/shrut-photo.jpeg" alt="Shrut Dobariya, Director" loading="lazy" />
+      </div>
+      <div class="lead__text" data-reveal>
+        <span class="label">Leadership</span>
+        <h2 class="lead__name">{founder.name}</h2>
+        <p class="lead__role">{founder.title}</p>
+        <p class="lead__bio">{founder.bio}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Dobariya Group: the main, deliberate link to the parent company -->
+  <section class="group">
+    <div class="container">
+      <div class="group__panel" data-reveal>
+        <div>
+          <span class="label">Part of the Dobariya Group</span>
+          <h2 class="group__title">Different industry,<br />same discipline.</h2>
+        </div>
+        <div class="group__body">
+          <p>
+            Dobariya Chemtech is the chemicals company of the Dobariya Group, which has built
+            homes and business spaces across Ahmedabad since 1989.
+          </p>
+          <a href="https://dobariya.in" target="_blank" rel="noopener" class="btn btn--ghost">
+            Visit dobariya.in <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities (from the CMS offices file) -->
+  <section class="fac sect-white">
+    <div class="container">
+      <div class="fac__head">
+        <span class="label">Our facilities</span>
+        <a href="/contact#locations" class="fac__map">See them on the map <Arrow /></a>
+      </div>
+      <div class="fac__grid" data-reveal-group>
+        {facilities.map((f) => (
+          <div class="fac__item">
+            <h3 class="fac__label">{f.label}</h3>
+            <p>{f.lines.map((line, i) => <Fragment>{i > 0 && <br />}{line}</Fragment>)}</p>
+          </div>
         ))}
       </div>
+    </div>
+  </section>
 
-      <div class="about__facilities">
-        <h2 class="about__subhead">Our facilities</h2>
-        <div class="about__facgrid" data-reveal-group>
-          {facilities.map((f) => (
-            <div class="fac">
-              <h4>{f.label}</h4>
-              <p>{f.lines.map((line) => <span>{line}<br /></span>)}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="about__cta">
-        <div>
-          <h2>Looking for a specific bromine derivative?</h2>
-          <p>Browse our full range or request a quote — we'll respond with availability and pricing.</p>
-        </div>
-        <div class="about__ctabtns">
-            <a href="/products" class="btn btn--ghost-light">View products</a>
-            <a href="/contact" class="btn btn--primary">Request a quote →</a>
-        </div>
-      </div>
+  <section class="end">
+    <div class="container">
+      <CtaStrip title="Looking for a specific bromine derivative?" text="Browse our full range or request a quote. We'll respond with availability and pricing.">
+        <a href="/products" class="btn btn--ghost">View products</a>
+        <a href="/contact#enquiry" class="btn btn--primary">Request a quote <Arrow /></a>
+      </CtaStrip>
     </div>
   </section>
 </Layout>
 
 <style>
-  .about { padding-block: var(--space-lg); }
-  .about__head { max-width: 720px; }
-  .about__eyebrow {
-    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--color-brand); font-weight: 600;
+  /* ---- Story ---- */
+  .story { padding-block: var(--section); }
+  .story__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); }
+  .story__side { align-self: start; position: sticky; top: calc(var(--nav-h) + 40px); }
+  .story__quote {
+    margin: 24px 0 0;
+    padding-left: 24px;
+    border-left: 3px solid var(--color-brand);
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 112;
+    font-weight: 500;
+    font-size: clamp(26px, 2.8vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
-  .about__title { font-size: clamp(2rem, 5vw, 3rem); color: var(--color-ink); margin-top: 0.4rem; }
-  .about__lead { color: var(--color-muted); margin-top: var(--space-sm); font-size: 1.1rem; line-height: 1.6; }
+  .story__text { display: grid; gap: 22px; max-width: 64ch; color: var(--color-muted); font-size: 18px; line-height: 1.7; }
+  .story__text .story__first { color: var(--color-ink); font-size: 21px; line-height: 1.55; }
 
-  .about__story { max-width: 720px; margin-top: var(--space-lg); }
-  .about__story p { color: var(--color-ink); line-height: 1.8; margin-bottom: var(--space-sm); }
+  /* ---- Capabilities ---- */
+  .caps { padding-block: clamp(64px, 8vw, 112px); }
+  .caps__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .cap { padding-top: 20px; border-top: 1px solid var(--color-ink); }
+  .cap__title { font-size: 24px; line-height: 1.15; margin-bottom: 10px; }
+  .cap p { color: var(--color-muted); }
 
-  .about__leader {
+  /* ---- Leadership ---- */
+  .lead { padding-block: var(--section); }
+  .lead__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); align-items: end; }
+  .lead__photo { aspect-ratio: 4 / 5; max-width: 420px; background: var(--color-border); overflow: hidden; }
+  .lead__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .lead__name {
+    margin-top: 18px;
+    font-variation-settings: "wdth" 114;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  .lead__role { margin-top: 12px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-dark); }
+  .lead__bio { margin-top: 28px; max-width: 58ch; font-size: 18px; line-height: 1.7; color: var(--color-muted); }
+
+  /* ---- Group ---- */
+  .group { padding-bottom: var(--section); }
+  .group__panel {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: var(--space-lg);
-    align-items: flex-start;
-    margin-top: var(--space-xl);
-    padding-block: var(--space-lg);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .leader__eyebrow {
-    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--color-brand); font-weight: 600;
-  }
-  .about__leader h3 { font-size: 1.5rem; color: var(--color-ink); margin-top: 0.3rem; }
-  .leader__title {
-    font-size: 0.85rem; color: var(--color-brand); font-weight: 600;
-    display: block; margin: 0.3rem 0 0.6rem;
-  }
-  .about__leader p { color: var(--color-muted); line-height: 1.7; max-width: 55ch; }
-  .leader__photo {
-    width: 100%;
-    max-width: 180px;
-    aspect-ratio: 4 / 5;
-    justify-self: end;
-    border-radius: 10px;
-    background: var(--color-surface-2);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px clamp(40px, 6vw, 112px);
+    align-items: end;
+    padding: clamp(32px, 5vw, 72px);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-brand);
+  }
+  .group__title {
+    margin-top: 18px;
+    font-variation-settings: "wdth" 114;
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  .group__body { display: grid; gap: 28px; justify-items: start; }
+  .group__body p { font-size: 18px; line-height: 1.6; color: var(--color-muted); max-width: 46ch; }
+
+  /* ---- Facilities ---- */
+  .fac { padding-block: clamp(64px, 8vw, 112px); }
+  .fac__head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+  .fac__map { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 13px; }
+  .fac__map :global(svg) { width: 14px; height: 14px; transition: transform 0.2s; }
+  .fac__map:hover :global(svg) { transform: translateX(4px); }
+  .fac__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .fac__item { padding-top: 20px; border-top: 1px solid var(--color-ink); font-size: 18px; line-height: 1.7; }
+  .fac__label {
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-variation-settings: normal;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand-dark);
   }
 
-  .about__caps {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);
-    margin-top: var(--space-lg);
-  }
-  .cap {
-    background: var(--color-surface-2);
-    border: 1px solid var(--color-border);
-    border-radius: 12px; padding: var(--space-md);
-  }
-  .cap h3 { font-size: 1.05rem; color: var(--color-ink); margin-bottom: 0.4rem; }
-  .cap p { font-size: 0.92rem; color: var(--color-muted); line-height: 1.6; }
+  .end { padding-block: clamp(64px, 8vw, 112px); }
 
-  .about__facilities { margin-top: var(--space-xl); }
-  .about__subhead { font-size: 1.5rem; color: var(--color-ink); margin-bottom: var(--space-md); }
-  .about__facgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
-  .fac { border-top: 2px solid var(--color-brand); padding-top: var(--space-sm); }
-  .fac h4 {
-    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--color-ink); margin-bottom: 0.5rem;
+  @media (max-width: 900px) {
+    .story__grid, .lead__grid, .group__panel { grid-template-columns: 1fr; }
+    .story__side { position: static; }
+    .caps__grid { grid-template-columns: 1fr; gap: 28px; }
+    .lead__photo { max-width: 320px; }
   }
-  .fac p { color: var(--color-muted); line-height: 1.7; }
-
-  .about__cta {
-    margin-top: var(--space-xl);
-    background: var(--color-ink);
-    border-radius: 16px; padding: var(--space-lg);
-    display: flex; align-items: center; justify-content: space-between;
-    gap: var(--space-md); flex-wrap: wrap;
-  }
-  .about__cta h2 { color: #fff; font-size: 1.5rem; }
-  .about__cta p { color: #b9c4c4; margin-top: 0.4rem; }
-  .about__ctabtns { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-
-  @media (max-width: 860px) {
-    .about__caps { grid-template-columns: 1fr; }
-    .about__facgrid { grid-template-columns: 1fr; }
-    .about__leader { grid-template-columns: 1fr; }
-    .leader__photo { justify-self: start; max-width: 280px; }
+  @media (max-width: 600px) {
+    .fac__grid { grid-template-columns: 1fr; gap: 28px; }
+    .story__text { font-size: 17px; }
   }
 </style>

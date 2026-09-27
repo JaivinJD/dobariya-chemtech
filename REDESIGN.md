@@ -30,7 +30,7 @@ Put photos in `src/assets/photos/`, import them, pass to `<PhotoSlot src={...}>`
 ## Progress
 - [x] Day 1: tokens, Layout (fonts, overlay nav prop, counters, one-shot reveals), Navbar, Footer (reads contact.json / offices.json, dobariya.in link), full homepage in `components/home/`, shared `lib/catalog.ts`, `ui/PhotoSlot`, `ui/Arrow`.
 - [x] Day 2: shared `ui/PageHeader`, Products list (catalogue table + live search + family jump list), product detail (specimen tile, spec list, related, quote prefill `?product=`), Contact (new fields phone/product/quantity, `action="/thanks"`, map restyled), `/thanks` page (noindex, out of sitemap).
-- [ ] Day 3: About (Dobariya Group band with dobariya.in button), Quality, 404, drop in photos, mobile pass.
+- [x] Day 3: About (story + pull quote, capabilities, leadership, Dobariya Group panel with dobariya.in button, facilities, CtaStrip), Quality (commitments, document tiles, honest certification note), 404, photos (3 AI images), `ui/CtaStrip`. Em dashes in Shrut copy swapped for commas/colons, wording unchanged.
 - [ ] Day 4: feedback, performance, OG image, merge `cms-admin` in, launch prep.
 
 ## Launch checklist (decide with Jaivin)
