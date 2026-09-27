@@ -74,6 +74,7 @@ const productSchema = {
       { label: `${family?.name} · ${family?.sub}`, href: `/products#${d.category}` },
     ]}
     label={familyLabel}
+    compact
   >
     <Fragment slot="title"><span set:html={withBreaks(d.name)} /></Fragment>
     {d.synonyms && d.synonyms.length > 0 && (

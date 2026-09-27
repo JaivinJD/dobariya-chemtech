@@ -5,7 +5,6 @@ import PhotoSlot from '../ui/PhotoSlot.astro';
 import warehouseImg from '../../assets/photos/warehouse.jpg';
 import Arrow from '../ui/Arrow.astro';
 
-const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
 ---
 
 <section class="enq on-dark">
@@ -21,7 +20,6 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
     </p>
     <div class="enq__actions">
       <a href="/contact#enquiry" class="btn btn--primary">Request a quote <Arrow /></a>
-      <span class="enq__direct">or call <a href={tel}>{contact.phone}</a></span>
     </div>
   </div>
 </section>
@@ -43,9 +41,6 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
   .enq__title { margin-top: 20px; max-width: 16ch; }
   .enq__text { margin-top: 20px; max-width: 46ch; color: var(--color-on-dark); }
   .enq__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 36px; }
-  .enq__direct { font-family: var(--font-mono); font-size: 14px; color: var(--color-on-dark); }
-  .enq__direct a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.4); }
-  .enq__direct a:hover { border-color: #fff; }
 
   @media (max-width: 600px) {
     .enq__bg :global(.ph__tag) { display: none; }

@@ -39,12 +39,12 @@ export function formulaHtml(formula = ''): string {
   return escaped.replace(/([A-Za-z)])(\d+)/g, '$1<sub>$2</sub>');
 }
 
-// Controls where long names wrap. "7-(Bromomethyl)pentadecane" may break after ")"
-// but never after "7-". Each piece is wrapped in <span class="nw"> (no-wrap, see
+// Controls where long names wrap. Allowed break points: after ")" and before a
+// numbered locant ("1-Bromo-|6-methylheptane"). Never after "7-" or "1-". Each piece is wrapped in <span class="nw"> (no-wrap, see
 // global.css) and pieces are joined with <wbr/>. Escapes first, so it is safe for set:html.
 export const withBreaks = (name: string) =>
   name
     .replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
     .split(' ')
-    .map((word) => word.split(/(?<=\))/).map((part) => `<span class="nw">${part}</span>`).join('<wbr/>'))
+    .map((word) => word.split(/(?<=\))|(?<=[A-Za-z]-)(?=\d)/).map((part) => `<span class="nw">${part}</span>`).join('<wbr/>'))
     .join(' ');

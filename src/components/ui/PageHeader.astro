@@ -11,7 +11,7 @@
 //   </PageHeader>
 import LogoIcon from '../../assets/logo-icon.svg';
 
-const { label, title, lead, crumbs = [] } = Astro.props;
+const { label, title, lead, crumbs = [], compact = false } = Astro.props; // compact: smaller title for long names
 const hasAside = Astro.slots.has('aside');
 ---
 
@@ -25,7 +25,7 @@ const hasAside = Astro.slots.has('aside');
         </nav>
       )}
       {label && <span class="label">{label}</span>}
-      <h1 class="phead__title"><slot name="title">{title}</slot></h1>
+      <h1 class:list={['phead__title', { 'phead__title--compact': compact }]}><slot name="title">{title}</slot></h1>
       {lead && <p class="phead__lead">{lead}</p>}
       <slot />
     </div>
@@ -75,6 +75,8 @@ const hasAside = Astro.slots.has('aside');
     letter-spacing: -0.04em;
     overflow-wrap: anywhere;
   }
+  .phead__title--compact { font-size: clamp(36px, 5vw, 76px); line-height: 1; }
+  .phead__main { min-width: 0; }
   .phead__lead { margin-top: 28px; max-width: 56ch; font-size: 19px; line-height: 1.55; color: var(--color-on-dark); }
 
   @media (max-width: 900px) {
