@@ -157,7 +157,8 @@ img { display: block; max-width: 100%; }
 .btn svg { width: 16px; height: 16px; flex: none; transition: transform 0.2s; }
 .btn:hover svg { transform: translateX(4px); }
 
-.btn--primary { background: var(--color-brand); color: #fff; }
+/* Slightly deeper teal than the logo so white button text passes WCAG AA (4.85:1) */
+.btn--primary { background: #057F7C; color: #fff; }
 .btn--primary:hover { background: var(--color-ink); }
 .on-dark .btn--primary:hover { background: #fff; color: var(--color-ink); }
 

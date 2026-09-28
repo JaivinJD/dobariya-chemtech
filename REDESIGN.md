@@ -32,7 +32,8 @@ Swap a photo by replacing the file (same name) or changing the import. Quality h
 - [x] Day 1: tokens, Layout (fonts, overlay nav prop, counters, one-shot reveals), Navbar, Footer (reads contact.json / offices.json, dobariya.in link), full homepage in `components/home/`, shared `lib/catalog.ts`, `ui/PhotoSlot`, `ui/Arrow`.
 - [x] Day 2: shared `ui/PageHeader`, Products list (catalogue table + live search + family jump list), product detail (specimen tile, spec list, related, quote prefill `?product=`), Contact (new fields phone/product/quantity, `action="/thanks"`, map restyled), `/thanks` page (noindex, out of sitemap).
 - [x] Day 3: About (story + pull quote, capabilities, leadership, Dobariya Group panel with dobariya.in button, facilities, CtaStrip), Quality (commitments, document tiles, honest certification note), 404, photos (3 AI images), `ui/CtaStrip`. Em dashes in Shrut copy swapped for commas/colons, wording unchanged.
-- [ ] Day 4: feedback, performance, OG image, merge `cms-admin` in, launch prep.
+- [x] Day 4 (done early, 28 Sep): `cms-admin` merged in, new OG image, accessibility fixes (button contrast, table roles, footer headings), viewport, richer Organization JSON-LD. Lighthouse: SEO 100, accessibility 98 to 100, best practices 96.
+- [ ] Launch: see checklist below.
 
 ## Launch checklist (decide with Jaivin)
 - Decap `public/admin/config.yml` `backend.branch` is `cms-admin` and `site_url` points at the cms-admin preview. After the redesign merges to `main` and production switches to `main`, the CMS must target `main`, or edits never go live.

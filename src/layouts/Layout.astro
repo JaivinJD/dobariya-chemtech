@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import contact from "../data/contact.json";
 
 const {
   navOverlay = false, // true = navbar sits transparent over a full-bleed hero (homepage)
@@ -16,7 +17,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -54,7 +55,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         "@type": "Organization",
         name: "Dobariya Chemtech Pvt. Ltd.",
         url: "https://dobariyachemtech.com",
-        logo: "https://dobariyachemtech.com/og-image.png",
+        logo: "https://dobariyachemtech.com/apple-touch-icon.png",
+        email: contact.email,
+        telephone: contact.phone,
+        parentOrganization: { "@type": "Organization", name: "Dobariya Group", url: "https://dobariya.in" },
         address: {
           "@type": "PostalAddress",
           streetAddress: "522-523 Shilp Epitome, Bodakdev",

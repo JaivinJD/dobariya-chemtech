@@ -37,20 +37,20 @@ const year = new Date().getFullYear();
 
       {offices.map((office) => (
         <div>
-          <h4>{office.label}</h4>
+          <h2 class="foot__h">{office.label}</h2>
           <p>{office.lines.map((line, i) => <Fragment>{i > 0 && <br />}{line}</Fragment>)}</p>
         </div>
       ))}
 
       <nav aria-label="Footer">
-        <h4>Explore</h4>
+        <h2 class="foot__h">Explore</h2>
         <div class="foot__nav">
           {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
         </div>
       </nav>
     </div>
 
-    <div class="foot__word" aria-hidden="true">DOBARIYA</div>
+    <div class="foot__word" aria-hidden="true" data-word="DOBARIYA"></div>
   </div>
 
   <div class="container foot__bar">
@@ -80,7 +80,7 @@ const year = new Date().getFullYear();
   .foot__contact { margin-top: 20px; display: grid; gap: 4px; }
   .foot__contact a { color: #fff; justify-self: start; }
 
-  .foot h4 {
+  .foot .foot__h {
     margin-bottom: 18px;
     color: #fff;
     font-family: var(--font-mono);
@@ -96,6 +96,7 @@ const year = new Date().getFullYear();
   .foot a:hover { color: #fff; }
 
   /* Oversized, barely-there wordmark. Decorative only. */
+  .foot__word::before { content: attr(data-word); }
   .foot__word {
     font-family: var(--font-display);
     font-variation-settings: "wdth" 125;
