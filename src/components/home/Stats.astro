@@ -34,7 +34,7 @@ const stats = [
 </section>
 
 <style>
-  .stats { background: var(--color-ink); padding-block: 72px 96px; }
+  .stats { background: var(--color-ink); padding-block: var(--section-sm); }
   .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
   .stat { padding-right: 32px; }
   .stat + .stat { padding-left: 32px; border-left: 1px solid var(--color-border-dark); }
@@ -43,7 +43,7 @@ const stats = [
     font-family: var(--font-display);
     font-variation-settings: "wdth" var(--display-wdth);
     font-weight: 400;
-    font-size: clamp(52px, 6vw, 96px);
+    font-size: var(--fs-num);
     line-height: 1;
     letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
@@ -70,9 +70,11 @@ const stats = [
     .stats__grid { grid-template-columns: 1fr 1fr; row-gap: 48px; }
     .stat:nth-child(3) { padding-left: 0; border-left: 0; }
   }
+  /* Phones: stay 2 x 2 so the numbers read as one block, not a long list */
   @media (max-width: 600px) {
-    .stats__grid { grid-template-columns: 1fr; row-gap: 32px; }
-    .stat, .stat + .stat { padding: 0 0 32px; border-left: 0; border-bottom: 1px solid var(--color-border-dark); }
-    .stat:last-child { border-bottom: 0; padding-bottom: 0; }
+    .stats__grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
+    .stat, .stat + .stat { padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--color-border-dark); }
+    .stat__title { margin-top: 12px; font-size: 15px; }
+    .stat__text { font-size: 13.5px; }
   }
 </style>

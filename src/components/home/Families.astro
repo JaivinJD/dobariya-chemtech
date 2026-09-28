@@ -46,7 +46,7 @@ const countIn = (slug: string) => products.filter((p) => p.data.category === slu
     align-items: flex-end;
     flex-wrap: wrap;
     gap: 32px;
-    margin-bottom: 56px;
+    margin-bottom: 40px;
   }
   .fam__title { margin-top: 18px; }
   .fam__intro { max-width: 40ch; color: var(--color-muted); }
@@ -57,7 +57,7 @@ const countIn = (slug: string) => products.filter((p) => p.data.category === slu
     grid-template-columns: 90px minmax(0, 1.1fr) minmax(0, 1.3fr) 150px 44px;
     gap: 32px;
     align-items: start;
-    padding: 36px 0;
+    padding: 28px 0;
     border-bottom: 1px solid var(--color-border);
     transition: background 0.25s, padding 0.25s;
   }
@@ -66,7 +66,7 @@ const countIn = (slug: string) => products.filter((p) => p.data.category === slu
   .row__no { padding-top: 8px; font-family: var(--font-mono); font-size: 14px; color: var(--color-brand-dark); }
   .row__name {
     font-variation-settings: "wdth" var(--display-wdth);
-    font-size: clamp(24px, 2.6vw, 34px);
+    font-size: var(--fs-h3);
     line-height: 1.05;
   }
   .row__name small {
@@ -95,7 +95,7 @@ const countIn = (slug: string) => products.filter((p) => p.data.category === slu
     text-align: right;
     font-family: var(--font-display);
     font-variation-settings: "wdth" var(--display-wdth);
-    font-size: 44px;
+    font-size: clamp(28px, 2.4vw, 36px);
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -132,7 +132,7 @@ const countIn = (slug: string) => products.filter((p) => p.data.category === slu
     .row { grid-template-columns: 1fr auto; gap: 16px; }
     .row:hover { padding-inline: 0; }
     .row__no { grid-column: 1 / -1; padding-top: 0; }
-    .row__count { grid-row: 2; grid-column: 2; font-size: 34px; }
+    .row__count { grid-row: 2; grid-column: 2; font-size: 26px; }
     .row__text { grid-column: 1 / -1; }
   }
 </style>

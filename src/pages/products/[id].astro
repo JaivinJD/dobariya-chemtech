@@ -190,7 +190,7 @@ const productSchema = {
   }
   .plate__formula {
     padding: 28px 20px;
-    font-size: clamp(34px, 3.6vw, 52px);
+    font-size: clamp(28px, 2.8vw, 40px);
     letter-spacing: -0.03em;
     line-height: 1;
     color: #fff;
@@ -207,7 +207,7 @@ const productSchema = {
   .plate__facts dd { margin: 6px 0 0; font-size: 17px; color: #fff; }
 
   /* ---- Body ---- */
-  .pd { padding-block: clamp(56px, 7vw, 96px) clamp(64px, 8vw, 112px); }
+  .pd { padding-block: var(--section-sm); }
   .pd__body {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -249,7 +249,7 @@ const productSchema = {
     align-items: center;
     flex-wrap: wrap;
     gap: 24px 40px;
-    margin-top: clamp(56px, 7vw, 96px);
+    margin-top: var(--section-sm);
     padding: clamp(24px, 3vw, 40px);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -259,7 +259,7 @@ const productSchema = {
     font-family: var(--font-display);
     font-variation-settings: "wdth" var(--display-wdth);
     font-weight: var(--display-weight);
-    font-size: clamp(24px, 2.6vw, 34px);
+    font-size: var(--fs-h3);
     line-height: 1.1;
     letter-spacing: -0.02em;
     overflow-wrap: anywhere;
@@ -267,7 +267,7 @@ const productSchema = {
   .qstrip__text { margin-top: 8px; max-width: 52ch; color: var(--color-muted); }
 
   /* Related */
-  .more { padding-block: 0 var(--section); }
+  .more { padding-block: 0 var(--section-sm); }
   .more__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0 16px; }
   .more__all { white-space: nowrap; margin-bottom: 20px; }
   .more__all { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 13px; }

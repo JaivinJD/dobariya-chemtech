@@ -38,7 +38,17 @@
   --space-md: 2rem;
   --space-lg: 3rem;
   --space-xl: 4rem;
-  --section: clamp(72px, 10vw, 144px);   /* vertical padding of a major section */
+  --section: clamp(56px, 6.5vw, 96px);     /* vertical padding of a major section */
+  --section-sm: clamp(40px, 5vw, 72px);    /* smaller blocks: closing strips, sub-sections */
+
+  /* ---- Type scale: every heading on the site uses one of these ---- */
+  --fs-display: clamp(40px, 5.6vw, 88px);  /* homepage hero only */
+  --fs-title:   clamp(32px, 4vw, 56px);    /* page titles (h1 on inner pages) */
+  --fs-h2:      clamp(26px, 2.8vw, 40px);  /* section headings */
+  --fs-h3:      clamp(20px, 1.7vw, 24px);  /* sub-headings */
+  --fs-num:     clamp(40px, 4.2vw, 64px);  /* big statistics */
+  --fs-lead:    clamp(17px, 1.25vw, 19px); /* intro paragraphs */
+  --fs-body:    16px;
   --gutter:  clamp(16px, 4vw, 56px);     /* side padding at every width */
 
   /* ---- Misc ---- */
@@ -60,13 +70,12 @@ html { scroll-padding-top: calc(var(--nav-h) + 16px); }
 @media (max-width: 900px) { :root { --nav-h: 68px; } }
 body {
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: var(--fs-body);
   color: var(--color-ink);
   background: var(--color-bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-@media (max-width: 600px) { body { font-size: 16px; } }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -111,8 +120,8 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-display);
   font-variation-settings: "wdth" var(--display-wdth);
   font-weight: var(--display-weight);
-  font-size: clamp(32px, 4.2vw, 54px);
-  line-height: 1.05;
+  font-size: var(--fs-h2);
+  line-height: 1.1;
   letter-spacing: -0.025em;
 }
 /* Inside dark sections */

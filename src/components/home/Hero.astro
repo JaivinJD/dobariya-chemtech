@@ -99,7 +99,7 @@ import Arrow from '../ui/Arrow.astro';
   .hero__title {
     font-variation-settings: "wdth" var(--display-wdth);
     font-weight: var(--display-weight);
-    font-size: clamp(46px, 7.6vw, 132px);
+    font-size: var(--fs-display);
     line-height: 0.95;
     letter-spacing: -0.035em;
   }
@@ -112,7 +112,7 @@ import Arrow from '../ui/Arrow.astro';
     max-width: 520px;
     justify-self: end;
   }
-  .hero__lead { color: var(--color-on-dark); font-size: 18px; }
+  .hero__lead { color: var(--color-on-dark); font-size: var(--fs-lead); }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
   /* Periodic-table tile, top right */
@@ -136,7 +136,7 @@ import Arrow from '../ui/Arrow.astro';
     font-family: var(--font-display);
     font-variation-settings: "wdth" 100;
     font-weight: 600;
-    font-size: 56px;
+    font-size: 48px;
     line-height: 1;
     letter-spacing: -0.02em;
   }

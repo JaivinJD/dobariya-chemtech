@@ -83,7 +83,7 @@ const featured = (await getCollection('products', (p) => p.data.featured))
   .spec {
     display: flex;
     flex-direction: column;
-    min-height: 380px;
+    min-height: 320px;
     scroll-snap-align: start;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -107,7 +107,7 @@ const featured = (await getCollection('products', (p) => p.data.featured))
     place-items: center;
     padding: 28px 16px;
     font-family: var(--font-mono);
-    font-size: clamp(28px, 2.6vw, 36px);
+    font-size: clamp(24px, 2.2vw, 30px);
     letter-spacing: -0.02em;
     text-align: center;
   }

@@ -95,18 +95,18 @@ const documents = [
   .commit__title { align-self: start; position: sticky; top: calc(var(--nav-h) + 40px); }
   .commit__list { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 40px; }
   .c { padding-top: 20px; border-top: 1px solid var(--color-ink); }
-  .c__title { font-size: 22px; line-height: 1.15; margin-bottom: 10px; }
+  .c__title { font-size: var(--fs-h3); line-height: 1.15; margin-bottom: 10px; }
   .c p { color: var(--color-muted); }
 
   /* ---- Documents ---- */
   .docs { padding-block: var(--section); }
-  .docs__title { margin-top: 18px; margin-bottom: 48px; }
+  .docs__title { margin-top: 18px; margin-bottom: 40px; }
   .docs__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .doc {
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 280px;
+    min-height: 240px;
     padding: 28px;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
@@ -124,22 +124,22 @@ const documents = [
   }
   .doc__code {
     font-family: var(--font-mono);
-    font-size: 44px;
+    font-size: 32px;
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--color-brand-dark);
   }
-  .doc__name { margin-top: 64px; font-size: 22px; line-height: 1.15; }
+  .doc__name { margin-top: 48px; font-size: var(--fs-h3); line-height: 1.15; }
   .doc p { margin-top: 8px; color: var(--color-muted); }
 
   /* ---- Certifications ---- */
-  .certs { padding-block: clamp(64px, 8vw, 112px); border-bottom: 1px solid var(--color-border); }
+  .certs { padding-block: var(--section-sm); border-bottom: 1px solid var(--color-border); }
   .certs__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px clamp(40px, 6vw, 112px); align-items: end; }
-  .certs__title { margin-top: 18px; font-variation-settings: "wdth" var(--display-wdth); font-size: clamp(32px, 4vw, 56px); line-height: 1; letter-spacing: -0.03em; }
-  .certs__text { max-width: 52ch; font-size: 19px; line-height: 1.6; color: var(--color-muted); }
+  .certs__title { margin-top: 18px; font-variation-settings: "wdth" var(--display-wdth); font-size: var(--fs-h2); line-height: 1; letter-spacing: -0.03em; }
+  .certs__text { max-width: 52ch; font-size: var(--fs-lead); line-height: 1.6; color: var(--color-muted); }
 
-  .end { padding-block: clamp(64px, 8vw, 112px); }
+  .end { padding-block: var(--section-sm); }
 
   @media (max-width: 900px) {
     .commit__grid, .certs__grid { grid-template-columns: 1fr; }

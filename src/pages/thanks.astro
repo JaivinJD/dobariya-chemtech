@@ -25,15 +25,15 @@ import contact from '../data/contact.json';
 </Layout>
 
 <style>
-  .thanks { padding-block: clamp(96px, 14vw, 200px); }
+  .thanks { padding-block: var(--section); }
   .thanks__title {
     margin-top: 18px;
     font-variation-settings: "wdth" var(--display-wdth);
-    font-size: clamp(42px, 7vw, 104px);
+    font-size: var(--fs-title);
     line-height: 0.95;
     letter-spacing: -0.04em;
   }
-  .thanks__text { margin-top: 28px; max-width: 52ch; font-size: 19px; color: var(--color-muted); }
+  .thanks__text { margin-top: 20px; max-width: 52ch; font-size: var(--fs-lead); color: var(--color-muted); }
   .thanks__text a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-brand); text-underline-offset: 3px; }
   .thanks__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
 </style>
