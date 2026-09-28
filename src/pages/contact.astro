@@ -6,7 +6,7 @@ import PageHeader from '../components/ui/PageHeader.astro';
 import Arrow from '../components/ui/Arrow.astro';
 import { offices } from '../data/offices.json';
 import contact from '../data/contact.json';
-import panelImg from '../assets/photos/warehouse.jpg';
+import panelImg from '../assets/photos/drums.jpg';
 
 // Product names for the "Product" field suggestions.
 const productNames = (await getCollection('products')).map((p) => p.data.name).sort();
@@ -184,7 +184,7 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
 
   /* ---- Photo panel ---- */
   .panel { position: relative; overflow: hidden; min-height: 460px; display: flex; align-items: flex-end; background: var(--color-ink); }
-  .panel__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 50%; }
+  .panel__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
   .panel::before {
     content: "";
     position: absolute;

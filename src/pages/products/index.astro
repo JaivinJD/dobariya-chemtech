@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/ui/PageHeader.astro';
 import Arrow from '../../components/ui/Arrow.astro';
-import headerImg from '../../assets/photos/hero-lab.jpg';
+import headerImg from '../../assets/photos/bottles.jpg';
 import { families, formulaHtml, withBreaks } from '../../lib/catalog';
 
 // Every product from the CMS collection (already schema-validated), A to Z.
@@ -22,7 +22,7 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
 >
   <PageHeader
     image={headerImg}
-    imagePos="80% 65%"
+    imagePos="70% 50%"
     label="Products"
     title="Bromine derivatives"
     lead={`${products.length} products across three families, manufactured and supplied from our facility in Kadi, Gujarat. Open any product for its full specification.`}

@@ -1,6 +1,6 @@
 ---
-// "A manufacturer, not a trader." Company intro + plant photo + both addresses.
-import { offices } from '../../data/offices.json';
+// "A manufacturer, not a trader." Company intro + photo.
+// (Addresses live in the footer and on Contact, so they are not repeated here.)
 import PhotoSlot from '../ui/PhotoSlot.astro';
 import ampouleImg from '../../assets/photos/ampoule.jpg';
 import Arrow from '../ui/Arrow.astro';
@@ -32,14 +32,6 @@ import Arrow from '../ui/Arrow.astro';
       <div class="intro__photo">
         <PhotoSlot src={ampouleImg} alt="Glass ampoule of red-brown liquid on a slate surface" />
       </div>
-      <div class="intro__facts">
-        {offices.map((o) => (
-          <div class="fact">
-            <p class="label fact__label">{o.label}</p>
-            <p>{o.lines.join(', ')}</p>
-          </div>
-        ))}
-      </div>
     </div>
   </div>
 </section>
@@ -50,7 +42,7 @@ import Arrow from '../ui/Arrow.astro';
     display: grid;
     grid-template-columns: 5fr 6fr;
     gap: clamp(40px, 6vw, 112px);
-    align-items: start;
+    align-items: center;
   }
   .intro__title { margin-top: 20px; }
   .intro__copy { margin-top: 32px; display: grid; gap: 18px; max-width: 52ch; color: var(--color-muted); }
@@ -66,10 +58,6 @@ import Arrow from '../ui/Arrow.astro';
 
   .intro__media { display: grid; gap: 20px; }
   .intro__photo { aspect-ratio: 4 / 3; overflow: hidden; }
-  .intro__facts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .fact { padding-top: 14px; border-top: 1px solid var(--color-ink); font-size: 15px; line-height: 1.5; }
-  .fact__label { color: var(--color-muted); margin-bottom: 8px; }
 
   @media (max-width: 900px) { .intro__grid { grid-template-columns: 1fr; } }
-  @media (max-width: 600px) { .intro__facts { grid-template-columns: 1fr; } }
 </style>

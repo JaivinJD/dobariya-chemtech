@@ -5,7 +5,7 @@ import CtaStrip from '../components/ui/CtaStrip.astro';
 import Arrow from '../components/ui/Arrow.astro';
 import { getCollection } from 'astro:content';
 import { offices as facilities } from '../data/offices.json';
-import headerImg from '../assets/photos/warehouse.jpg';
+import headerImg from '../assets/photos/roof.jpg';
 
 // Copy below is Shrut's approved text. Only punctuation was changed
 // (em dashes replaced), the wording is his.
@@ -46,7 +46,7 @@ const capabilities = [
   title="About | Dobariya Chemtech Pvt. Ltd."
   description="A bromine-derivatives manufacturer in Ahmedabad, Gujarat, with in-house production in Kadi and a focus on consistent, export-grade quality."
 >
-  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} image={headerImg} imagePos="60% 55%" />
+  <PageHeader label={intro.label} title={intro.title} lead={intro.lead} image={headerImg} imagePos="50% 35%" />
 
   <!-- Story: pull quote on the left (sticky), Shrut's paragraphs on the right -->
   <section class="story">
@@ -185,7 +185,7 @@ const capabilities = [
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 32px clamp(40px, 6vw, 112px);
-    align-items: end;
+    align-items: start;
     padding: clamp(28px, 4vw, 56px);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -198,7 +198,7 @@ const capabilities = [
     line-height: 1.02;
     letter-spacing: -0.03em;
   }
-  .group__body { display: grid; gap: 28px; justify-items: start; }
+  .group__body { display: grid; gap: 28px; justify-items: start; padding-top: 34px; }
   .group__body p { font-size: 17px; line-height: 1.6; color: var(--color-muted); max-width: 46ch; }
 
   /* ---- Facilities ---- */

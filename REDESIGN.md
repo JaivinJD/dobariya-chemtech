@@ -17,15 +17,16 @@ Goal: replace the generic look with a confident industrial-editorial design, ref
 - Reveal attributes `data-reveal` / `data-reveal-group`; counters use `data-count`.
 - No em dashes in copy. No fake photos presented as the real facility; missing photos use `<PhotoSlot>` placeholders.
 
-## Photo slots
-| Code | Where | Status |
-|---|---|---|
-| P1 | Home hero (`Hero.astro`) | AI image `photos/hero-lab.jpg` (placeholder until real photos) |
-| P2 | Home intro (`Intro.astro`) | AI image `photos/ampoule.jpg` |
-| P3 | dropped (weak image); promises section is text-only with sticky heading |
-| P4 | Home enquiry band (`Enquiry.astro`) | AI image `photos/warehouse.jpg` |
-| P5 | dropped; About uses the standard dark header |
-Put photos in `src/assets/photos/`, import them, pass to `<PhotoSlot src={...}>`.
+## Photos (AI placeholders until real photography; Gemini marks removed)
+| File | Used on |
+|---|---|
+| `photos/hero-lab.jpg` | Home hero |
+| `photos/ampoule.jpg` | Home intro, Quality header |
+| `photos/warehouse.jpg` | Home enquiry band |
+| `photos/bottles.jpg` | Products header |
+| `photos/roof.jpg` | About header |
+| `photos/drums.jpg` | Contact panel |
+Swap a photo by replacing the file (same name) or changing the import. Quality header could get its own image later (burette prompt).
 
 ## Progress
 - [x] Day 1: tokens, Layout (fonts, overlay nav prop, counters, one-shot reveals), Navbar, Footer (reads contact.json / offices.json, dobariya.in link), full homepage in `components/home/`, shared `lib/catalog.ts`, `ui/PhotoSlot`, `ui/Arrow`.
