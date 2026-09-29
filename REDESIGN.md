@@ -34,7 +34,8 @@ Swap a photo by replacing the file (same name) or changing the import. Quality h
 - [x] Day 3: About (story + pull quote, capabilities, leadership, Dobariya Group panel with dobariya.in button, facilities, CtaStrip), Quality (commitments, document tiles, honest certification note), 404, photos (3 AI images), `ui/CtaStrip`. Em dashes in Shrut copy swapped for commas/colons, wording unchanged.
 - [x] Day 4 (done early, 28 Sep): `cms-admin` merged in, new OG image, accessibility fixes (button contrast, table roles, footer headings), viewport, richer Organization JSON-LD. Lighthouse: SEO 100, accessibility 98 to 100, best practices 96.
 - [x] 29 Sep: logo lockup now reads CHEMTECH PVT. LTD. (official lettering from logo-full.svg), labels use --fs-label, mobile fixes (featured card, leadership order, products table), home intro heading removed, group sentence reworded. 108 responsive checks pass (360/390/768).
-- [ ] Launch: see checklist below.
+- [x] 29 Sep: CMS config now targets `main` and `https://dobariyachemtech.com`, ready to merge into `main`.
+- [ ] Launch: merge into `main`, switch Netlify production to `main`, update DecapBridge login URL.
 
 ## Launch checklist (decide with Jaivin)
 - Decap `public/admin/config.yml` `backend.branch` is `cms-admin` and `site_url` points at the cms-admin preview. After the redesign merges to `main` and production switches to `main`, the CMS must target `main`, or edits never go live.
