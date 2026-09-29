@@ -71,6 +71,12 @@ const hasAside = Astro.slots.has('aside');
       linear-gradient(90deg, rgba(16, 26, 26, 0.92) 0%, rgba(16, 26, 26, 0.7) 50%, rgba(16, 26, 26, 0.45) 100%),
       linear-gradient(0deg, rgba(16, 26, 26, 0.85) 0%, rgba(16, 26, 26, 0) 60%);
   }
+  /* With a side panel (Products), the right half carries text too, so it gets the same heavy wash */
+  .phead--photo.phead--aside::before {
+    background:
+      linear-gradient(90deg, rgba(16, 26, 26, 0.92) 0%, rgba(16, 26, 26, 0.8) 50%, rgba(16, 26, 26, 0.84) 100%),
+      linear-gradient(0deg, rgba(16, 26, 26, 0.6) 0%, rgba(16, 26, 26, 0) 60%);
+  }
   .phead__in { z-index: 2; }
   .phead__in { position: relative; display: grid; gap: 40px clamp(40px, 6vw, 112px); }
   .phead--aside .phead__in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }

@@ -73,7 +73,6 @@ const productSchema = {
       { label: 'Products', href: '/products' },
       { label: `${family?.name} · ${family?.sub}`, href: `/products#${d.category}` },
     ]}
-    label={familyLabel}
     compact
   >
     <Fragment slot="title"><span set:html={withBreaks(d.name)} /></Fragment>

@@ -13,8 +13,8 @@ import contact from '../data/contact.json';
       <span class="label">Enquiry received</span>
       <h1 class="thanks__title">Thank you.<br />We'll be in touch.</h1>
       <p class="thanks__text">
-        Your request has reached our team. If it is urgent, call us on
-        <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>.
+        Your request has reached our team. If it is urgent, call us on{' '}
+        <a href={`tel:${contact.phone.replace(/\s/g, '')}`} style="white-space: nowrap">{contact.phone}</a>.
       </p>
       <div class="thanks__actions">
         <a href="/products" class="btn btn--primary">Back to products <Arrow /></a>
