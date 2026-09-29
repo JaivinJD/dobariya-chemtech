@@ -136,7 +136,7 @@ const productSchema = {
       <!-- Quote strip: light and framed, so the page stays calm between the dark header and footer -->
       <div class="qstrip">
         <div>
-          <p class="qstrip__title">Need {d.name}?</p>
+          <p class="qstrip__title">Need <Fragment set:html={withBreaks(d.name)} />?</p>
           <p class="qstrip__text">Tell us the grade and quantity. We reply with availability, pricing and documentation.</p>
         </div>
         <a href={quoteHref} class="btn btn--primary">Request a quote <Arrow /></a>
@@ -216,7 +216,7 @@ const productSchema = {
   .pd__h2 {
     font-family: var(--font-mono);
     font-variation-settings: normal;
-    font-size: 12px;
+    font-size: var(--fs-label);
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;

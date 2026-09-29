@@ -45,7 +45,7 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
       <label class="finder__field">
         <span class="sr-only">Search products</span>
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6" /><path d="M13 13l5 5" /></svg>
-        <input type="search" placeholder="Search by name, formula or CAS number" data-finder-input autocomplete="off" />
+        <input type="search" placeholder="Search name, formula or CAS" aria-label="Search products by name, formula or CAS number" data-finder-input autocomplete="off" />
       </label>
       <p class="finder__count" aria-live="polite" data-finder-count></p>
     </div>
@@ -233,15 +233,15 @@ const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : '');
     .fam__no { grid-column: 1 / -1; padding-top: 0; }
     .tbl__row--head { display: none; }
     .tbl__row {
-      grid-template-columns: 1fr 40px;
-      grid-template-areas: "name go" "meta go";
+      grid-template-columns: auto minmax(0, 1fr) 40px;
+      grid-template-areas: "name name go" "formula cas go";
       gap: 4px 16px;
       padding-inline: 16px;
     }
     .tbl__name { grid-area: name; }
     .tbl__go { grid-area: go; }
-    .tbl__formula, .tbl__cas { grid-area: meta; }
-    .tbl__cas { justify-self: end; }
+    .tbl__formula { grid-area: formula; }
+    .tbl__cas { grid-area: cas; justify-self: end; text-align: right; }
     .ask__in { grid-template-columns: 1fr; }
     .finder__count { display: none; }
   }

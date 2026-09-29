@@ -1,5 +1,5 @@
 ---
-// "A manufacturer, not a trader." Company intro + photo.
+// Company intro + photo.
 // (Addresses live in the footer and on Contact, so they are not repeated here.)
 import PhotoSlot from '../ui/PhotoSlot.astro';
 import ampouleImg from '../../assets/photos/ampoule.jpg';
@@ -11,17 +11,16 @@ import Arrow from '../ui/Arrow.astro';
   <div class="container intro__grid">
     <div class="intro__text" data-reveal>
       <span class="label">About the company</span>
-      <h2 class="h2 intro__title">A manufacturer, not a trader.</h2>
       <div class="intro__copy">
         <p class="intro__lead">
           Dobariya Chemtech makes bromine derivatives at its own production facility in
           Kadi, with corporate offices in Ahmedabad.
         </p>
         <p>
-          We are the chemicals company of the{' '}
+          We are the chemical company of the{' '}
           <a href="https://dobariya.in" target="_blank" rel="noopener" class="intro__group">Dobariya Group</a>,{' '}
           which has been building across Ahmedabad since 1989. The same discipline runs our
-          chemical operations: in-house production, consistent specifications and a
+          operations: in-house production, consistent specifications and a
           straightforward relationship with every buyer.
         </p>
       </div>
@@ -44,9 +43,9 @@ import Arrow from '../ui/Arrow.astro';
     gap: clamp(40px, 6vw, 112px);
     align-items: center;
   }
-  .intro__title { margin-top: 20px; }
-  .intro__copy { margin-top: 32px; display: grid; gap: 18px; max-width: 52ch; color: var(--color-muted); }
-  .intro__lead { color: var(--color-ink); font-size: var(--fs-lead); line-height: 1.55; }
+  .intro__copy { margin-top: 24px; display: grid; gap: 18px; max-width: 52ch; color: var(--color-muted); }
+  /* With no heading here, the lead sentence carries the section */
+  .intro__lead { color: var(--color-ink); font-size: var(--fs-h3); line-height: 1.4; letter-spacing: -0.01em; }
   .intro__group {
     color: var(--color-ink);
     text-decoration: underline;

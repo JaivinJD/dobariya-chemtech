@@ -83,7 +83,6 @@ const featured = (await getCollection('products', (p) => p.data.featured))
   .spec {
     display: flex;
     flex-direction: column;
-    min-height: 320px;
     scroll-snap-align: start;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -101,18 +100,23 @@ const featured = (await getCollection('products', (p) => p.data.featured))
     font-size: 12px;
     color: var(--color-muted);
   }
+  /* Fixed-height formula box centred with flexbox. The earlier flex:1 + grid
+     centring misplaced the formula in iOS Safari (it drifted onto the name). */
   .spec__formula {
-    flex: 1;
-    display: grid;
-    place-items: center;
-    padding: 28px 16px;
+    flex: none;
+    height: 172px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    line-height: 1.2;
     font-family: var(--font-mono);
     font-size: clamp(24px, 2.2vw, 30px);
     letter-spacing: -0.02em;
     text-align: center;
   }
   .spec__formula :global(sub) { font-size: 0.55em; }
-  .spec__body { min-height: 124px; padding: 20px 22px 22px; border-top: 1px solid var(--color-border); }
+  .spec__body { flex: 1; min-height: 124px; padding: 20px 22px 22px; border-top: 1px solid var(--color-border); }
   .spec__name { font-size: 20px; line-height: 1.15; overflow-wrap: anywhere; }
   .spec__use { margin-top: 6px; font-size: 14px; line-height: 1.45; color: var(--color-muted); }
 

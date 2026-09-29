@@ -75,16 +75,18 @@ const capabilities = [
 
   <!-- Leadership -->
   <section class="lead">
+    <!-- Order: heading, photo, bio. On phones this reads top to bottom;
+         on desktop the photo sits left and heading + bio sit right. -->
     <div class="container lead__grid">
-      <div class="lead__photo">
-        <img src="/shrut-photo.jpeg" alt="Shrut Dobariya, Director" loading="lazy" />
-      </div>
-      <div class="lead__text" data-reveal>
+      <div class="lead__head" data-reveal>
         <span class="label">Leadership</span>
         <h2 class="lead__name">{founder.name}</h2>
         <p class="lead__role">{founder.title}</p>
-        <p class="lead__bio">{founder.bio}</p>
       </div>
+      <div class="lead__photo">
+        <img src="/shrut-photo.jpeg" alt="Shrut Dobariya, Director" loading="lazy" />
+      </div>
+      <p class="lead__bio" data-reveal>{founder.bio}</p>
     </div>
   </section>
 
@@ -98,8 +100,8 @@ const capabilities = [
         </div>
         <div class="group__body">
           <p>
-            Dobariya Chemtech is the chemicals company of the Dobariya Group, which has built
-            homes and business spaces across Ahmedabad since 1989.
+            Dobariya Chemtech is the chemical company of the Dobariya Group, which has been
+            building homes and commercial spaces across Ahmedabad since 1989.
           </p>
           <a href="https://dobariya.in" target="_blank" rel="noopener" class="btn btn--ghost">
             Visit dobariya.in <span aria-hidden="true">↗</span>
@@ -166,8 +168,15 @@ const capabilities = [
 
   /* ---- Leadership ---- */
   .lead { padding-block: var(--section); }
-  .lead__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 112px); align-items: center; }
-  .lead__photo { aspect-ratio: 4 / 5; max-width: 420px; background: var(--color-border); overflow: hidden; }
+  .lead__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    grid-template-rows: 1fr auto auto 1fr;
+    grid-template-areas: "photo ." "photo head" "photo bio" "photo .";
+    column-gap: clamp(40px, 6vw, 112px);
+  }
+  .lead__head { grid-area: head; }
+  .lead__photo { grid-area: photo; aspect-ratio: 4 / 5; max-width: 420px; background: var(--color-border); overflow: hidden; }
   .lead__photo img { width: 100%; height: 100%; object-fit: cover; }
   .lead__name {
     margin-top: 18px;
@@ -177,7 +186,7 @@ const capabilities = [
     letter-spacing: -0.035em;
   }
   .lead__role { margin-top: 12px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-dark); }
-  .lead__bio { margin-top: 20px; max-width: 58ch; font-size: 17px; line-height: 1.7; color: var(--color-muted); }
+  .lead__bio { grid-area: bio; margin-top: 20px; max-width: 58ch; font-size: 17px; line-height: 1.7; color: var(--color-muted); }
 
   /* ---- Group ---- */
   .group { padding-bottom: var(--section); }
@@ -213,7 +222,7 @@ const capabilities = [
     margin-bottom: 10px;
     font-family: var(--font-mono);
     font-variation-settings: normal;
-    font-size: 12px;
+    font-size: var(--fs-label);
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -223,7 +232,11 @@ const capabilities = [
   .end { padding-block: var(--section-sm); }
 
   @media (max-width: 900px) {
-    .story__grid, .lead__grid, .group__panel { grid-template-columns: 1fr; }
+    .story__grid, .group__panel { grid-template-columns: 1fr; }
+    .lead__grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: "head" "photo" "bio"; }
+    .lead__photo { margin-top: 28px; }
+    .lead__bio { margin-top: 24px; }
+    .group__body { padding-top: 0; }
     .story__side { position: static; }
     .caps__grid { grid-template-columns: 1fr; gap: 28px; }
     .lead__photo { max-width: 320px; }

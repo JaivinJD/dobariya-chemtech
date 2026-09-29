@@ -68,7 +68,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
   /* The wordmark uses currentColor, so it follows the nav's text colour.
      The teal mark keeps its own fill. */
   .nav__logo { display: flex; color: inherit; }
-  .nav__logo :global(svg) { height: 42px; width: auto; display: block; }
+  .nav__logo :global(svg) { height: 46px; width: auto; display: block; }
 
   .nav__links { display: flex; align-items: center; gap: 36px; }
   .nav__link {
@@ -115,7 +115,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
     .nav.is-open .l3 { transform: translateY(-5px) rotate(-45deg); }
 
     .nav__in, .nav.is-solid .nav__in { height: 68px; }
-    .nav__logo :global(svg) { height: 36px; }
+    .nav__logo :global(svg) { height: 40px; }
 
     .nav__links {
       display: none;
