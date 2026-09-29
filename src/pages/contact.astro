@@ -73,7 +73,8 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
           </div>
           <div class="field">
             <label for="f-phone">Phone / WhatsApp</label>
-            <input id="f-phone" type="tel" name="phone" autocomplete="tel" placeholder="+91" />
+            <input id="f-phone" type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+91 98765 43210"
+              pattern="[0-9+()\-\s]{7,20}" title="Digits only, with an optional + country code" />
           </div>
           <div class="field">
             <label for="f-product">Product</label>
@@ -84,11 +85,20 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
           </div>
           <div class="field">
             <label for="f-qty">Quantity</label>
-            <input id="f-qty" type="text" name="quantity" placeholder="e.g. 2 MT per month" />
+            <!-- Number + unit, so every enquiry arrives in a comparable form -->
+            <div class="qty">
+              <input id="f-qty" type="number" name="quantity" inputmode="decimal" min="0" step="any" placeholder="e.g. 1000" />
+              <select name="unit" aria-label="Unit">
+                <option value="kg">kg</option>
+                <option value="MT">MT (tonnes)</option>
+                <option value="litres">litres</option>
+                <option value="lbs">lbs</option>
+              </select>
+            </div>
           </div>
           <div class="field field--full">
             <label for="f-message">Detailed message <span aria-hidden="true">*</span></label>
-            <textarea id="f-message" name="message" rows="5" placeholder="Grade, packaging, destination, delivery schedule" required></textarea>
+            <textarea id="f-message" name="message" rows="5" placeholder="Grade, packaging, destination, one-time or regular supply" required></textarea>
           </div>
         </div>
 
@@ -225,6 +235,7 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
   }
   .field label span { color: var(--color-brand-dark); }
   .field input,
+  .field select,
   .field textarea {
     width: 100%;
     padding: 14px 16px;
@@ -236,9 +247,25 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
     transition: border-color 0.2s, background 0.2s;
   }
   .field textarea { resize: vertical; min-height: 128px; }
+  .qty { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .qty input { border-right: 0; border-radius: var(--radius) 0 0 var(--radius); }
+  .qty select {
+    width: auto;
+    padding-right: 38px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23101A1A' stroke-width='1.6'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+  /* Hide the number spinners; the field is typed, not clicked */
+  .qty input::-webkit-outer-spin-button, .qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .qty input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   .field input::placeholder, .field textarea::placeholder { color: #98A19E; }
   .field input:focus,
-  .field textarea:focus { outline: none; border-color: var(--color-ink); background: var(--color-surface); }
+  .field select:focus,
+  .field textarea:focus { outline: none; border-color: var(--color-ink); background-color: var(--color-surface); }
   .cform__submit { width: 100%; justify-content: center; margin-top: 28px; height: 56px; }
   .cform__note { margin-top: 12px; font-size: 14px; color: var(--color-muted); }
 
