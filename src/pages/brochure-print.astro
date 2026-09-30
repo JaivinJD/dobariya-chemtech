@@ -1,0 +1,334 @@
+---
+// Print source for /brochure.pdf. Five A4 sheets, built from the same data as the site
+// (products, offices and contact come from the CMS files), so the brochure stays in sync.
+//
+// To regenerate the PDF after product changes: open /brochure-print in Chrome,
+// Print, Destination "Save as PDF", Paper A4, Margins None, tick "Background graphics",
+// then replace public/brochure.pdf with the file.
+//
+// Not linked anywhere, excluded from the sitemap, and marked noindex.
+import '../styles/global.css';
+import { getCollection } from 'astro:content';
+import { families, formulaHtml } from '../lib/catalog';
+import { offices } from '../data/offices.json';
+import contact from '../data/contact.json';
+import LogoLockup from '../assets/logo-lockup.svg';
+import GroupLogo from '../assets/dobariya-group-logo.svg';
+import { Image } from 'astro:assets';
+import heroImg from '../assets/photos/hero-lab.jpg';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+const inFamily = (slug: string) => products.filter((p) => p.data.category === slug);
+const shortAppearance = (s?: string) => (s ? s.split(' (')[0] : 'On request');
+
+// Same approved copy as the About page (Shrut's text, punctuation only).
+const lead =
+  'Dobariya Chemtech Pvt. Ltd. manufactures and supplies bromine derivatives from Gujarat, India, serving industrial and export buyers who need reliable quality, batch after batch.';
+const story = [
+  "Dobariya Chemtech Pvt. Ltd. manufactures bromine derivatives from our own production facility in Ahmedabad, Gujarat. We're part of the Dobariya Group, which has been building across Ahmedabad since 1989, and that same discipline shows up in how we run our chemical operations: in-house production, consistent specifications, and a straightforward relationship with every buyer we work with.",
+  'We work with both domestic manufacturers and international buyers, supplying products that meet defined technical and commercial requirements. Our operations are supported by quality checks, batch-wise documentation, appropriate packaging, and a practical approach to customer requirements, whether it is a regular supply program or a new product requirement.',
+];
+const capabilities = [
+  { title: 'In-house manufacturing', text: 'Production at our own facility in Ahmedabad, Gujarat, not just trading.' },
+  { title: 'Broad product range', text: `${products.length} bromine derivatives across three categories, from bulk to specialty.` },
+  { title: 'Export-ready supply', text: 'Export-grade quality and documentation for international buyers.' },
+];
+
+// Same copy as the Quality page
+const documents = [
+  { code: 'TDS', name: 'Technical Data Sheet', text: 'Product identity, specification and typical properties.' },
+  { code: 'COA', name: 'Certificate of Analysis', text: 'Batch-specific test results for what you receive.' },
+  { code: 'SDS', name: 'Safety Data Sheet', text: 'Handling, storage and safety information for safe use.' },
+];
+
+const [famA, famB, famC] = families;
+const TOTAL = 5;
+const site = 'dobariyachemtech.com';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Dobariya Chemtech Pvt. Ltd. | Product brochure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- 1. Cover -->
+    <section class="sheet sheet--dark cover">
+      <!-- Same lab photo as the website hero, fading into the dark cover -->
+      <Image src={heroImg} alt="" class="cover__img" widths={[1400]} sizes="210mm" />
+      <div class="cover__top">
+        <LogoLockup class="cover__logo" aria-label="Dobariya Chemtech Pvt. Ltd." role="img" />
+        <div class="tile" aria-hidden="true"><span>35</span><b>Br</b><span>Bromine<br />79.904</span></div>
+      </div>
+      <div class="cover__main">
+        <p class="label on-dark-label">Product brochure · Ahmedabad, Gujarat</p>
+        <h1 class="cover__title">Bromine chemistry,<br /><span>made to spec.</span></h1>
+        <p class="cover__lead">
+          Alkyl, aryl and inorganic bromides from our own plant in Ahmedabad, supplied to domestic
+          manufacturers and export buyers at consistent, export-grade quality.
+        </p>
+      </div>
+      <div class="cover__stats">
+        <div><b>{products.length}</b><span>Bromine derivatives</span></div>
+        <div><b>{families.length}</b><span>Product families</span></div>
+        <div><b>{offices.length}</b><span>Sites in Gujarat</span></div>
+      </div>
+      <p class="cover__contact">{contact.email} · {contact.phone} · {site}</p>
+    </section>
+
+    <!-- 2. About -->
+    <section class="sheet">
+      <p class="label">About us</p>
+      <h2 class="h">Chemistry built on consistency</h2>
+      <p class="lead">{lead}</p>
+      <div class="story">{story.map((p) => <p>{p}</p>)}</div>
+
+      <div class="caps">
+        {capabilities.map((c) => (
+          <div class="cap"><h3>{c.title}</h3><p>{c.text}</p></div>
+        ))}
+      </div>
+
+      <p class="label sub">Our facilities</p>
+      <div class="fac">
+        {offices.map((o) => (
+          <div><h3>{o.label}</h3><p>{o.lines.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p></div>
+        ))}
+      </div>
+
+      <div class="group">
+        <GroupLogo class="group__logo" aria-label="Dobariya Group, since 1989" role="img" />
+        <p>
+          We are the chemicals arm of the Dobariya Group, which has been building homes and commercial
+          spaces across Ahmedabad for more than three decades. More at <span class="nw">dobariya.in</span>.
+        </p>
+      </div>
+      <footer class="foot"><span>Dobariya Chemtech Pvt. Ltd. · Product brochure</span><span>{site} · 2 / {TOTAL}</span></footer>
+    </section>
+
+    <!-- 3. Products: family A -->
+    <section class="sheet">
+      <p class="label">Our products</p>
+      <h2 class="h">{products.length} bromine derivatives, three families</h2>
+      <div class="fam">
+        <h3 class="fam__name">{famA.name} <span>{famA.sub}</span><em>{inFamily(famA.slug).length} products</em></h3>
+        <p class="fam__blurb">{famA.blurb}</p>
+        <table>
+          <thead><tr><th>Product</th><th>Formula</th><th>CAS No.</th><th>Appearance</th></tr></thead>
+          <tbody>
+            {inFamily(famA.slug).map((p) => (
+              <tr><td class="n">{p.data.name}</td><td class="f" set:html={formulaHtml(p.data.formula)} /><td class="c">{p.data.cas}</td><td class="a">{shortAppearance(p.data.appearance)}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <footer class="foot"><span>Dobariya Chemtech Pvt. Ltd. · Product brochure</span><span>{site} · 3 / {TOTAL}</span></footer>
+    </section>
+
+    <!-- 4. Products: families B and C -->
+    <section class="sheet">
+      {[famB, famC].map((f) => (
+        <div class="fam">
+          <h3 class="fam__name">{f.name} <span>{f.sub}</span><em>{inFamily(f.slug).length} products</em></h3>
+          <p class="fam__blurb">{f.blurb}</p>
+          <table>
+            <thead><tr><th>Product</th><th>Formula</th><th>CAS No.</th><th>Appearance</th></tr></thead>
+            <tbody>
+              {inFamily(f.slug).map((p) => (
+                <tr><td class="n">{p.data.name}</td><td class="f" set:html={formulaHtml(p.data.formula)} /><td class="c">{p.data.cas}</td><td class="a">{shortAppearance(p.data.appearance)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+      <div class="docs">
+        <p class="label">Quality and documentation</p>
+        <p class="docs__intro">
+          Each batch is made to the same specification, so what you order is what you receive, every time.
+          These documents are available on request:
+        </p>
+        <div class="docs__grid">
+          {documents.map((d) => (
+            <div class="doc"><b>{d.code}</b><h3>{d.name}</h3><p>{d.text}</p></div>
+          ))}
+        </div>
+        <p class="docs__more">Full specifications for every product are on <b>{site}/products</b>.</p>
+      </div>
+      <footer class="foot"><span>Dobariya Chemtech Pvt. Ltd. · Product brochure</span><span>{site} · 4 / {TOTAL}</span></footer>
+    </section>
+
+    <!-- 5. Contact -->
+    <section class="sheet sheet--dark contact">
+      <div>
+        <p class="label on-dark-label">Get in touch</p>
+        <h2 class="h h--big">Request a quote</h2>
+        <p class="lead">
+          Tell us the products and quantities you need. Our team will respond with availability,
+          pricing and documentation.
+        </p>
+      </div>
+      <dl class="rows">
+        <div><dt>Email</dt><dd>{contact.email}</dd></div>
+        <div><dt>Phone / WhatsApp</dt><dd>{contact.phone}</dd></div>
+        <div><dt>Website</dt><dd>{site}</dd></div>
+        <div><dt>Hours</dt><dd>{contact.hours.replace(/\s*–\s*/g, ' to ')}</dd></div>
+        {offices.map((o) => (
+          <div><dt>{o.label}</dt><dd>{o.lines.join(', ')}</dd></div>
+        ))}
+      </dl>
+      <div class="contact__end">
+        <LogoLockup class="contact__logo" aria-label="Dobariya Chemtech Pvt. Ltd." role="img" />
+        <span>{site} · 5 / {TOTAL}</span>
+      </div>
+    </section>
+  </body>
+</html>
+
+<style is:global>
+  @page { size: A4; margin: 0; }
+  html, body { background: #8a918f; }
+  body { margin: 0; }
+  @media print { html, body { background: none; } }
+
+  .sheet {
+    position: relative;
+    box-sizing: border-box;
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 18mm 18mm 22mm;
+    overflow: hidden;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    page-break-after: always;
+    break-after: page;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .sheet:last-child { page-break-after: auto; break-after: auto; }
+  @media screen { .sheet { margin-block: 10mm; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25); } }
+  .sheet--dark { background: var(--color-ink); color: #fff; }
+
+  .label { font-size: 9pt; }
+  .on-dark-label { color: var(--color-brand-soft); }
+  .h {
+    margin-top: 5mm;
+    font-size: 24pt;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .h--big { font-size: 38pt; }
+  .lead { margin-top: 6mm; font-size: 12.5pt; line-height: 1.5; max-width: 150mm; }
+  .sheet--dark .lead { color: var(--color-on-dark); }
+  .nw { white-space: nowrap; }
+
+  /* Cover */
+  .cover { display: grid; grid-template-rows: auto 1fr auto auto; padding-bottom: 16mm; }
+  .cover > * { position: relative; z-index: 2; }
+  .cover > .cover__img {
+    position: absolute; z-index: 0; top: 0; left: 0;
+    width: 100%; height: 64%; object-fit: cover; object-position: 78% 70%;
+  }
+  .cover::before {
+    content: ""; position: absolute; z-index: 1; top: 0; left: 0; right: 0; height: 64%;
+    background: linear-gradient(180deg, rgba(16, 26, 26, 0.55) 0%, rgba(16, 26, 26, 0.3) 40%, rgba(16, 26, 26, 0.85) 80%, #101A1A 100%);
+  }
+  .cover__top { display: flex; justify-content: space-between; align-items: flex-start; color: #fff; }
+  .cover__logo { height: 17mm; width: auto; }
+  .tile {
+    width: 30mm; height: 30mm; box-sizing: border-box; padding: 3mm 3.5mm;
+    display: grid; grid-template-rows: auto 1fr auto;
+    background: var(--color-accent); font-family: var(--font-mono); font-size: 8.5pt; line-height: 1.3;
+  }
+  .tile b { align-self: center; font-family: var(--font-display); font-weight: 600; font-size: 30pt; line-height: 1; }
+  .cover__main { align-self: end; padding-bottom: 14mm; }
+  .cover__title {
+    margin-top: 6mm;
+    font-size: 50pt;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: var(--display-weight);
+  }
+  .cover__title span { color: var(--color-brand-soft); }
+  .cover__lead { margin-top: 8mm; max-width: 130mm; font-size: 13pt; line-height: 1.5; color: var(--color-on-dark); }
+  .cover__stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--color-border-dark); }
+  .cover__stats div { padding: 6mm 4mm 6mm 0; }
+  .cover__stats div + div { padding-left: 6mm; border-left: 1px solid var(--color-border-dark); }
+  .cover__stats b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 30pt; line-height: 1; letter-spacing: -0.03em; }
+  .cover__stats span { display: block; margin-top: 2.5mm; font-size: 10pt; color: var(--color-muted-dark); }
+  .cover__contact {
+    padding-top: 5mm; border-top: 1px solid var(--color-border-dark);
+    font-family: var(--font-mono); font-size: 9pt; letter-spacing: 0.04em; color: var(--color-muted-dark);
+  }
+
+  /* About */
+  .story { margin-top: 6mm; display: grid; gap: 3.5mm; font-size: 10.5pt; line-height: 1.6; color: var(--color-muted); }
+  .caps { margin-top: 9mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7mm; }
+  .cap, .fac > div { padding-top: 3.5mm; border-top: 1px solid var(--color-ink); }
+  .cap h3, .fac h3 { font-size: 12pt; line-height: 1.2; }
+  .cap p { margin-top: 2mm; font-size: 10pt; line-height: 1.5; color: var(--color-muted); }
+  .sub { margin-top: 10mm; }
+  .fac { margin-top: 4mm; display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; }
+  .fac h3 { font-family: var(--font-mono); font-size: 8.5pt; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand-dark); }
+  .fac p { margin-top: 2mm; font-size: 10.5pt; line-height: 1.55; }
+  .group {
+    margin-top: 10mm; padding: 6mm; display: grid; grid-template-columns: auto 1fr; gap: 7mm; align-items: center;
+    background: var(--color-bg); border-left: 3px solid var(--color-brand);
+  }
+  .group__logo { height: 13mm; width: auto; }
+  .group p { font-size: 10pt; line-height: 1.5; color: var(--color-muted); }
+
+  /* Product tables */
+  .fam + .fam { margin-top: 10mm; }
+  .fam__name { margin-top: 7mm; font-size: 15pt; line-height: 1.2; display: flex; align-items: baseline; gap: 2mm; }
+  .fam__name span { font-family: var(--font-body); font-weight: 400; font-size: 11pt; color: var(--color-muted); }
+  .fam__name em { margin-left: auto; font-style: normal; font-family: var(--font-mono); font-size: 8.5pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-dark); }
+  .sheet > .fam:first-child .fam__name { margin-top: 0; }
+  .fam__blurb { margin-top: 1.5mm; font-size: 10pt; color: var(--color-muted); }
+  table { width: 100%; margin-top: 4mm; border-collapse: collapse; table-layout: fixed; font-size: 9.2pt; }
+  th {
+    padding: 2.4mm 3mm; text-align: left; background: #E9ECE9;
+    font-family: var(--font-mono); font-weight: 500; font-size: 7.5pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted);
+  }
+  td { padding: 1.75mm 3mm; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+  th:nth-child(1) { width: 34%; } th:nth-child(2) { width: 17%; } th:nth-child(3) { width: 15%; }
+  td.n { font-weight: 600; }
+  td.f { font-family: var(--font-mono); }
+  td.f sub { font-size: 0.72em; }
+  td.c { font-family: var(--font-mono); font-size: 8.6pt; color: var(--color-muted); white-space: nowrap; }
+  td.a { color: var(--color-muted); }
+  .docs { margin-top: 11mm; padding-top: 6mm; border-top: 1px solid var(--color-ink); }
+  .docs__intro { margin-top: 3mm; font-size: 10.5pt; line-height: 1.5; color: var(--color-muted); max-width: 150mm; }
+  .docs__grid { margin-top: 5mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+  .doc { padding: 4.5mm 5mm; background: var(--color-bg); border: 1px solid var(--color-border); }
+  .doc b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: 15pt; color: var(--color-brand-dark); }
+  .doc h3 { margin-top: 3mm; font-size: 11pt; line-height: 1.2; }
+  .doc p { margin-top: 1.5mm; font-size: 9pt; line-height: 1.45; color: var(--color-muted); }
+  .docs__more { margin-top: 5mm; font-size: 9.5pt; color: var(--color-muted); }
+  .docs__more b { color: var(--color-ink); font-weight: 600; }
+
+  .foot {
+    position: absolute; left: 18mm; right: 18mm; bottom: 10mm;
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 7.5pt; letter-spacing: 0.04em; color: var(--color-muted);
+  }
+
+  /* Contact */
+  .contact { display: grid; grid-template-rows: auto 1fr auto; padding-top: 26mm; }
+  .rows { margin-top: 12mm; align-self: start; }
+  .rows div { display: grid; grid-template-columns: 48mm 1fr; gap: 6mm; padding: 4.5mm 0; border-top: 1px solid var(--color-border-dark); }
+  .rows dt { font-family: var(--font-mono); font-size: 8.5pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand-soft); padding-top: 1mm; }
+  .rows dd { margin: 0; font-size: 12pt; line-height: 1.45; }
+  .contact__end { display: flex; justify-content: space-between; align-items: flex-end; color: #fff; }
+  .contact__logo { height: 13mm; width: auto; }
+  .contact__end span { font-family: var(--font-mono); font-size: 7.5pt; letter-spacing: 0.04em; color: var(--color-muted-dark); }
+</style>

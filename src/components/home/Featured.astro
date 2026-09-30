@@ -29,7 +29,6 @@ const featured = (await getCollection('products', (p) => p.data.featured))
           <a class="spec" href={`/products/${p.id}`}>
             <div class="spec__top">
               <span>{familyBySlug(p.data.category)?.short}</span>
-              {p.data.cas && <span>CAS {p.data.cas}</span>}
             </div>
             <div class="spec__formula"><span set:html={formulaHtml(p.data.formula)} /></div>
             <div class="spec__body">

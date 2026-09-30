@@ -11,6 +11,21 @@ import panelImg from '../assets/photos/drums.jpg';
 // Product names for the "Product" field suggestions.
 const productNames = (await getCollection('products')).map((p) => p.data.name).sort();
 const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
+
+// Phone country codes: India first (default), then the markets most likely to enquire, A to Z.
+// "Other" lets anyone else type their full international number.
+const dialCodes = [
+  ['+91', 'India'],
+  ['+61', 'Australia'], ['+880', 'Bangladesh'], ['+973', 'Bahrain'], ['+32', 'Belgium'], ['+55', 'Brazil'],
+  ['+86', 'China'], ['+20', 'Egypt'], ['+33', 'France'], ['+49', 'Germany'], ['+852', 'Hong Kong'],
+  ['+62', 'Indonesia'], ['+972', 'Israel'], ['+39', 'Italy'], ['+81', 'Japan'], ['+254', 'Kenya'],
+  ['+965', 'Kuwait'], ['+60', 'Malaysia'], ['+52', 'Mexico'], ['+977', 'Nepal'], ['+31', 'Netherlands'],
+  ['+234', 'Nigeria'], ['+968', 'Oman'], ['+63', 'Philippines'], ['+48', 'Poland'], ['+974', 'Qatar'],
+  ['+7', 'Russia'], ['+966', 'Saudi Arabia'], ['+65', 'Singapore'], ['+27', 'South Africa'],
+  ['+82', 'South Korea'], ['+34', 'Spain'], ['+94', 'Sri Lanka'], ['+41', 'Switzerland'], ['+886', 'Taiwan'],
+  ['+66', 'Thailand'], ['+90', 'Turkey'], ['+971', 'UAE'], ['+44', 'UK'], ['+1', 'USA / Canada'],
+  ['+84', 'Vietnam'],
+];
 ---
 
 <Layout
@@ -72,9 +87,22 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
             <input id="f-email" type="email" name="email" autocomplete="email" placeholder="you@company.com" required />
           </div>
           <div class="field">
-            <label for="f-phone">Phone / WhatsApp</label>
-            <input id="f-phone" type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+91 98765 43210"
-              pattern="[0-9+()\-\s]{7,20}" title="Digits only, with an optional + country code" />
+            <label for="f-phone">Phone / WhatsApp <span aria-hidden="true">*</span></label>
+            <!-- Country code + digits only. +91 needs exactly 10 digits; other codes 6 to 14. -->
+            <div class="combo combo--start">
+              <!-- The box shows only the code; the invisible select on top opens the full
+                   "+91 India" list, so people can still find their country by name. -->
+              <div class="dial">
+                <span class="dial__code" aria-hidden="true" data-dial-shown>+91</span>
+                <select name="country_code" aria-label="Country code" data-dial>
+                  {dialCodes.map(([code, country]) => <option value={code}>{code} {country}</option>)}
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <input id="f-phone" type="tel" name="phone" inputmode="numeric" autocomplete="tel-national"
+                placeholder="98765 43210" required maxlength="16" pattern="[0-9]{10}"
+                title="Enter a 10-digit mobile number" data-phone />
+            </div>
           </div>
           <div class="field">
             <label for="f-product">Product</label>
@@ -86,7 +114,7 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
           <div class="field">
             <label for="f-qty">Quantity</label>
             <!-- Number + unit, so every enquiry arrives in a comparable form -->
-            <div class="qty">
+            <div class="combo">
               <input id="f-qty" type="number" name="quantity" inputmode="decimal" min="0" step="any" placeholder="e.g. 1000" />
               <select name="unit" aria-label="Unit">
                 <option value="kg">kg</option>
@@ -140,6 +168,40 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
   const product = new URLSearchParams(location.search).get('product');
   const field = document.querySelector<HTMLInputElement>('#f-product');
   if (product && field) field.value = product;
+
+  // Phone: digits only while typing; +91 needs exactly 10 digits, other codes 6 to 14,
+  // "Other" takes the full international number (up to 15 digits).
+  const dial = document.querySelector<HTMLSelectElement>('[data-dial]');
+  const phone = document.querySelector<HTMLInputElement>('[data-phone]');
+  if (dial && phone) {
+    const applyRule = () => {
+      if (dial.value === '+91') {
+        phone.pattern = '[0-9]{10}';
+        phone.title = 'Enter a 10-digit mobile number'; phone.placeholder = '98765 43210';
+      } else if (dial.value === 'other') {
+        phone.pattern = '[0-9]{7,15}';
+        phone.title = 'Enter your country code and number, digits only'; phone.placeholder = 'Country code + number';
+      } else {
+        phone.pattern = '[0-9]{6,14}';
+        phone.title = 'Enter your number without the country code, digits only'; phone.placeholder = 'Phone number';
+      }
+    };
+    // The box accepts pasted formats ("+91 98765 43210", "09876543210"); this trims them to digits
+    const limit = () => (dial.value === '+91' ? 10 : dial.value === 'other' ? 15 : 14);
+    phone.addEventListener('input', () => {
+      let digits = phone.value.replace(/\D/g, '');
+      if (dial.value === '+91') {
+        if (digits.length === 12 && digits.startsWith('91')) digits = digits.slice(2);
+        digits = digits.replace(/^0+/, '');
+      }
+      phone.value = digits.slice(0, limit());
+    });
+    const shown = document.querySelector<HTMLElement>('[data-dial-shown]');
+    const showCode = () => { if (shown) shown.textContent = dial.value === 'other' ? 'Other' : dial.value; };
+    dial.addEventListener('change', () => { showCode(); applyRule(); phone.dispatchEvent(new Event('input')); });
+    showCode();
+    applyRule();
+  }
 </script>
 
 <script>
@@ -247,21 +309,41 @@ const tel = `tel:${contact.phone.replace(/\s/g, '')}`;
     transition: border-color 0.2s, background 0.2s;
   }
   .field textarea { resize: vertical; min-height: 128px; }
-  .qty { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
-  .qty input { border-right: 0; border-radius: var(--radius) 0 0 var(--radius); }
-  .qty select {
+  /* Input + select joined into one control (quantity + unit, country code + phone) */
+  .combo { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .combo--start { grid-template-columns: auto minmax(0, 1fr); }
+  /* Fixed width: the code (first in each label) always shows; long country names clip */
+  .dial {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 6em;
+    padding: 0 30px 0 14px;
+    color: var(--color-ink);
+    background: var(--color-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23101A1A' stroke-width='1.6'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 11px center;
+    border: 1px solid var(--color-border);
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .dial:focus-within { border-color: var(--color-ink); background-color: var(--color-surface); }
+  .dial:has(select:focus-visible) { outline: 2px solid var(--color-brand); outline-offset: 2px; }
+  .dial__code { white-space: nowrap; }
+  .field .dial select { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; opacity: 0; cursor: pointer; }
+  .combo > :first-child { border-right: 0; border-radius: var(--radius) 0 0 var(--radius); }
+  .combo > :last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+  .combo select {
     width: auto;
+    max-width: 11.5em;
     padding-right: 38px;
-    border-radius: 0 var(--radius) var(--radius) 0;
     appearance: none;
     cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23101A1A' stroke-width='1.6'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
+    text-overflow: ellipsis;
   }
   /* Hide the number spinners; the field is typed, not clicked */
-  .qty input::-webkit-outer-spin-button, .qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .qty input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+  .combo input::-webkit-outer-spin-button, .combo input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .combo input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   .field input::placeholder, .field textarea::placeholder { color: #98A19E; }
   .field input:focus,
   .field select:focus,

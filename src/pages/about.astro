@@ -27,11 +27,12 @@ const story = [
 // Pull quote: a line lifted from the story above, not new copy.
 const pullQuote = 'Not simply to supply a product, but to become a dependable manufacturing partner.';
 
-const founder = {
-  name: 'Shrut Dobariya',
-  title: 'Director',
-  bio: "As the company grows, he brings a strong technical and modern business perspective to the organization. He holds a B.Tech. in Chemical Science & Technology from IIT Guwahati and is involved in the company's manufacturing, business development, and growth initiatives, with a focus on building stronger capabilities in bromine chemistry.",
-};
+// Leadership: one plain paragraph, no photos. Shrut's approved bio (wording unchanged),
+// with a single mention of Shrey.
+const leadership = [
+  "As the company grows, he brings a strong technical and modern business perspective to the organization. He holds a B.Tech. in Chemical Science & Technology from IIT Guwahati and is involved in the company's manufacturing, business development, and growth initiatives, with a focus on building stronger capabilities in bromine chemistry.",
+  'He leads the company alongside Shrey Dobariya.',
+].join(' ');
 
 const products = await getCollection('products');
 
@@ -74,20 +75,15 @@ const capabilities = [
     </div>
   </section>
 
-  <!-- Leadership -->
+  <!-- Leadership: kept quiet on purpose, a label and one normal paragraph -->
   <section class="lead">
-    <!-- Order: heading, photo, bio. On phones this reads top to bottom;
-         on desktop the photo sits left and heading + bio sit right. -->
     <div class="container lead__grid">
       <div class="lead__head" data-reveal>
         <span class="label">Leadership</span>
-        <h2 class="lead__name">{founder.name}</h2>
-        <p class="lead__role">{founder.title}</p>
+        <h2 class="lead__name">Shrut Dobariya</h2>
+        <p class="lead__role">Director</p>
       </div>
-      <div class="lead__photo">
-        <img src="/shrut-photo.jpeg" alt="Shrut Dobariya, Director" loading="lazy" />
-      </div>
-      <p class="lead__bio" data-reveal>{founder.bio}</p>
+      <p class="lead__text" data-reveal>{leadership}</p>
     </div>
   </section>
 
@@ -102,8 +98,8 @@ const capabilities = [
         <div class="group__body">
           <GroupLogo class="group__logo" role="img" aria-label="Dobariya Group, since 1989" />
           <p>
-            Dobariya Chemtech is the chemical company of the Dobariya Group, which has been
-            building homes and commercial spaces across Ahmedabad since 1989.
+            We are the chemicals arm of the Dobariya Group, which has been building homes
+            and commercial spaces across Ahmedabad for more than three decades.
           </p>
           <a href="https://dobariya.in" target="_blank" rel="noopener" class="btn btn--ghost">
             Visit dobariya.in <span aria-hidden="true">↗</span>
@@ -169,26 +165,17 @@ const capabilities = [
   .cap p { color: var(--color-muted); }
 
   /* ---- Leadership ---- */
-  .lead { padding-block: var(--section); }
-  .lead__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-    grid-template-rows: 1fr auto auto 1fr;
-    grid-template-areas: "photo ." "photo head" "photo bio" "photo .";
-    column-gap: clamp(40px, 6vw, 112px);
-  }
-  .lead__head { grid-area: head; }
-  .lead__photo { grid-area: photo; aspect-ratio: 4 / 5; max-width: 420px; background: var(--color-border); overflow: hidden; }
-  .lead__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .lead { padding-block: var(--section-sm); }
+  .lead__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(40px, 6vw, 112px); align-items: end; }
   .lead__name {
     margin-top: 18px;
     font-variation-settings: "wdth" var(--display-wdth);
     font-size: var(--fs-h2);
-    line-height: 0.98;
+    line-height: 1;
     letter-spacing: -0.035em;
   }
   .lead__role { margin-top: 12px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-dark); }
-  .lead__bio { grid-area: bio; margin-top: 20px; max-width: 58ch; font-size: 17px; line-height: 1.7; color: var(--color-muted); }
+  .lead__text { max-width: 64ch; font-size: 17px; line-height: 1.7; color: var(--color-muted); }
 
   /* ---- Group ---- */
   .group { padding-bottom: var(--section); }
@@ -237,13 +224,10 @@ const capabilities = [
 
   @media (max-width: 900px) {
     .story__grid, .group__panel { grid-template-columns: 1fr; }
-    .lead__grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: "head" "photo" "bio"; }
-    .lead__photo { margin-top: 28px; }
-    .lead__bio { margin-top: 24px; }
+    .lead__grid { grid-template-columns: 1fr; }
     .group__body { padding-top: 8px; }
     .story__side { position: static; }
     .caps__grid { grid-template-columns: 1fr; gap: 28px; }
-    .lead__photo { max-width: 320px; }
   }
   @media (max-width: 600px) {
     .fac__grid { grid-template-columns: 1fr; gap: 28px; }
