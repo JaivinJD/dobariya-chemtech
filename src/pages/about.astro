@@ -30,7 +30,6 @@ const pullQuote = 'Not simply to supply a product, but to become a dependable ma
 // Leadership: one plain paragraph, no photos. Shrut's approved bio (wording unchanged),
 // with a single mention of Shrey.
 const leadership = [
-  'Dobariya Chemtech is led by its Director, Shrut Dobariya.',
   "As the company grows, he brings a strong technical and modern business perspective to the organization. He holds a B.Tech. in Chemical Science & Technology from IIT Guwahati and is involved in the company's manufacturing, business development, and growth initiatives, with a focus on building stronger capabilities in bromine chemistry.",
   'He leads the company alongside Shrey Dobariya.',
 ].join(' ');
@@ -79,7 +78,11 @@ const capabilities = [
   <!-- Leadership: kept quiet on purpose, a label and one normal paragraph -->
   <section class="lead">
     <div class="container lead__grid">
-      <span class="label">Leadership</span>
+      <div class="lead__head" data-reveal>
+        <span class="label">Leadership</span>
+        <h2 class="lead__name">Shrut Dobariya</h2>
+        <p class="lead__role">Director</p>
+      </div>
       <p class="lead__text" data-reveal>{leadership}</p>
     </div>
   </section>
@@ -163,7 +166,15 @@ const capabilities = [
 
   /* ---- Leadership ---- */
   .lead { padding-block: var(--section-sm); }
-  .lead__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px clamp(40px, 6vw, 112px); align-items: baseline; }
+  .lead__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(40px, 6vw, 112px); align-items: end; }
+  .lead__name {
+    margin-top: 18px;
+    font-variation-settings: "wdth" var(--display-wdth);
+    font-size: var(--fs-h2);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .lead__role { margin-top: 12px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-dark); }
   .lead__text { max-width: 64ch; font-size: 17px; line-height: 1.7; color: var(--color-muted); }
 
   /* ---- Group ---- */

@@ -26,11 +26,11 @@ import Arrow from '../ui/Arrow.astro';
 
   <div class="container container--wide hero__body">
     <div class="hero__main">
-      <p class="label hero__kicker rise">Bromine derivatives</p>
+      <p class="label hero__kicker rise"><span>Bromine derivatives · <span class="nw">Ahmedabad, Gujarat</span></span></p>
       <h1 class="hero__title rise">
         <span>Bromine</span>
         <span>chemistry,</span>
-        <span class="hero__accent">made in Ahmedabad.</span>
+        <span class="hero__accent">made to spec.</span>
       </h1>
     </div>
 
@@ -94,7 +94,9 @@ import Arrow from '../ui/Arrow.astro';
     margin-bottom: 28px;
     color: #BFD9D6;
   }
-  .hero__kicker::before { content: ""; width: 40px; height: 1px; background: currentColor; }
+  /* Rule sits level with the first line if the label wraps on small phones */
+  .hero__kicker::before { content: ""; flex: none; align-self: flex-start; margin-top: 0.62em; width: 40px; height: 1px; background: currentColor; }
+  .hero__kicker > span { line-height: 1.6; }
 
   .hero__title {
     font-variation-settings: "wdth" var(--display-wdth);
