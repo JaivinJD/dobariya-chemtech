@@ -14,6 +14,8 @@ import { offices } from '../data/offices.json';
 import contact from '../data/contact.json';
 import LogoLockup from '../assets/logo-lockup.svg';
 import GroupLogo from '../assets/dobariya-group-logo.svg';
+import { Image } from 'astro:assets';
+import heroImg from '../assets/photos/hero-lab.jpg';
 
 const products = (await getCollection('products')).sort((a, b) => a.data.name.localeCompare(b.data.name));
 const inFamily = (slug: string) => products.filter((p) => p.data.category === slug);
@@ -30,6 +32,13 @@ const capabilities = [
   { title: 'In-house manufacturing', text: 'Production at our own facility in Kadi, Gujarat, not just trading.' },
   { title: 'Broad product range', text: `${products.length} bromine derivatives across three categories, from bulk to specialty.` },
   { title: 'Export-ready supply', text: 'Export-grade quality and documentation for international buyers.' },
+];
+
+// Same copy as the Quality page
+const documents = [
+  { code: 'TDS', name: 'Technical Data Sheet', text: 'Product identity, specification and typical properties.' },
+  { code: 'COA', name: 'Certificate of Analysis', text: 'Batch-specific test results for what you receive.' },
+  { code: 'SDS', name: 'Safety Data Sheet', text: 'Handling, storage and safety information for safe use.' },
 ];
 
 const [famA, famB, famC] = families;
@@ -54,6 +63,8 @@ const site = 'dobariyachemtech.com';
   <body>
     <!-- 1. Cover -->
     <section class="sheet sheet--dark cover">
+      <!-- Same lab photo as the website hero, fading into the dark cover -->
+      <Image src={heroImg} alt="" class="cover__img" widths={[1400]} sizes="210mm" />
       <div class="cover__top">
         <LogoLockup class="cover__logo" aria-label="Dobariya Chemtech Pvt. Ltd." role="img" />
         <div class="tile" aria-hidden="true"><span>35</span><b>Br</b><span>Bromine<br />79.904</span></div>
@@ -139,11 +150,19 @@ const site = 'dobariyachemtech.com';
           </table>
         </div>
       ))}
-      <p class="note">
-        Full specifications for every product (boiling point, specific gravity, applications) are on
-        {' '}<b>{site}/products</b>. Technical data sheets, certificates of analysis and safety data sheets
-        are available on request.
-      </p>
+      <div class="docs">
+        <p class="label">Quality and documentation</p>
+        <p class="docs__intro">
+          Each batch is made to the same specification, so what you order is what you receive, every time.
+          These documents are available on request:
+        </p>
+        <div class="docs__grid">
+          {documents.map((d) => (
+            <div class="doc"><b>{d.code}</b><h3>{d.name}</h3><p>{d.text}</p></div>
+          ))}
+        </div>
+        <p class="docs__more">Full specifications for every product are on <b>{site}/products</b>.</p>
+      </div>
       <footer class="foot"><span>Dobariya Chemtech Pvt. Ltd. · Product brochure</span><span>{site} · 4 / {TOTAL}</span></footer>
     </section>
 
@@ -214,6 +233,15 @@ const site = 'dobariyachemtech.com';
 
   /* Cover */
   .cover { display: grid; grid-template-rows: auto 1fr auto auto; padding-bottom: 16mm; }
+  .cover > * { position: relative; z-index: 2; }
+  .cover > .cover__img {
+    position: absolute; z-index: 0; top: 0; left: 0;
+    width: 100%; height: 64%; object-fit: cover; object-position: 78% 70%;
+  }
+  .cover::before {
+    content: ""; position: absolute; z-index: 1; top: 0; left: 0; right: 0; height: 64%;
+    background: linear-gradient(180deg, rgba(16, 26, 26, 0.55) 0%, rgba(16, 26, 26, 0.3) 40%, rgba(16, 26, 26, 0.85) 80%, #101A1A 100%);
+  }
   .cover__top { display: flex; justify-content: space-between; align-items: flex-start; color: #fff; }
   .cover__logo { height: 17mm; width: auto; }
   .tile {
@@ -278,8 +306,15 @@ const site = 'dobariyachemtech.com';
   td.f sub { font-size: 0.72em; }
   td.c { font-family: var(--font-mono); font-size: 8.6pt; color: var(--color-muted); white-space: nowrap; }
   td.a { color: var(--color-muted); }
-  .note { margin-top: 9mm; padding-top: 4mm; border-top: 1px solid var(--color-border); font-size: 9.5pt; line-height: 1.55; color: var(--color-muted); }
-  .note b { color: var(--color-ink); font-weight: 600; }
+  .docs { margin-top: 11mm; padding-top: 6mm; border-top: 1px solid var(--color-ink); }
+  .docs__intro { margin-top: 3mm; font-size: 10.5pt; line-height: 1.5; color: var(--color-muted); max-width: 150mm; }
+  .docs__grid { margin-top: 5mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+  .doc { padding: 4.5mm 5mm; background: var(--color-bg); border: 1px solid var(--color-border); }
+  .doc b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: 15pt; color: var(--color-brand-dark); }
+  .doc h3 { margin-top: 3mm; font-size: 11pt; line-height: 1.2; }
+  .doc p { margin-top: 1.5mm; font-size: 9pt; line-height: 1.45; color: var(--color-muted); }
+  .docs__more { margin-top: 5mm; font-size: 9.5pt; color: var(--color-muted); }
+  .docs__more b { color: var(--color-ink); font-weight: 600; }
 
   .foot {
     position: absolute; left: 18mm; right: 18mm; bottom: 10mm;
