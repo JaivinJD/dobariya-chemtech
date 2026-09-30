@@ -27,13 +27,6 @@ const story = [
 // Pull quote: a line lifted from the story above, not new copy.
 const pullQuote = 'Not simply to supply a product, but to become a dependable manufacturing partner.';
 
-// Leadership: one plain paragraph, no photos. Shrut's approved bio (wording unchanged),
-// with a single mention of Shrey.
-const leadership = [
-  "As the company grows, he brings a strong technical and modern business perspective to the organization. He holds a B.Tech. in Chemical Science & Technology from IIT Guwahati and is involved in the company's manufacturing, business development, and growth initiatives, with a focus on building stronger capabilities in bromine chemistry.",
-  'He leads the company alongside Shrey Dobariya.',
-].join(' ');
-
 const products = await getCollection('products');
 
 // Fixed in code by decision (not CMS-editable).
@@ -72,18 +65,6 @@ const capabilities = [
           <p>{c.text}</p>
         </div>
       ))}
-    </div>
-  </section>
-
-  <!-- Leadership: kept quiet on purpose, a label and one normal paragraph -->
-  <section class="lead">
-    <div class="container lead__grid">
-      <div class="lead__head" data-reveal>
-        <span class="label">Leadership</span>
-        <h2 class="lead__name">Shrut Dobariya</h2>
-        <p class="lead__role">Director</p>
-      </div>
-      <p class="lead__text" data-reveal>{leadership}</p>
     </div>
   </section>
 
@@ -164,21 +145,8 @@ const capabilities = [
   .cap__title { font-size: var(--fs-h3); line-height: 1.15; margin-bottom: 10px; }
   .cap p { color: var(--color-muted); }
 
-  /* ---- Leadership ---- */
-  .lead { padding-block: var(--section-sm); }
-  .lead__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(40px, 6vw, 112px); align-items: end; }
-  .lead__name {
-    margin-top: 18px;
-    font-variation-settings: "wdth" var(--display-wdth);
-    font-size: var(--fs-h2);
-    line-height: 1;
-    letter-spacing: -0.035em;
-  }
-  .lead__role { margin-top: 12px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-dark); }
-  .lead__text { max-width: 64ch; font-size: 17px; line-height: 1.7; color: var(--color-muted); }
-
   /* ---- Group ---- */
-  .group { padding-bottom: var(--section); }
+  .group { padding-block: var(--section-sm) var(--section); }
   .group__panel {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -224,7 +192,6 @@ const capabilities = [
 
   @media (max-width: 900px) {
     .story__grid, .group__panel { grid-template-columns: 1fr; }
-    .lead__grid { grid-template-columns: 1fr; }
     .group__body { padding-top: 8px; }
     .story__side { position: static; }
     .caps__grid { grid-template-columns: 1fr; gap: 28px; }
