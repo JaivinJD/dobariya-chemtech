@@ -1,5 +1,6 @@
 ---
 import LogoLockup from '../assets/logo-lockup.svg';
+import Wordmark from '../assets/logo-wordmark.svg';
 // Contact details and addresses come from the CMS files, never hardcoded here.
 import contact from '../data/contact.json';
 import { offices } from '../data/offices.json';
@@ -50,7 +51,7 @@ const year = new Date().getFullYear();
       </nav>
     </div>
 
-    <div class="foot__word" aria-hidden="true" data-word="DOBARIYA"></div>
+    <Wordmark class="foot__word" aria-hidden="true" />
   </div>
 
   <div class="container foot__bar">
@@ -96,19 +97,14 @@ const year = new Date().getFullYear();
   .foot a:hover { color: #fff; }
 
   /* Oversized, barely-there wordmark. Decorative only. */
-  .foot__word::before { content: attr(data-word); }
+  /* Faint, oversized wordmark in the logo's own lettering. Decoration only. */
   .foot__word {
-    font-family: var(--font-display);
-    font-variation-settings: "wdth" 125;
-    font-weight: 700;
-    font-size: clamp(44px, 12vw, 200px);
-    line-height: 0.8;
-    letter-spacing: -0.045em;
+    display: block;
+    width: min(100%, 980px);
+    height: auto;
     color: #1F302F;
-    white-space: nowrap;
-    overflow: hidden;
-    margin-bottom: -0.06em;
     user-select: none;
+    pointer-events: none;
   }
 
   .foot__bar {
