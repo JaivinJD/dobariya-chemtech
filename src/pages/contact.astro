@@ -100,8 +100,8 @@ const dialCodes = [
                 </select>
               </div>
               <input id="f-phone" type="tel" name="phone" inputmode="numeric" autocomplete="tel-national"
-                placeholder="98765 43210" required maxlength="16" pattern="[0-9]{10}"
-                title="Enter a 10-digit mobile number" data-phone />
+                placeholder="10-digit number" required maxlength="16" pattern="[0-9]{10}"
+                title="Enter a 10-digit number" data-phone />
             </div>
           </div>
           <div class="field">
@@ -177,7 +177,7 @@ const dialCodes = [
     const applyRule = () => {
       if (dial.value === '+91') {
         phone.pattern = '[0-9]{10}';
-        phone.title = 'Enter a 10-digit mobile number'; phone.placeholder = '98765 43210';
+        phone.title = 'Enter a 10-digit mobile number'; phone.placeholder = '10-digit number';
       } else if (dial.value === 'other') {
         phone.pattern = '[0-9]{7,15}';
         phone.title = 'Enter your country code and number, digits only'; phone.placeholder = 'Country code + number';
